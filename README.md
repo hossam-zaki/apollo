@@ -30,10 +30,7 @@ Hossam Zaki\
 
 Mohamad Abouelafia\
 	Strengths: 
-    Friendly and works well with others, 
-    Organized and likes planning,  
-    Good visualizer,    
-    Experience in imaging and computer vision\
+    Friendly and works well with others, Organized and likes planning, Good visualizer, Experience in imaging and computer vision\
 	Weaknesses:
     Gets annoyed easily
 
