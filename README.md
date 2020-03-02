@@ -3,28 +3,28 @@
 **Team Members:** Matan Gans, Matteo Lunghi, Mohammad Abouelafia, Hossam Zaki
 
 **Team Strengths and Weaknesses:** 
-Matan Gans
+Matan Gans\
 	Strengths: 
-     Algorithms
-     Data processing and querying
-     Good at explaining code and logic
+     Algorithms, 
+     Data processing and querying, 
+     Good at explaining code and logic\
 	Weaknesses:
-     Prone to lack of patience under stress
+     Prone to lack of patience under stress\\
 
-Matteo Lunghi
+Matteo Lunghi\
 	Strengths: 
-    Leadership
-    Software design
-    Algorithms and data structures
+    Leadership, 
+    Software design, 
+    Algorithms and data structures\
 	Weaknesses:
-    Sometimes rushes into writing code too quickly.
+    Sometimes rushes into writing code too quickly.\\
 
-Hossam Zaki
+Hossam Zaki\
 	Strengths: 
     Collaboration 
     Strong work ethic
     Front-end design
-    Well informed on biology and medicine topics 
+    Well informed on biology and medicine topics \
 	Weaknesses:
     Easily frustrated
 
