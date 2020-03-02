@@ -9,7 +9,7 @@ Matan Gans\
      Data processing and querying, 
      Good at explaining code and logic\
 	Weaknesses:
-     Prone to lack of patience under stress\
+     Prone to lack of patience under stress
 
 Matteo Lunghi\
 	Strengths: 
@@ -17,7 +17,7 @@ Matteo Lunghi\
     Software design, 
     Algorithms and data structures\
 	Weaknesses:
-    Sometimes rushes into writing code too quickly.\
+    Sometimes rushes into writing code too quickly.
 
 Hossam Zaki\
 	Strengths: 
@@ -26,7 +26,7 @@ Hossam Zaki\
     Front-end design
     Well informed on biology and medicine topics \
 	Weaknesses:
-    Easily frustrated\
+    Easily frustrated
 
 Mohamad Abouelafia\
 	Strengths: 
