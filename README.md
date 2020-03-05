@@ -42,12 +42,18 @@ Requirements: GUI (makes it easier for users to specify what symptoms they have)
 Results from users: we asked around and our personal experiences were confirmed - WebMD usually freaks people out unnecessarily. One example story we heard is somebody had pain below the belly button, and WebMD only gave two options: the patient had either a kidney stone or appendicitis. This person went to sleep and was fine the next day.\
 Challenges: finding good data, deciding how to rank factors and decide on likelihood of diagnoses, making an interactive GUI
 
+TA Approval: Approved pending TA approval, no core algorithm yet besides "using big data". Also I worry that after using "big data" you may still get a result that freaks people out. There is a reason that more dangerous suggestions are presented first: you don't want to be liable if something is actually wrong
+
 
 ### Idea 2: MyRoutine (Title Tentative):
 Managing your time is hard, especially when you have to juggle courses, clubs, and (hopefully) food and sleep. It’s easy enough to plug time blocks into your schedule when you know how long something will take (i.e. a lecture or a club meeting), but it gets trickier when you need to quantify the time you need for homework, studying for exams, long term projects, etc. We want to develop a program that will help users feel more productive in allocating their free time effectively.\
 Requirements: nice front-end interactive schedule design, algorithm that takes work out of the user’s hands and develops a schedule for them (don’t want to make the user work too much)\
 Results from users: we asked around if people would find this useful, and the the responses indicated that there is a need for this project - users feel unproductive and would be more secure in their productivity if they actually had a rigid schedule, but don’t actually end up making it on their own\
 Challenges: Algorithm to fill free blocks of time with our suggestions for when a user should work on other tasks in the to-do list according to how much time they specify each should take (some sort of malloc-type functionality), interactive GUI with options for the user to play around with suggestions and make an optimal schedule.
+
+TA Approval: Approved - good idea, just want to make sure that students can use it the way they want (specific preferences)
+
+**Note:** You do not need to resubmit ideas for TA approval.
 
 **Mentor TA:** _Put your mentor TA's name and email here once you're assigned one!_
 
