@@ -53,6 +53,18 @@ Challenges: Algorithm to fill free blocks of time with our suggestions for when 
 
 TA Approval: Approved - good idea, just want to make sure that students can use it the way they want (specific preferences)
 
+### Idea 3: Apollo (Title Tentative):
+
+Overview: Doctors say that one of the activities on which they waste the most time on is working with the Electronic Health Record (EHR). For reference, see this article: https://www.acponline.org/system/files/documents/about_acp/chapters/ga/annals_of_medicine.pdf. This is a pressing issue, as doctors should focus their energy on diagnosing and treating their patients instead of sorting through and taking notes. Doctors also face higher risks of burnout due to the time they feel is wasted on the EHR. We propose to investigate exactly what doctors waste time on, and propose a solution to the issue. Note: we met with Professor Nelson earlier today to discuss our idea, and we were told to give you a heads up to Slack him about our project. Our project will contain a heavy research oriented component, where we study the challenges that doctors face in maintaining accurate records for their patients. Below, we propose an initial prototype, but note that our project will be tweaked by our research results.
+
+Overview of our prototype:
+
+The core of our application is a new interface for doctors to take notes during patient visits: our program will allow doctors to start a recording at the beginning of the visit, and our program will produce a transcript of the meeting.
+The transcript will also be parsed and automatically fill in some section (the ones that our research finds to be possible and useful) of the EHR. Our parser will need to identify keywords to find the information needed to be filled into the form.
+Doctors will be able to log into our portal and store these transcripts and EHR forms on our web app, which will organize information for each patient based on appointment date
+We also believe that it is hard for doctors to recall exact information from past visits, especially if they want to remember information from a visit that occured a long time ago. To tackle this, we want to allow them to query all transcripts of their meetings, such that we can point them to the correct meeting and information they need. To do this efficiently, we will implement the Knuth-Morris-Prath algorithm for linear string search.
+
+
 **Note:** You do not need to resubmit ideas for TA approval.
 
 **Mentor TA:** _Put your mentor TA's name and email here once you're assigned one!_
