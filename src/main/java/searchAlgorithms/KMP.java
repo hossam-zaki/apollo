@@ -33,7 +33,7 @@ public class KMP {
 	 * failure function. This failure function indicates the largest possible shift
 	 * using previously performed comparisons (i.e. failureFunction[j] is the length
 	 * of the longest prefix of the pattern that is a suffix of pattern[i:j]).
-	 * 
+	 *
 	 * @param pattern to build the failure function for
 	 * @return int array with the integer values that correspond to each character
 	 */
@@ -41,8 +41,8 @@ public class KMP {
 		int len = pattern.length;
 		int[] failureFunction = new int[len];
 		failureFunction[0] = 0;
-		int i = 1;
 		int j = 0;
+		int i = 1;
 		while (i < len) {
 			if (pattern[i] == pattern[j]) {
 				j++;
@@ -63,7 +63,7 @@ public class KMP {
 	/**
 	 * Searches for a pattern (substring) in the text, beginning with building the
 	 * failure function for that pattern.
-	 * 
+	 *
 	 * @param pattern to search for
 	 * @return list of indices where the pattern was found
 	 */
