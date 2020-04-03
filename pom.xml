@@ -116,28 +116,8 @@
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.30.1</version>
     </dependency>
-    <dependencies>
-  <dependency>
-    <groupId>com.google.crypto.tink</groupId>
-    <artifactId>tink</artifactId>
-    <version>HEAD-SNAPSHOT</version>
-  </dependency>
-</dependencies>
   </dependencies>
-<repositories>
-  <repository>
-    <id>sonatype-snapshots</id>
-    <name>sonatype-snapshots</name>
-    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-    <snapshots>
-      <enabled>true</enabled>
-      <updatePolicy>always</updatePolicy>
-    </snapshots>
-    <releases>
-      <updatePolicy>always</updatePolicy>
-    </releases>
-  </repository>
-</repositories>
+
   <!-- Build section -->
   <build>
     <plugins>
