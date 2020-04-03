@@ -13,11 +13,23 @@
 <div class="form">
 <h3>Connect Actors</h3>
 <form method="POST" action="/registerDoctor">
-	<label for="k">First Name:</label>
-	<textarea name="first_actor" id="first_actor"></textarea><br>
-	<label for="x_neighbors_coords">Enter Last Actor</label>
-	<textarea name="last_actor" id="last_actor"></textarea><br>
-  <input type="submit">
+	<label for="first_name">First Name:</label>
+	<textarea name="first_name" id="first_name"></textarea><br>
+	<label for="middle_name">Middle Name:</label>
+	<textarea name="middle_name" id="middle_name"></textarea><br>
+	<label for="last_name">Last Name:</label>
+	<textarea name="last_name" id="last_name"></textarea><br>
+	<label for="email">Email:</label>
+	<textarea name="email" id="email"></textarea><br>
+	<label for="username">Username:</label>
+	<textarea name="username" id="username"></textarea><br>
+	<label for="password">Password:</label>
+	<textarea name="password" id="password"></textarea><br>
+	<label for="phone">Phone Number:</label>
+	<textarea name="phone" id="phone"></textarea><br>
+	<label for="institution">Medical Institution:</label>
+	<textarea name="institution" id="institution"></textarea><br>
+  <input type="submit" value="register">
 </form>
 </div>
 </p>
