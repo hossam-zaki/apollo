@@ -91,7 +91,8 @@ public final class Main {
     FreeMarkerEngine freeMarker = createEngine();
 
     // Setup Spark Routes
-    Spark.get("/stars", new FrontHandler(), freeMarker);
+    Spark.get("/apollo", new FrontHandler(), freeMarker);
+    Spark.get("/register", route);
 
   }
 
@@ -121,6 +122,16 @@ public final class Main {
         pw.println("</pre>");
       }
       res.body(stacktrace.toString());
+    }
+  }
+  /**
+   * Handle requests to the front page of our Stars website.
+   *
+   */
+  private static class Register implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      return new ModelAndView(variablesDict, "register.ftl");
     }
   }
 }
