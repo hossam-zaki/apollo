@@ -18,8 +18,7 @@ public class Login {
       ResultSet rs = prep.executeQuery();
       System.out.println(username);
       System.out.println(password);
-
-      if (password.equals(Encryption.decrypt(rs.getString("password")))) {
+      if (password.equals(Encryption.decrypt(rs.getBytes("password")))) {
         System.out.println("login suceeded");
       }
       return rs.getString("id");

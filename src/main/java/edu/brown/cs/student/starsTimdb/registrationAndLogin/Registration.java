@@ -22,7 +22,7 @@ public class Registration {
       prep.setString(4, registrationDetails.get(2));
       prep.setString(5, registrationDetails.get(3));
       prep.setString(6, registrationDetails.get(4));
-      prep.setString(7, Encryption.encrypt(registrationDetails.get(5))); // password
+      prep.setBytes(7, Encryption.encrypt(registrationDetails.get(5))); // password
       prep.setString(8, registrationDetails.get(6));
       prep.setString(9, registrationDetails.get(7));
       prep.addBatch();

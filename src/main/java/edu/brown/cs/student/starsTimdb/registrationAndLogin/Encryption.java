@@ -47,7 +47,7 @@ public final class Encryption {
     return handle;
   }
 
-  public static String encrypt(String string) throws Exception {
+  public static byte[] encrypt(String string) throws Exception {
 
     // 1. Obtain a keyset handle.
     KeysetHandle handle = getKeysetHandle(keyset);
@@ -57,18 +57,17 @@ public final class Encryption {
     byte[] plaintext = string.getBytes();
     byte[] ciphertext = aead.encrypt(plaintext, new byte[0] /* additionalData */);
     System.out.println(ciphertext.toString());
-    return ciphertext.toString();
+    return ciphertext;
   }
 
-  public static String decrypt(String string) throws Exception {
-    System.out.println(keyset.getAbsolutePath());
+  public static String decrypt(byte[] string) throws Exception {
     KeysetHandle handle = getKeysetHandle(keyset);
 
     Aead aead = handle.getPrimitive(Aead.class);
-    byte[] ciphertext = string.getBytes();
-    byte[] plaintext = aead.decrypt(ciphertext, new byte[0] /* additionalData */);
-    System.out.println(plaintext.toString());
-    return plaintext.toString();
+    byte[] ciphertext = string;
+    String plaintext = new String (aead.decrypt(ciphertext, new byte[0] /* additionalData */));
+    System.out.println(plaintext);
+    return plaintext;
   }
 
 }
