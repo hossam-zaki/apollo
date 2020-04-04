@@ -1,6 +1,11 @@
 package edu.brown.cs.student.starsTimdb.repl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import edu.brown.cs.student.starsTimdb.commands.ConnectToDatabase;
 
 /**
  * This class will handle the lines that are read from the repl.
@@ -14,17 +19,23 @@ public class ReplHandler {
    */
   public ReplHandler() {
     commandHashMap = new HashMap<String, Executable>();
+    commandHashMap.put("build", new ConnectToDatabase());
   }
-/**
- * Takes in the string from the REPL and runs the proper command.
- * @param replInput string that the user types in in the REPl.
- */
-  public void processLine(String replInput) {
-    String[] splittedInput = replInput.split("\\s+");
-    if (!commandHashMap.containsKey(splittedInput[0])) {
+  /**
+   * Takes in the string from the REPL and runs the proper command.
+   * @param input string that the user types in in the REPl.
+   */
+  public void processLine(String input) {
+    ArrayList<String> inputSplit = new ArrayList<String>();
+    Pattern regex = Pattern.compile("(\"[^\"]*\"|'[^']*'|[\\S]+)+");
+    Matcher regexMatcher = regex.matcher(input);
+    while (regexMatcher.find()) {
+      inputSplit.add(regexMatcher.group());
+    }
+    if (inputSplit.size() == 0 || !commandHashMap.containsKey(inputSplit.get(0))) {
       System.out.println("ERROR: Input Valid Command");
     } else {
-      commandHashMap.get(splittedInput[0]).executeCommand(splittedInput);
+      commandHashMap.get(inputSplit.get(0)).executeCommand(inputSplit);
 
     }
   }

@@ -116,6 +116,15 @@
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.30.1</version>
     </dependency>
+    <!--
+        Tink dependency for encryption.
+        https://github.com/google/tink/blob/master/docs/JAVA-HOWTO.md.
+    -->
+    <dependency>
+    <groupId>com.google.crypto.tink</groupId>
+    <artifactId>tink</artifactId>
+    <version>1.3.0</version>
+  </dependency>
   </dependencies>
 
   <!-- Build section -->

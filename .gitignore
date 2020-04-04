@@ -1,1 +1,5 @@
 /target/
+*.DS_Store
+src/.DS_Store
+src/main/java/edu/brown/cs/student/.DS_Store
+src/main/resources/spark/template/.DS_Store

@@ -1,5 +1,7 @@
 package edu.brown.cs.student.starsTimdb.repl;
 
+import java.util.List;
+
 /**
  * This is an interface for every executable command. It has a method called
  * execute command that will take in a list of String, and will execute it based
@@ -11,5 +13,5 @@ public interface Executable {
    * Executable.
    * @param string list of strings to process on.
    */
-  void executeCommand(String[] string);
+  void executeCommand(List<String> string);
 }
