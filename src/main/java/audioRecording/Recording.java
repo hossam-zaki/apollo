@@ -8,9 +8,11 @@ import java.io.IOException;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioPermission;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Port;
 import javax.sound.sampled.TargetDataLine;
 
 /**
@@ -24,7 +26,7 @@ public class Recording {
   private static final int BUFFER_SIZE = 4096;
   private ByteArrayOutputStream recordBytes;
   private TargetDataLine audioLine;
-  private AudioFormat format;
+  private static AudioFormat format;
 
   private boolean isRunning;
 
@@ -49,17 +51,18 @@ public class Recording {
   public void start() throws LineUnavailableException {
     format = getAudioFormat();
     DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-
+    AudioSystem.getSourceLineInfo(Port.Info.MICROPHONE);
+    Port line = (Port) AudioSystem.getLine(Port.Info.MICROPHONE);
+    line.open();
     // checks if system supports the data line
     if (!AudioSystem.isLineSupported(info)) {
       throw new LineUnavailableException("The system does not support the specified format.");
     }
+    
+    audioLine = (TargetDataLine) AudioSystem.getLine(info);
 
-    audioLine = AudioSystem.getTargetDataLine(format);
-
-    audioLine.open(format);
+    audioLine.open();
     audioLine.start();
-
     byte[] buffer = new byte[BUFFER_SIZE];
     int bytesRead = 0;
 
