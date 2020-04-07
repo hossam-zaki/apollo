@@ -6,6 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.brown.cs.student.starsTimdb.commands.ConnectToDatabase;
+import edu.brown.cs.student.starsTimdb.commands.EndRecording;
+import edu.brown.cs.student.starsTimdb.commands.StartRecording;
 
 /**
  * This class will handle the lines that are read from the repl.
@@ -20,9 +22,13 @@ public class ReplHandler {
   public ReplHandler() {
     commandHashMap = new HashMap<String, Executable>();
     commandHashMap.put("build", new ConnectToDatabase());
+    commandHashMap.put("start", new StartRecording());
+    commandHashMap.put("stop", new EndRecording());
   }
+
   /**
    * Takes in the string from the REPL and runs the proper command.
+   *
    * @param input string that the user types in in the REPl.
    */
   public void processLine(String input) {
