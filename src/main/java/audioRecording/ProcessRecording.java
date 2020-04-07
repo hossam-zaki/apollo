@@ -33,8 +33,8 @@ public class ProcessRecording {
         }
       }
     });
-    recordThread.start();
 
+    recordThread.start();
     try {
       recordThread.wait();
     } catch (InterruptedException e) {
