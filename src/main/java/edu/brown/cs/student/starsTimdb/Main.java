@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
+import audioRecording.ProcessRecording;
 import edu.brown.cs.student.starsTimdb.commands.ConnectToDatabase;
 import edu.brown.cs.student.starsTimdb.registrationAndLogin.Encryption;
 import edu.brown.cs.student.starsTimdb.registrationAndLogin.Login;
@@ -42,6 +43,7 @@ public final class Main {
    * @throws IOException will throw exception if this happens
    */
   public static void main(String[] args) throws IOException {
+	new ProcessRecording();
     new Encryption();
     new Main(args).run();
   }
@@ -95,6 +97,9 @@ public final class Main {
     Spark.get("/login", new LoginHandler(), freeMarker);
     Spark.post("/registerDoctor", new RegisterDoctorHandler(), freeMarker);
     Spark.post("/loginDoctor", new LoginDoctorHandler(), freeMarker);
+    Spark.post("/startRecording", new StartRecordingHandler(), freeMarker);
+    Spark.post("/endRecording", new EndRecordingHandler(), freeMarker);
+
   }
 
   /**
@@ -196,4 +201,20 @@ public final class Main {
       return null;
     }
   }
+  private static class StartRecordingHandler implements TemplateViewRoute {
+	    @Override
+	    public ModelAndView handle(Request req, Response res) {
+	      ProcessRecording.start();
+	      res.redirect("/apollo");
+	      return null;
+	    }
+	  }
+  private static class EndRecordingHandler implements TemplateViewRoute {
+	    @Override
+	    public ModelAndView handle(Request req, Response res) {
+	      ProcessRecording.stop();
+	      res.redirect("/apollo");
+	      return null;
+	    }
+	  }
 }
