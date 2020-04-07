@@ -18,7 +18,7 @@ public class ProcessRecording {
     recording = false;
   }
 
-  public static void start() {
+  public synchronized static void start() {
     // create a separate thread for recording
     recordThread = new Thread(new Runnable() {
       @Override
@@ -43,7 +43,7 @@ public class ProcessRecording {
 
   }
 
-  public static void stop() {
+  public synchronized static void stop() {
     recordThread.notify();
     try {
       recorder.stop();
