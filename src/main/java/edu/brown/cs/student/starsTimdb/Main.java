@@ -43,9 +43,12 @@ public final class Main {
    * @throws IOException will throw exception if this happens
    */
   public static void main(String[] args) throws IOException {
+	  Permissions permit = new Permissions();
+	    permit.start();
 	new ProcessRecording();
     new Encryption();
     new Main(args).run();
+    
   }
 
   private String[] args;

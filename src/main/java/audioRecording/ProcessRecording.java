@@ -24,7 +24,6 @@ public class ProcessRecording {
 			@Override
 			public void run() {
 				try {
-					System.out.println("Start recording...");
 					recorder.start();
 					recording = true;
 				} catch (LineUnavailableException ex) {
@@ -52,7 +51,7 @@ public class ProcessRecording {
 		System.out.println("Finished notification");
 		try {
 			recorder.stop();
-			recorder.save(wavFile);
+			//recorder.save(wavFile);
 			System.out.println("STOPPED");
 		} catch (IOException ex) {
 			ex.printStackTrace();

@@ -27,8 +27,11 @@ public class Recording {
   private ByteArrayOutputStream recordBytes;
   private TargetDataLine audioLine;
   private static AudioFormat format;
-
+  File wavFile = new File("data/tester.wav");
   private boolean isRunning;
+  TargetDataLine line;
+  AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
+
 
   /**
    * Defines a default audio format used to record
@@ -49,30 +52,56 @@ public class Recording {
    *                                  audio format nor open the audio data line.
    */
   public void start() throws LineUnavailableException {
-    format = getAudioFormat();
-    DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-    AudioSystem.getSourceLineInfo(Port.Info.MICROPHONE);
-    Port line = (Port) AudioSystem.getLine(Port.Info.MICROPHONE);
-    line.open();
-    // checks if system supports the data line
-    if (!AudioSystem.isLineSupported(info)) {
-      throw new LineUnavailableException("The system does not support the specified format.");
-    }
-    
-    audioLine = (TargetDataLine) AudioSystem.getLine(info);
+//    format = getAudioFormat();
+//    DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+//
+//    // checks if system supports the data line
+//    if (!AudioSystem.isLineSupported(info)) {
+//      throw new LineUnavailableException("The system does not support the specified format.");
+//    }
+//    
+//    audioLine = AudioSystem.getTargetDataLine(format);
+//
+//    audioLine.open();
+//    audioLine.start();
+//    byte[] buffer = new byte[BUFFER_SIZE];
+//    int bytesRead = 0;
+//
+//    recordBytes = new ByteArrayOutputStream();
+//    isRunning = true;
+//
+//    while (isRunning) {
+//      bytesRead = audioLine.read(buffer, 0, buffer.length);
+//      System.out.println(buffer);
+//      recordBytes.write(buffer, 0, bytesRead);
+//    }
+	  try {
+          AudioFormat format = getAudioFormat();
+          DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
-    audioLine.open();
-    audioLine.start();
-    byte[] buffer = new byte[BUFFER_SIZE];
-    int bytesRead = 0;
+          // checks if system supports the data line
+          if (!AudioSystem.isLineSupported(info)) {
+              System.out.println("Line not supported");
+              System.exit(0);
+          }
+          line = (TargetDataLine) AudioSystem.getLine(info);
+          line.open(format);
+          line.start();   // start capturing
 
-    recordBytes = new ByteArrayOutputStream();
-    isRunning = true;
+          System.out.println("Start capturing...");
 
-    while (isRunning) {
-      bytesRead = audioLine.read(buffer, 0, buffer.length);
-      recordBytes.write(buffer, 0, bytesRead);
-    }
+          AudioInputStream ais = new AudioInputStream(line);
+
+          System.out.println("Start recording...");
+
+          // start recording
+          AudioSystem.write(ais, fileType, wavFile);
+
+      } catch (LineUnavailableException ex) {
+          ex.printStackTrace();
+      } catch (IOException ioe) {
+          ioe.printStackTrace();
+      }
   }
 
   /**
@@ -81,12 +110,15 @@ public class Recording {
    * @throws IOException if any I/O error occurs.
    */
   public void stop() throws IOException {
-    isRunning = false;
-
-    if (audioLine != null) {
-      audioLine.drain();
-      audioLine.close();
-    }
+//    isRunning = false;
+//
+//    if (audioLine != null) {
+//      audioLine.flush();
+//      audioLine.close();
+//    }
+	  line.stop();
+      line.close();
+      System.out.println("Finished");
   }
 
 //  /**
@@ -112,6 +144,7 @@ public class Recording {
    */
   public void save(File wavFile) throws IOException {
     byte[] audioData = recordBytes.toByteArray();
+    System.out.println(recordBytes.toString());
     ByteArrayInputStream bais = new ByteArrayInputStream(audioData);
     AudioInputStream audioInputStream = new AudioInputStream(bais, format,
         audioData.length / format.getFrameSize());
