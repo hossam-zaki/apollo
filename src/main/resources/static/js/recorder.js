@@ -148,15 +148,22 @@ function createDownloadLink(blob) {
 	upload.innerHTML = "Upload";
 	upload.addEventListener("click", function(event){
 		  var xhr=new XMLHttpRequest();
-		  xhr.onload=function(e) {
-		      if(this.readyState === 4) {
-		          console.log("Server returned: ",e.target.responseText);
-		      }
-		  };
 		  var fd=new FormData();
 		  fd.append("audio_data",blob, filename);
-		  xhr.open("POST","upload.php",true);
-		  xhr.send(fd);
+		  var req = jQuery.ajax({
+			url: '/send', 
+			method: 'POST',
+			data: fd, // sends fields with filename mimetype etc
+			// data: aFiles[0], // optional just sends the binary
+			processData: false, // don't let jquery process the data
+			contentType: false // let xhr set the content type
+		  });
+		  // jQuery is promise A++ compatible and is the todays norms of doing things 
+		  req.then(function(response) {
+			console.log(response)
+		  }, function(xhr) {
+			console.error('failed to fetch xhr', xhr)
+		  })
 	})
 	li.appendChild(document.createTextNode (" "))//add a space in between
 	li.appendChild(upload)//add the upload link to li

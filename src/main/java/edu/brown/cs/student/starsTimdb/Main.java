@@ -2,11 +2,18 @@ package edu.brown.cs.student.starsTimdb;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.http.Part;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -103,6 +110,7 @@ public final class Main {
     Spark.post("/startRecording", new StartRecordingHandler(), freeMarker);
     Spark.post("/endRecording", new EndRecordingHandler(), freeMarker);
     Spark.get("/record", new RecordHandler(), freeMarker);
+    Spark.post("/send", new SendHandler(), freeMarker);
 
   }
 
@@ -233,4 +241,27 @@ public final class Main {
     }
 
   }
+  private static class SendHandler implements TemplateViewRoute {
+
+	    @Override
+	    public ModelAndView handle(Request request, Response response) throws Exception {
+	    	try {
+        request.raw().setAttribute("org.eclipse.jetty.multipartConfig", 
+                new MultipartConfigElement("/tmp", 100000000, 100000000, 1024));
+        String filename = request.raw().getPart("audio_data").getSubmittedFileName();
+        System.out.println(filename);
+        Part uploadedFile = request.raw().getPart("audio_data");
+        final InputStream in = uploadedFile.getInputStream();
+            System.out.println(Files.copy(in, Paths.get("data/"+filename+".wav")));
+        
+	      response.redirect("/record");
+	      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
+	      return new ModelAndView(map, "recording.ftl");
+	    	} catch(Exception e) {
+	    		e.printStackTrace();
+	    		return null;
+	    	}
+	    }
+
+	  }
 }
