@@ -43,12 +43,12 @@ public final class Main {
    * @throws IOException will throw exception if this happens
    */
   public static void main(String[] args) throws IOException {
-	  Permissions permit = new Permissions();
-	    permit.start();
-	new ProcessRecording();
+//    Permissions permit = new Permissions();
+//    permit.start();
+    new ProcessRecording();
     new Encryption();
     new Main(args).run();
-    
+
   }
 
   private String[] args;
@@ -102,6 +102,7 @@ public final class Main {
     Spark.post("/loginDoctor", new LoginDoctorHandler(), freeMarker);
     Spark.post("/startRecording", new StartRecordingHandler(), freeMarker);
     Spark.post("/endRecording", new EndRecordingHandler(), freeMarker);
+    Spark.get("/record", new RecordHandler(), freeMarker);
 
   }
 
@@ -204,20 +205,32 @@ public final class Main {
       return null;
     }
   }
+
   private static class StartRecordingHandler implements TemplateViewRoute {
-	    @Override
-	    public ModelAndView handle(Request req, Response res) {
-	      ProcessRecording.start();
-	      res.redirect("/apollo");
-	      return null;
-	    }
-	  }
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      ProcessRecording.start();
+      res.redirect("/apollo");
+      return null;
+    }
+  }
+
   private static class EndRecordingHandler implements TemplateViewRoute {
-	    @Override
-	    public ModelAndView handle(Request req, Response res) {
-	      ProcessRecording.stop();
-	      res.redirect("/apollo");
-	      return null;
-	    }
-	  }
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      ProcessRecording.stop();
+      res.redirect("/apollo");
+      return null;
+    }
+  }
+
+  private static class RecordHandler implements TemplateViewRoute {
+
+    @Override
+    public ModelAndView handle(Request request, Response response) throws Exception {
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
+      return new ModelAndView(map, "recording.ftl");
+    }
+
+  }
 }
