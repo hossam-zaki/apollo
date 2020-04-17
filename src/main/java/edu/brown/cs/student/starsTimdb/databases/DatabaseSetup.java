@@ -40,9 +40,10 @@ public class DatabaseSetup {
             + "institution TEXT);");
         prep.executeUpdate();
         System.out.println("A new database has been created.");
-        prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS doctor(" + "id UUID,"
-            + "first_name TEXT," + "mid_name TEXT," + "last_name TEXT," + "email NVARCHAR(320),"
-            + "phoneNumber NVARCHAR(320)," + "emergency_contact TEXT" + "date_of_birth TEXT);");
+        prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS patient(" + "id UUID,"
+            + "first_name TEXT," + "mid_name TEXT," + "last_name TEXT," + "date_of_birth TEXT,"
+            + "phoneNumber NVARCHAR(320)," + "email NVARCHAR(320)," + "emergency_phone_number TEXT"
+            + "primary_doctor UUID);");
         prep.executeUpdate();
         System.out.println("A new database has been created.");
       }

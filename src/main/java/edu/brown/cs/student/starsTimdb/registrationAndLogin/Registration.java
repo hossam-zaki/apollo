@@ -14,15 +14,17 @@ public class Registration {
 
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement("INSERT INTO patient VALUES (?, ?, ?, ?, ?, ?, ?);");
+      prep = conn.prepareStatement("INSERT INTO doctor VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
       UUID uuid = UUID.randomUUID();
       prep.setString(1, uuid.toString());
-      prep.setString(2, registrationDetails.get(0)); // first name
-      prep.setString(3, registrationDetails.get(1)); // last name
-      prep.setString(4, registrationDetails.get(2)); // DOB
-      prep.setString(4, registrationDetails.get(3)); // email
-      prep.setString(4, registrationDetails.get(4)); // phone number
-      prep.setString(4, registrationDetails.get(5)); // emergency contact
+      prep.setString(2, registrationDetails.get(0));
+      prep.setString(3, registrationDetails.get(1));
+      prep.setString(4, registrationDetails.get(2));
+      prep.setString(5, registrationDetails.get(3));
+      prep.setString(6, registrationDetails.get(4));
+      prep.setBytes(7, Encryption.encrypt(registrationDetails.get(5))); // password
+      prep.setString(8, registrationDetails.get(6));
+      prep.setString(9, registrationDetails.get(7));
       prep.addBatch();
       prep.executeBatch();
     } catch (Exception e) { // ask about this
