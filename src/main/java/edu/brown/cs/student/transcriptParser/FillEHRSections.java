@@ -11,10 +11,10 @@ public class FillEHRSections {
   private List<String> symptoms;
   private String reasons;
 
-  public FillEHRSections(String start, String end, List<String> symptomPatterns,
-      List<String> reasonsPatterns, String fullTranscript) {
-    symptomParse = new FillSymptoms(start, end, symptomPatterns, fullTranscript);
-    reasonsParse = new FillVisit(start, end, reasonsPatterns, fullTranscript);
+  public FillEHRSections(String symStart, String symEnd, String vStart, String vEnd,
+      List<String> symptomPatterns, String fullTranscript) {
+    symptomParse = new FillSymptoms(symStart, symEnd, symptomPatterns, fullTranscript);
+    reasonsParse = new FillVisit(vStart, vEnd, fullTranscript);
     symptoms = symptomParse.getSymptoms();
     reasons = reasonsParse.getPortion();
   }

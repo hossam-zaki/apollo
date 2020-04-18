@@ -1,7 +1,5 @@
 package edu.brown.cs.student.transcriptParser;
 
-import java.util.List;
-
 import searchAlgorithms.KMP;
 
 public class FillVisit {
@@ -9,7 +7,7 @@ public class FillVisit {
   private String doctorEnd;
   private String transcript;
 
-  public FillVisit(String start, String end, List<String> patterns, String fullTranscript) {
+  public FillVisit(String start, String end, String fullTranscript) {
     doctorStart = start;
     doctorEnd = end;
     transcript = fullTranscript;
