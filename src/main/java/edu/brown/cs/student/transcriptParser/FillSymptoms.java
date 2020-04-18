@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import searchAlgorithms.KMP;
+import searchAlgorithms.Search;
 
 public class FillSymptoms {
   private String doctorStart;
   private String doctorEnd;
   private List<String> symptomPatterns;
   private String transcript;
-  private KMP kmp;
+  private Search kmp;
 
   public FillSymptoms(String start, String end, List<String> patterns, String fullTranscript) {
     doctorStart = start;
@@ -20,7 +21,7 @@ public class FillSymptoms {
     kmp = this.getPortion();
   }
 
-  public KMP getPortion() {
+  public Search getPortion() {
     KMP full = new KMP(transcript.toCharArray());
     Integer startIndex = full.search(doctorStart.toCharArray()).get(0); // get start phrase
     Integer endIndex = full.search(doctorEnd.toCharArray()).get(0); // get end phrase
