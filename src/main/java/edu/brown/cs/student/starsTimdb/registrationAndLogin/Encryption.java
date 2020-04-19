@@ -48,7 +48,6 @@ public final class Encryption {
     // 3. Do crypto.
     byte[] plaintext = string.getBytes();
     byte[] ciphertext = aead.encrypt(plaintext, new byte[0] /* additionalData */);
-    System.out.println(ciphertext.toString());
     return ciphertext;
   }
 
@@ -57,7 +56,6 @@ public final class Encryption {
     Aead aead = handle.getPrimitive(Aead.class);
     byte[] ciphertext = string;
     String plaintext = new String(aead.decrypt(ciphertext, new byte[0] /* additionalData */));
-    System.out.println(plaintext);
     return plaintext;
   }
 
