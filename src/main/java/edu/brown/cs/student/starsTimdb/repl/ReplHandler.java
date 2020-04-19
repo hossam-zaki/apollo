@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import edu.brown.cs.student.starsTimdb.commands.ConnectToDatabase;
 import edu.brown.cs.student.starsTimdb.commands.EndRecording;
 import edu.brown.cs.student.starsTimdb.commands.StartRecording;
+import edu.brown.cs.student.transcriptParser.ToParse;
 
 /**
  * This class will handle the lines that are read from the repl.
@@ -24,6 +25,7 @@ public class ReplHandler {
     commandHashMap.put("build", new ConnectToDatabase());
     commandHashMap.put("start", new StartRecording());
     commandHashMap.put("stop", new EndRecording());
+    commandHashMap.put("parseTranscript", new ToParse());
   }
 
   /**

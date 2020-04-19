@@ -1,0 +1,34 @@
+input[type="number"] {
+  width: 3em;
+}
+
+
+body {
+    background-image: url("../images/hubble.jpg");
+    color: white;
+    font-family: Geneva;
+}
+
+h1 {
+    color: red;
+}
+
+#text {
+	color: orange;
+}
+
+.top {
+	text-align: center;
+}
+div.form
+{
+    display: block;
+    text-align: center;
+}
+form
+{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}

@@ -1,0 +1,4 @@
+/target/
+*.DS_Store
+.mvn-classpath
+.classpath
