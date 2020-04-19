@@ -27,9 +27,9 @@ public class Registration {
       prep.setString(9, registrationDetails.get(7));
       prep.addBatch();
       prep.executeBatch();
-    } catch (Exception e) { // ask about this
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+    } catch (Exception e) {
+      System.err.println("ERROR: SQL error inserting into Db");
+      return;
     }
 
   }
