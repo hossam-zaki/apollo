@@ -32,6 +32,7 @@ public class Repl {
       while ((input = reader.readLine()) != null) {
         handler.processLine(input);
       }
+      reader.close();
     } catch (IOException e) {
       System.err.println("ERROR: Error occured! Please Restart!");
     }

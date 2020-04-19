@@ -21,8 +21,7 @@ public final class Encryption {
     try {
       AeadConfig.register();
     } catch (GeneralSecurityException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      System.err.println("ERROR: Aead registering");
     }
     keyset = new File("test.cfg");
   }
@@ -34,12 +33,6 @@ public final class Encryption {
   private static KeysetHandle getKeysetHandle(File keyset)
       throws GeneralSecurityException, IOException {
     if (keyset.exists()) {
-      System.out.println("HEREEEEEEEEEEEEEE");
-      // Read the cleartext keyset from disk.
-      // WARNING: reading cleartext keysets is a bad practice. Tink supports
-      // reading/writing
-      // encrypted keysets, see
-      // https://github.com/google/tink/blob/master/docs/JAVA-HOWTO.md#loading-existing-keysets.
       return CleartextKeysetHandle.read(JsonKeysetReader.withFile(keyset));
     }
     KeysetHandle handle = KeysetHandle.generateNew(AeadKeyTemplates.AES128_GCM);
@@ -48,25 +41,21 @@ public final class Encryption {
   }
 
   public static byte[] encrypt(String string) throws Exception {
-
     // 1. Obtain a keyset handle.
     KeysetHandle handle = getKeysetHandle(keyset);
     // 2. Get a primitive.
     Aead aead = handle.getPrimitive(Aead.class);
-    // 3. Do crypto. It's that simple!
+    // 3. Do crypto.
     byte[] plaintext = string.getBytes();
     byte[] ciphertext = aead.encrypt(plaintext, new byte[0] /* additionalData */);
-    System.out.println(ciphertext.toString());
     return ciphertext;
   }
 
   public static String decrypt(byte[] string) throws Exception {
     KeysetHandle handle = getKeysetHandle(keyset);
-
     Aead aead = handle.getPrimitive(Aead.class);
     byte[] ciphertext = string;
-    String plaintext = new String (aead.decrypt(ciphertext, new byte[0] /* additionalData */));
-    System.out.println(plaintext);
+    String plaintext = new String(aead.decrypt(ciphertext, new byte[0] /* additionalData */));
     return plaintext;
   }
 

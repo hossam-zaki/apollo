@@ -14,6 +14,13 @@
 <form method="GET" action="/login">
   <input type="submit" value="login">
 </form>
+<form method="POST" action="/startRecording">
+  <input type="submit" value="Start Recording">
+</form>
+</form>
+<form method="POST" action="/endRecording">
+  <input type="submit" value="End Recording">
+</form>
 </div>
 </p>
 

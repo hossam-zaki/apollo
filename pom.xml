@@ -120,11 +120,12 @@
         Tink dependency for encryption.
         https://github.com/google/tink/blob/master/docs/JAVA-HOWTO.md.
     -->
-    <dependency>
+  <dependency>
     <groupId>com.google.crypto.tink</groupId>
     <artifactId>tink</artifactId>
     <version>1.3.0</version>
   </dependency>
+    
   </dependencies>
 
   <!-- Build section -->
