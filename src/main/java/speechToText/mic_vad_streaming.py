@@ -195,7 +195,7 @@ def main(ARGS):
                 vad_audio.write_wav(os.path.join(ARGS.savewav, datetime.now().strftime("savewav_%Y-%m-%d_%H-%M-%S_%f.wav")), wav_data)
                 wav_data = bytearray()
             text = model.finishStream(stream_context)
-            with open("test.txt", "a+") as f:
+            with open("data/transcripts/test.txt", "a+") as f:
                 f.write(text + "\n")
             print("Recognized: %s" % text)
             stream_context = model.createStream()
