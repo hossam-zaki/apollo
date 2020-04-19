@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import edu.brown.cs.student.transcriptParser.FillEHRSections;
-import edu.brown.cs.student.transcriptParser.ToParse;
+import transcriptParser.FillEHRSections;
+import transcriptParser.ToParse;
 
 public class ParserTest {
   ToParse parser = new ToParse();

@@ -1,4 +1,4 @@
-package edu.brown.cs.student.starsTimdb.registrationAndLogin;
+package registrationAndLogin;
 
 import java.io.File;
 import java.io.IOException;

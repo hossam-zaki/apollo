@@ -1,5 +1,5 @@
 /target/
-*.DS_Store
+*/.DS_Store
 .DS_Store
 .mvn-classpath
 .classpath

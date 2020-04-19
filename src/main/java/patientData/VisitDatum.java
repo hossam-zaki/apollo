@@ -1,4 +1,4 @@
-package edu.brown.cs.student.patientData;
+package patientData;
 
 import java.io.File;
 import java.util.UUID;

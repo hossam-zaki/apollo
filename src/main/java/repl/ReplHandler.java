@@ -1,13 +1,13 @@
-package edu.brown.cs.student.starsTimdb.repl;
+package repl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import edu.brown.cs.student.starsTimdb.commands.ConnectToDatabase;
-import edu.brown.cs.student.transcriptParser.ToParse;
-import edu.brown.cs.student.starsTimdb.commands.StartSpeechToText;
+import commands.ConnectToDatabase;
+import commands.StartSpeechToText;
+import transcriptParser.ToParse;
 
 /**
  * This class will handle the lines that are read from the repl.

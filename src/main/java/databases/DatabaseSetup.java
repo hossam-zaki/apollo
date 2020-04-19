@@ -1,4 +1,4 @@
-package edu.brown.cs.student.starsTimdb.databases;
+package databases;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

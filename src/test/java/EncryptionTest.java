@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.brown.cs.student.starsTimdb.registrationAndLogin.Encryption;
+import registrationAndLogin.Encryption;
 
 public class EncryptionTest {
 

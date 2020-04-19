@@ -1,4 +1,4 @@
-package edu.brown.cs.student.starsTimdb.repl;
+package repl;
 
 import java.util.List;
 

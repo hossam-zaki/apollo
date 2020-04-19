@@ -1,10 +1,10 @@
-package edu.brown.cs.student.starsTimdb.commands;
+package commands;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
-import edu.brown.cs.student.starsTimdb.repl.Executable;
+import repl.Executable;
 import speechToText.RunDeepSpeech;
 
 public class StartSpeechToText implements Executable {

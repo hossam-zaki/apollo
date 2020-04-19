@@ -8,8 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.brown.cs.student.starsTimdb.databases.Database;
-import edu.brown.cs.student.starsTimdb.databases.DatabaseSetup;
+import databases.Database;
+import databases.DatabaseSetup;
 
 /**
  * Tester class for database package.

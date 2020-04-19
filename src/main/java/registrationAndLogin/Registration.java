@@ -1,11 +1,11 @@
-package edu.brown.cs.student.starsTimdb.registrationAndLogin;
+package registrationAndLogin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.UUID;
 
-import edu.brown.cs.student.starsTimdb.databases.Database;
+import databases.Database;
 
 public class Registration {
 

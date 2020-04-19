@@ -1,4 +1,4 @@
-package edu.brown.cs.student.starsTimdb.registrationAndLogin;
+package registrationAndLogin;
 
 public interface EncryptionInterface {
 

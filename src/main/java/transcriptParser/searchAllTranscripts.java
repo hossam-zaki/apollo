@@ -1,4 +1,4 @@
-package edu.brown.cs.student.transcriptParser;
+package transcriptParser;
 
 import java.util.ArrayList;
 import java.util.List;

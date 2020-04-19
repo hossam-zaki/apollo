@@ -1,4 +1,4 @@
-package edu.brown.cs.student.transcriptParser;
+package transcriptParser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.brown.cs.student.starsTimdb.repl.Executable;
+import repl.Executable;
 
 public class ToParse implements Executable {
 

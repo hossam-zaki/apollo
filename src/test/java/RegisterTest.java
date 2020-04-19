@@ -9,10 +9,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.brown.cs.student.starsTimdb.commands.ConnectToDatabase;
-import edu.brown.cs.student.starsTimdb.databases.Database;
-import edu.brown.cs.student.starsTimdb.registrationAndLogin.Encryption;
-import edu.brown.cs.student.starsTimdb.registrationAndLogin.Registration;
+import commands.ConnectToDatabase;
+import databases.Database;
+import registrationAndLogin.Encryption;
+import registrationAndLogin.Registration;
 
 public class RegisterTest {
 

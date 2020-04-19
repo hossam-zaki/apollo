@@ -1,4 +1,4 @@
-package edu.brown.cs.student.starsTimdb;
+package apollo;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,14 +17,14 @@ import javax.servlet.http.Part;
 
 import com.google.common.collect.ImmutableMap;
 
-import edu.brown.cs.student.starsTimdb.commands.ConnectToDatabase;
-import edu.brown.cs.student.starsTimdb.registrationAndLogin.Encryption;
-import edu.brown.cs.student.starsTimdb.registrationAndLogin.Login;
-import edu.brown.cs.student.starsTimdb.registrationAndLogin.Registration;
-import edu.brown.cs.student.starsTimdb.repl.Repl;
+import commands.ConnectToDatabase;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+import registrationAndLogin.Encryption;
+import registrationAndLogin.Login;
+import registrationAndLogin.Registration;
+import repl.Repl;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
 import spark.QueryParamsMap;

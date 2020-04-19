@@ -31,7 +31,7 @@ CP=$(cat .mvn-classpath)
 # recommended package structure.
 
 # Find Main.java. It should be in a package below your username package.
-MAIN=$(ls src/main/java/edu/brown/cs/*/*/Main.java)
+MAIN=$(ls src/main/java/apollo/Main.java)
 [ -z "$MAIN" ] && echo "You need a Main.java" && exit 1
 [ ! -e "$MAIN" ] && echo "You can only have one Main.java" && exit 1
 STUDENT=$(basename $(dirname $(dirname $MAIN)))
@@ -46,4 +46,4 @@ fi
 
 # The symbol "$@" passes the command-line arguments from
 # this script to your Java program.
-java -ea -cp "$TARGET$PATHSEP$CP" edu.brown.cs.$STUDENT.$MAINPKG.Main "$@"
+java -ea -cp "$TARGET$PATHSEP$CP" apollo.Main "$@"
