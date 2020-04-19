@@ -15,9 +15,18 @@ public class FillVisit {
 
   public String getPortion() {
     KMP full = new KMP(transcript.toCharArray());
-    Integer startIndex = full.search(doctorStart.toCharArray()).get(0); // get start phrase
-    Integer endIndex = full.search(doctorEnd.toCharArray()).get(0); // get end phrase
-    String portion = transcript.substring(startIndex, endIndex);
-    return portion;
+    try {
+      Integer startIndex = full.search(doctorStart.toCharArray()).get(0)
+          + this.doctorStart.length(); // get
+                                       // start
+                                       // phrase
+      Integer endIndex = full.search(doctorEnd.toCharArray()).get(0); // get end phrase
+      String portion = transcript.substring(startIndex, endIndex);
+      return portion;
+    } catch (Exception e) {
+      System.err.println("ERROR: unablet to  parse transcript");
+      return null;
+    }
+
   }
 }

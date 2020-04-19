@@ -27,6 +27,7 @@ public class ToParse implements Executable {
         stringBuilder.append(line);
         stringBuilder.append(ls);
       }
+      reader.close();
       return stringBuilder.toString();
     } catch (IOException e) {
       System.err.println("ERROR: reading file");
