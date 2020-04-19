@@ -6,8 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.brown.cs.student.starsTimdb.commands.ConnectToDatabase;
-import edu.brown.cs.student.starsTimdb.commands.EndRecording;
-import edu.brown.cs.student.starsTimdb.commands.StartRecording;
 import edu.brown.cs.student.starsTimdb.commands.StartSpeechToText;
 
 /**
@@ -23,8 +21,6 @@ public class ReplHandler {
   public ReplHandler() {
     commandHashMap = new HashMap<String, Executable>();
     commandHashMap.put("build", new ConnectToDatabase());
-    commandHashMap.put("start", new StartRecording());
-    commandHashMap.put("stop", new EndRecording());
     commandHashMap.put("record", new StartSpeechToText());
 
   }

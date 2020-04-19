@@ -17,7 +17,6 @@ import javax.servlet.http.Part;
 
 import com.google.common.collect.ImmutableMap;
 
-import audioRecording.ProcessRecording;
 import edu.brown.cs.student.starsTimdb.commands.ConnectToDatabase;
 import edu.brown.cs.student.starsTimdb.registrationAndLogin.Encryption;
 import edu.brown.cs.student.starsTimdb.registrationAndLogin.Login;
@@ -52,7 +51,6 @@ public final class Main {
   public static void main(String[] args) throws IOException {
 //    Permissions permit = new Permissions();
 //    permit.start();
-    new ProcessRecording();
     new Encryption();
     new Main(args).run();
 
@@ -107,8 +105,6 @@ public final class Main {
     Spark.get("/login", new LoginHandler(), freeMarker);
     Spark.post("/registerDoctor", new RegisterDoctorHandler(), freeMarker);
     Spark.post("/loginDoctor", new LoginDoctorHandler(), freeMarker);
-    Spark.post("/startRecording", new StartRecordingHandler(), freeMarker);
-    Spark.post("/endRecording", new EndRecordingHandler(), freeMarker);
     Spark.get("/record", new RecordHandler(), freeMarker);
     Spark.post("/send", new SendHandler(), freeMarker);
 
@@ -209,24 +205,6 @@ public final class Main {
       forRegister.add(qm.value("institution"));
       Registration register = new Registration();
       register.register(forRegister);
-      res.redirect("/apollo");
-      return null;
-    }
-  }
-
-  private static class StartRecordingHandler implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request req, Response res) {
-      ProcessRecording.start();
-      res.redirect("/apollo");
-      return null;
-    }
-  }
-
-  private static class EndRecordingHandler implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request req, Response res) {
-      ProcessRecording.stop();
       res.redirect("/apollo");
       return null;
     }
