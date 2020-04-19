@@ -16,29 +16,26 @@ public class ToParse implements Executable {
     BufferedReader reader = null;
     try {
       reader = new BufferedReader(new FileReader(transcript));
+      String line = null;
+      StringBuilder stringBuilder = new StringBuilder();
+      String ls = System.getProperty("line.separator");
+      try {
+        while ((line = reader.readLine()) != null) {
+          stringBuilder.append(line);
+          stringBuilder.append(ls);
+        }
+        reader.close();
+        return stringBuilder.toString();
+      } catch (IOException e) {
+        System.err.println("ERROR: reading file");
+
+      }
     } catch (FileNotFoundException e) {
       System.err.println("ERROR: initializing reader");
     }
-    String line = null;
-    StringBuilder stringBuilder = new StringBuilder();
-    String ls = System.getProperty("line.separator");
-    try {
-      while ((line = reader.readLine()) != null) {
-        stringBuilder.append(line);
-        stringBuilder.append(ls);
-      }
-      reader.close();
-      return stringBuilder.toString();
-    } catch (IOException e) {
-      System.err.println("ERROR: reading file");
-    } finally {
-      try {
-        reader.close();
-      } catch (IOException e) {
-        System.err.println("ERROR: closing file");
-      }
-    }
-    return stringBuilder.toString();
+
+    return null;
+
   }
 
   public List<String> readSymptoms(File symptomsFile) {
