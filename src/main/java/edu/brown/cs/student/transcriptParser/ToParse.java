@@ -42,12 +42,15 @@ public class ToParse implements Executable {
   }
 
   public List<String> readSymptoms(File symptomsFile) {
+    System.out.println(symptomsFile);
     List<String> symptoms = new ArrayList<String>();
     BufferedReader csvReader = null;
     try {
       csvReader = new BufferedReader(new FileReader(symptomsFile));
     } catch (FileNotFoundException e) {
       System.err.println("ERROR: Symptoms File not found");
+      symptoms.add("ERROR: Symptoms File not found");
+      return symptoms;
     }
     try {
       String info;
@@ -57,6 +60,14 @@ public class ToParse implements Executable {
       }
     } catch (IOException e) {
       System.err.println("ERROR: Symptoms Read error");
+      symptoms.add("ERROR: Symptoms File not found");
+      return symptoms;
+    } finally {
+      try {
+        csvReader.close();
+      } catch (IOException e) {
+        System.err.println("ERROR: closing file");
+      }
     }
     return symptoms;
   }

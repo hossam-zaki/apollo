@@ -62,4 +62,33 @@ public class ParserTest {
     assertEquals(res, null);
   }
 
+  @Test
+  public void noSuchFileTest() {
+    File symptomsFile = new File("doesn't exist");
+    List<String> symptoms = parser.readSymptoms(symptomsFile);
+    String transcriptString = "Jcnrjncr\n" + "\n" + "what are your reasons for today's visit\n"
+        + "\n" + "i fell from my bike and hit my head on a rock\n" + "\n"
+        + "end reasons for visit\n" + "\n" + "what are your symptoms\n" + "\n"
+        + "my head hurts and my stomach hurts\n" + "\n" + "end symptoms\n" + "\n" + "Gjntjtn";
+    filler = new FillEHRSections("what are your symptoms", "end symptoms",
+        "what are your reasons for today's visit", "end reasons for visit", symptoms,
+        transcriptString);
+    String res = filler.printFound();
+    assertEquals(res, null);
+  }
+
+  @Test
+  public void emptyFileTest() {
+    File symptomsFile = new File("");
+    List<String> symptoms = parser.readSymptoms(symptomsFile);
+    String transcriptString = "Jcnrjncr\n" + "\n" + "what are your reasons for today's visit\n"
+        + "\n" + "i fell from my bike and hit my head on a rock\n" + "\n"
+        + "end reasons for visit\n" + "\n" + "what are your symptoms\n" + "\n"
+        + "my head hurts and my stomach hurts\n" + "\n" + "end symptoms\n" + "\n" + "Gjntjtn";
+    filler = new FillEHRSections("what are your symptoms", "end symptoms",
+        "what are your reasons for today's visit", "end reasons for visit", symptoms,
+        transcriptString);
+    String res = filler.printFound();
+    assertEquals(res, null);
+  }
 }

@@ -32,24 +32,23 @@ public class FillSymptoms {
     } catch (Exception e) {
       System.out
           .println("ERROR: nothing found in transcript. Please use the given manual sentences");
-      return null;
+      return new KMP("".toCharArray());
     }
 
   }
 
   public List<String> getSymptoms() {
     List<String> foundSymptoms = new ArrayList<String>();
-
-    try {
-      for (String pattern : symptomPatterns) {
-        List<Integer> foundIndices = kmp.search(pattern.toCharArray());
-        if (foundIndices.size() != 0) {
-          foundSymptoms.add(pattern);
-        }
+    for (String pattern : symptomPatterns) {
+      List<Integer> foundIndices = kmp.search(pattern.toCharArray());
+      if (foundIndices.size() != 0) {
+        foundSymptoms.add(pattern);
       }
-      return foundSymptoms;
-    } catch (Exception e) {
-      return null;
     }
+    if (foundSymptoms.get(0) == null) {
+      foundSymptoms.add("no symptoms recorded");
+    }
+    System.out.println(foundSymptoms.get(0));
+    return foundSymptoms;
   }
 }

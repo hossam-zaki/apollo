@@ -24,8 +24,8 @@ public class FillVisit {
       String portion = transcript.substring(startIndex, endIndex);
       return portion;
     } catch (Exception e) {
-      System.err.println("ERROR: unablet to  parse transcript");
-      return null;
+      System.err.println("ERROR: portion not found");
+      return "";
     }
 
   }
