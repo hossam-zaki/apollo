@@ -15,20 +15,24 @@
   </head>
 
 <body> 
-<div class="top">
 <h1>Apollo</h1>
-</div>
-
 <div class="form">
 <h3>Welcome</h3>
+<form method="POST" action="/loginDoctor">
+	<input type="text" placeholder="username" name="username" id="username" required></input><br>
+	<input type="password" placeholder="password" name="password" id="password" required></input><br> <br>
+  <input class="button" type="submit" value="Sign In">
+</form>
+<h2>or</h2>
 <form method="GET" action="/register">
-  <input class="button" type="submit" value="register">
+  <input class="button" type="submit" value="Sign Up">
 </form>
 <br>
 <br>
-<form method="GET" action="/login">
+<#--  <form method="GET" action="/login">
   <input class="button" type="submit" value="login">
-</form>
+</form>  -->
+
 </div>
 </p>
 </body>
