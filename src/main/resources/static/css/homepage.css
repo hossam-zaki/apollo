@@ -1,0 +1,36 @@
+  body {
+      background-color: #E0EAFC;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+  }
+  
+  h1 {
+      color: black;
+      font-family: Roboto; 
+      font-size: 250%;
+      text-align: left;
+      padding-left: 50px;
+  }
+  
+  h3 {
+    color: black;
+    font-family: Roboto; 
+    font-size: 500%;
+    text-align: center;
+  }
+  .button {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    width: 25%;
+    cursor: pointer;
+    margin: auto;
+    display: flex;   
+    flex-flow: column;
+    align-items: center;
+  }
