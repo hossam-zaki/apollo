@@ -18,7 +18,7 @@
 <div class="top">
 <h1>Apollo</h1>
 </div>
-<h3>Register</h3>
+<h3>Sign Up</h3>
 <h4>${status}</h4>
 <div class="form">
 <form method="POST" action="/registerDoctor">
