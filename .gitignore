@@ -10,3 +10,4 @@ src/main/java/speechToText/output_graph.pb
 src/main/java/speechToText/output_graph.pbmm
 src/main/java/speechToText/output_graph.tflite
 src/main/java/speechToText/trie
+.project
