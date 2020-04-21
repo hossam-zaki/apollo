@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.Part;
@@ -18,6 +17,7 @@ import javax.servlet.http.Part;
 import com.google.common.collect.ImmutableMap;
 
 import commands.ConnectToDatabase;
+import databases.Database;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -67,7 +67,8 @@ public final class Main {
   private void run() throws IOException {
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
-    parser.accepts("port").withRequiredArg().ofType(Integer.class).defaultsTo(DEFAULT_PORT);
+    parser.accepts("port").withRequiredArg().ofType(Integer.class)
+        .defaultsTo(DEFAULT_PORT);
     OptionSet options = parser.parse(args);
 
     if (options.has("gui")) {
@@ -86,7 +87,8 @@ public final class Main {
     try {
       config.setDirectoryForTemplateLoading(templates);
     } catch (IOException ioe) {
-      System.out.printf("ERROR: Unable use %s for template loading.%n", templates);
+      System.out.printf("ERROR: Unable use %s for template loading.%n",
+          templates);
       System.exit(1);
     }
     return new FreeMarkerEngine(config);
@@ -106,6 +108,7 @@ public final class Main {
     Spark.post("/loginDoctor", new LoginDoctorHandler(), freeMarker);
     Spark.get("/record", new RecordHandler(), freeMarker);
     Spark.post("/send", new SendHandler(), freeMarker);
+    Spark.get("/apollo/:username", new baseHandler(), freeMarker);
 
   }
 
@@ -116,8 +119,9 @@ public final class Main {
   private static class FrontHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
-
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
+          error);
+      error = "";
       return new ModelAndView(map, "homepage.ftl");
     }
   }
@@ -147,12 +151,12 @@ public final class Main {
   private static class RegisterHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
-
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
+          error);
+      error = "";
       return new ModelAndView(map, "register.ftl");
     }
   }
-
 
   private static class LoginDoctorHandler implements TemplateViewRoute {
     @Override
@@ -165,7 +169,7 @@ public final class Main {
         return null;
       }
       error = "";
-      res.redirect("/apollo");
+      res.redirect("/apollo/:" + qm.value("username"));
       return null;
     }
   }
@@ -204,33 +208,58 @@ public final class Main {
   private static class RecordHandler implements TemplateViewRoute {
 
     @Override
-    public ModelAndView handle(Request request, Response response) throws Exception {
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
+    public ModelAndView handle(Request request, Response response)
+        throws Exception {
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
+          error);
+      error = "";
       return new ModelAndView(map, "recording.ftl");
     }
 
   }
+
   private static class SendHandler implements TemplateViewRoute {
 
-	    @Override
-	    public ModelAndView handle(Request request, Response response) throws Exception {
-	    	try {
-        request.raw().setAttribute("org.eclipse.jetty.multipartConfig", 
-                new MultipartConfigElement("/tmp", 100000000, 100000000, 1024));
-        String filename = request.raw().getPart("audio_data").getSubmittedFileName();
+    @Override
+    public ModelAndView handle(Request request, Response response)
+        throws Exception {
+      try {
+        request.raw().setAttribute("org.eclipse.jetty.multipartConfig",
+            new MultipartConfigElement("/tmp", 100000000, 100000000, 1024));
+        String filename = request.raw().getPart("audio_data")
+            .getSubmittedFileName();
         System.out.println(filename);
         Part uploadedFile = request.raw().getPart("audio_data");
         final InputStream in = uploadedFile.getInputStream();
-            System.out.println(Files.copy(in, Paths.get("data/"+filename+".wav")));
-        
-	      response.redirect("/record");
-	      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
-	      return new ModelAndView(map, "recording.ftl");
-	    	} catch(Exception e) {
-	    		e.printStackTrace();
-	    		return null;
-	    	}
-	    }
+        System.out
+            .println(Files.copy(in, Paths.get("data/" + filename + ".wav")));
 
-	  }
+        response.redirect("/record");
+        Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
+            error);
+        error = "";
+        return new ModelAndView(map, "recording.ftl");
+      } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+      }
+    }
+
+  }
+
+  /**
+   * Handle requests to the front page of our Stars website.
+   *
+   */
+  private static class baseHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      String username = req.params(":username").replaceAll(":", "");
+      String docName = Database.getDocName(username);
+      Map<String, String> map = ImmutableMap.of("title", "Apollo", "docName",
+          docName);
+      return new ModelAndView(map, "base.ftl");
+    }
+  }
+
 }

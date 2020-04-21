@@ -13,26 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <script src="js/jquery-2.1.1.js"></script>
   </head>
-
 <body> 
-<h1>Apollo</h1>
-<hr>
-<div class="form">
-<h3>Welcome</h3>
-<h4>${status}</h4>
-<form method="POST" action="/loginDoctor">
-	<input type="text" placeholder="username" name="username" id="username" required></input><br>
-	<input type="password" placeholder="password" name="password" id="password" required></input><br> <br>
-  <input class="button" type="submit" value="Sign In">
-</form>
-<h2>or</h2>
-<form method="GET" action="/register">
-  <input class="button" type="submit" value="Sign Up">
-</form>
-<br>
-<br>
-
-</div>
-</p>
+<h1>Hello Doctor ${docName}</h1>
 </body>
 </html>

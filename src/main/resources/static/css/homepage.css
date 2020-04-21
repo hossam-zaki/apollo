@@ -69,3 +69,9 @@
     color: black;
 
   }
+  hr {
+    display: block;
+    height: 1.5px;
+    border: 0;
+    border-top: 1px solid #000000;
+}

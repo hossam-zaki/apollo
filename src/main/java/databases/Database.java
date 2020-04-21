@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -22,15 +24,15 @@ public final class Database {
   }
 
   /**
-   * Instantiates the database, creating tables if necessary. Automatically loads
-   * files.
+   * Instantiates the database, creating tables if necessary. Automatically
+   * loads files.
    *
    * @param filename , file name of SQLite3 database to open.
    * @return int , 1 for correct, 0 for errors.
    */
   public static int makeDatabase() {
     // Initializes the database connection, turns foreign keys on.
-	String filename = "data/db/apollo.sqlite3";
+    String filename = "data/db/apollo.sqlite3";
     try {
       FileReader file = new FileReader(filename);
     } catch (FileNotFoundException e1) {
@@ -50,7 +52,8 @@ public final class Database {
       System.err.println("ERROR: Databse");
       return 0;
     }
-    // these two lines tell the database to enforce foreign keys during operations,
+    // these two lines tell the database to enforce foreign keys during
+    // operations,
     // and should be present
     Statement stat;
     try {
@@ -70,5 +73,23 @@ public final class Database {
    */
   public static Connection getConn() {
     return conn;
+  }
+
+  public static String getDocName(String username) {
+    PreparedStatement prep;
+    try {
+      prep = conn
+          .prepareStatement("SELECT last_name FROM doctor WHERE username = ?");
+      prep.setString(1, username);
+      ResultSet rs = prep.executeQuery();
+      String toRet = "";
+      while (rs.next()) {
+        toRet = rs.getString(1);
+      }
+      return toRet;
+    } catch (Exception e) {
+      System.err.println("ERROR: couldn't find doctor name");
+      return null;
+    }
   }
 }
