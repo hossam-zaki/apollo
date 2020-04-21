@@ -23,6 +23,7 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import registrationAndLogin.Encryption;
 import registrationAndLogin.Login;
+import registrationAndLogin.PatientRegistration;
 import registrationAndLogin.Registration;
 import repl.Repl;
 import spark.ExceptionHandler;
@@ -109,6 +110,11 @@ public final class Main {
     Spark.get("/record", new RecordHandler(), freeMarker);
     Spark.post("/send", new SendHandler(), freeMarker);
     Spark.get("/apollo/:username", new baseHandler(), freeMarker);
+    Spark.get("/apollo/registerPatient/:username", new registerPatientHandler(),
+        freeMarker);
+    Spark.post("/apollo/registerPatient/addPatient/:username",
+        new addPatientHandler(), freeMarker);
+    ;
 
   }
 
@@ -256,9 +262,39 @@ public final class Main {
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
       String docName = Database.getDocName(username);
+      String route = "/apollo/registerPatient/:" + username;
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "docName",
-          docName);
+          docName, "username", username, "route", route);
       return new ModelAndView(map, "base.ftl");
+    }
+  }
+
+  private static class registerPatientHandler implements TemplateViewRoute {
+    public ModelAndView handle(Request req, Response res) {
+      String username = req.params(":username").replaceAll(":", "");
+      Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
+          username);
+      return new ModelAndView(map, "registerPatient.ftl");
+    }
+  }
+
+  private static class addPatientHandler implements TemplateViewRoute {
+    public ModelAndView handle(Request req, Response res) {
+      QueryParamsMap qm = req.queryMap();
+      List<String> forRegister = new ArrayList<String>();
+      forRegister.add(qm.value("first_name"));
+      forRegister.add(qm.value("middle_name"));
+      forRegister.add(qm.value("last_name"));
+      forRegister.add(qm.value("dob"));
+      forRegister.add(qm.value("email"));
+      forRegister.add(qm.value("phone"));
+      forRegister.add(qm.value("emergency contact phone"));
+      forRegister.add(req.params(":username").replaceAll(":", ""));
+      PatientRegistration register = new PatientRegistration();
+      register.register(forRegister);
+      error = "";
+      res.redirect("/apollo/:" + req.params(":username").replaceAll(":", ""));
+      return null;
     }
   }
 

@@ -1,0 +1,78 @@
+body {
+    background-color: #E0EAFC;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    color: black;
+    font-family: Roboto;
+    font-size: 250%;
+    text-align: left;
+    padding-left: 50px;
+}
+
+h3 {
+  color: black;
+  font-family: Roboto;
+  font-size: 350%;
+  text-align: left;
+  margin-left: 48px;
+}
+h2 {
+  color: black;
+  font-family: Roboto;
+  font-size: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+h4 {
+    color: red;
+    font-family: Roboto;
+  font-size: 100%;
+  text-align: center;
+}
+.button {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  width: 10%;
+  cursor: pointer;
+  margin: auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  border-radius: 75px;
+}
+.form {
+  text-align: center;
+  align-items: center;
+  padding: 15px 32px;
+}
+input[type=text] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  color: black;
+  font-size: 10px;
+}
+input[type=password] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  color: black;
+
+}
+hr {
+  display: block;
+  height: 1.5px;
+  border: 0;
+  border-top: 1px solid #000000;
+}

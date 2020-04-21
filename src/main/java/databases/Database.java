@@ -42,14 +42,14 @@ public final class Database {
     try {
       Class.forName("org.sqlite.JDBC");
     } catch (ClassNotFoundException e) {
-      System.err.println("ERROR: Databse");
+      System.err.println("ERROR: Database");
       return 0;
     }
     String urlToDB = "jdbc:sqlite:" + filename;
     try {
       conn = DriverManager.getConnection(urlToDB);
     } catch (SQLException e) {
-      System.err.println("ERROR: Databse");
+      System.err.println("ERROR: Database");
       return 0;
     }
     // these two lines tell the database to enforce foreign keys during
@@ -60,7 +60,7 @@ public final class Database {
       stat = conn.createStatement();
       stat.executeUpdate("PRAGMA foreign_keys=ON;");
     } catch (SQLException e) {
-      System.err.println("ERROR: Databse");
+      System.err.println("ERROR: Database");
       return 0;
     }
     return 1;

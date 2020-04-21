@@ -1,0 +1,39 @@
+<#assign content>
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <title>${title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- In real-world webapps, css is usually minified and
+         concatenated. Here, separate normalize from our code, and
+         avoid minification for clarity. -->
+    <link rel="stylesheet" href="../../css/normalize.css">
+    <link rel="stylesheet" href="../../css/html5bp.css">
+    <link rel="stylesheet" href="../../css/homepage.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="js/jquery-2.1.1.js"></script>
+  </head>
+
+<body>
+<h1>Apollo</h1>
+<hr>
+</div>
+<p>
+<div class="form">
+<h3>Patient Registration</h3>
+<form method="POST" action="/apollo/registerPatient/addPatient/:${username}">
+	<input type="text" placeholder="first name" name="first_name" id="first_name" pattern="[A-Za-z]+" title="Name can only contain letters" required></input><br>
+	<input type="text" placeholder="middle name" name="middle_name" id="middle_name"></input><br>
+	<input type="text" placeholder="last name" name="last_name" id="last_name" pattern="[A-Za-z]*" title="Last name can only contain letters" required ></input><br>
+	<input type="text" placeholder="date of birth" name="dob" id="dob" pattern="((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})" title="Valid date of birth" required></input><br>
+	<input type="text" placeholder="email" name="email" id="email" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" title="Valid email adress" required></input><br>
+	<input type="text" placeholder="phone" name="phone" id="phone" pattern="^([\+][0-9]{1,3}([ \.\-])?)?([\(]{1}[0-9]{3}[\)])?([0-9A-Z \.\-]{1,32})((x|ext|extension)?[0-9]{1,4}?)$" title="Valid phone number" required></input><br>
+	<input type="text" placeholder="emergency phone number" name="emergency contact phone" id="emergency contact phone" required></input><br>
+  <input class="button" type="submit" placeholder="register" value="register">
+</form>
+</div>
+</p>
+
+</#assign>
+<#include "main.ftl">
