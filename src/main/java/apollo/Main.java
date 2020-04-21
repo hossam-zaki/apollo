@@ -173,8 +173,9 @@ public final class Main {
       Login login = new Login();
       if (login.loginUser(qm.value("username"), qm.value("password")) == null) {
         error = "Username/Password incorrect";
-        res.redirect("/login");
+        res.redirect("/apollo");
       }
+      error = "";
       res.redirect("/apollo");
       return null;
     }
@@ -205,6 +206,7 @@ public final class Main {
       forRegister.add(qm.value("institution"));
       Registration register = new Registration();
       register.register(forRegister);
+      error = "";
       res.redirect("/apollo");
       return null;
     }
