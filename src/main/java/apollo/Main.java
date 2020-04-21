@@ -263,8 +263,10 @@ public final class Main {
       String username = req.params(":username").replaceAll(":", "");
       String docName = Database.getDocName(username);
       String route = "/apollo/registerPatient/:" + username;
+      new displayPatients();
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "docName",
-          docName, "username", username, "route", route);
+          docName, "username", username, "route", route, "patients",
+          displayPatients.buildHTML(username));
       return new ModelAndView(map, "base.ftl");
     }
   }

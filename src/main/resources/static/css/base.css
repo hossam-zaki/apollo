@@ -32,6 +32,10 @@ h4 {
   font-size: 100%;
   text-align: center;
 }
+
+h5 {
+  font-size: 20%
+}
 .button {
   background-color: white;
   border: none;
@@ -79,13 +83,13 @@ hr {
 .search {
   width: 100%;
   display: flex;
-  margin-top: -290px;
+  margin-top: -260px;
   margin-left: 1450px;
 }
 
 .searchTerm {
   width: 100%;
-  border: 3px solid #00B4CC;
+  border: 3px solid #B0E0E6;
   border-right: none;
   height: 45px;
   border-radius: 5px 0 0 5px;
@@ -94,15 +98,15 @@ hr {
 }
 
 .searchTerm:focus{
-  color: #00B4CC;
+  color: #000000;
 }
 
 .searchButton {
   margin-top: 8px;
   width: 40px;
   height: 45px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
+  border: 1px solid #B0E0E6;
+  background: #B0E0E6;
   color: #fff;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
@@ -116,4 +120,16 @@ hr {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.patientTable {
+  font-size: 40px;
+  color:black;
+  padding: 50px;
+  vertical-align: 50%;
+}
+th,td{
+width: 100px;
+text-align: center;
+padding: 50px;
 }

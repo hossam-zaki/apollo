@@ -1,15 +1,14 @@
 package patientData;
 
 import java.io.File;
-import java.util.UUID;
 
 public class VisitDatum implements Datum {
-  private UUID uuid;
+  private String uuid;
   private String date;
   private File transcript;
   private File audioRecording;
 
-  public VisitDatum(UUID id, String date, File transcript,
+  public VisitDatum(String id, String date, File transcript,
       File audioRecording) {
     this.uuid = id;
     this.date = date;
@@ -19,7 +18,7 @@ public class VisitDatum implements Datum {
 
   // ---------- Getters for VisitDatum ----------
   @Override
-  public UUID getID() {
+  public String getID() {
     return this.uuid;
   }
 
@@ -37,7 +36,7 @@ public class VisitDatum implements Datum {
 
   // ---------- Setters for VisitDatum ----------
   @Override
-  public void setID(UUID id) {
+  public void setID(String id) {
     this.uuid = id;
   }
 

@@ -8,6 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import patientData.PatientDatum;
 
 /**
  * This is my database class, where I read from a database and make the instance
@@ -89,6 +93,28 @@ public final class Database {
       return toRet;
     } catch (Exception e) {
       System.err.println("ERROR: couldn't find doctor name");
+      return null;
+    }
+  }
+
+  public static List<PatientDatum> getDoctorPatients(String username) {
+    PreparedStatement prep;
+    try {
+      List<PatientDatum> toRet = new ArrayList<PatientDatum>();
+      prep = conn
+          .prepareStatement("SELECT * FROM patient WHERE primary_doctor = ?");
+      prep.setString(1, username);
+      ResultSet rs = prep.executeQuery();
+      while (rs.next()) {
+        PatientDatum curr = new PatientDatum(rs.getString("id"),
+            rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+            rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+        toRet.add(curr);
+      }
+      return toRet;
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.err.println("ERROR: no patients found");
       return null;
     }
   }

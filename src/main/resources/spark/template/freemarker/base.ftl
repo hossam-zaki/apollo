@@ -16,18 +16,22 @@
 <body>
 <h1>Apollo</h1>
 <hr>
-<h3>Hello Doctor ${docName}.</h3>
+<h3>Hello, Doctor ${docName}.</h3>
 <form method="GET" action=${route}>
   <input class="button" type="submit" value="Register New Patient">
 </form>
 <div class="wrap">
    <div class="search">
-      <input type="text" class="searchTerm" placeholder="Search by Patient Name">
+      <input type="text" class="searchTerm" placeholder="Search Patient Name">
       <button type="submit" class="searchButton">
         <i class="fa fa-search"></i>
      </button>
    </div>
 </div>
+<br>
+<div class="patientTable">
+${patients}
+<div>
 <!-- <div class="folder" style="color: black; margin-left: 50%; ">
   <i class="far fa-folder"></i>
 </div> -->
