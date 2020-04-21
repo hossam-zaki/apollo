@@ -102,7 +102,6 @@ public final class Main {
     // Setup Spark Routes
     Spark.get("/apollo", new FrontHandler(), freeMarker);
     Spark.get("/register", new RegisterHandler(), freeMarker);
-    Spark.get("/login", new LoginHandler(), freeMarker);
     Spark.post("/registerDoctor", new RegisterDoctorHandler(), freeMarker);
     Spark.post("/loginDoctor", new LoginDoctorHandler(), freeMarker);
     Spark.get("/record", new RecordHandler(), freeMarker);
@@ -117,7 +116,7 @@ public final class Main {
   private static class FrontHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo");
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
 
       return new ModelAndView(map, "homepage.ftl");
     }
@@ -154,17 +153,6 @@ public final class Main {
     }
   }
 
-  /**
-   * Handle requests to the front page of our Stars website.
-   *
-   */
-  private static class LoginHandler implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
-      return new ModelAndView(map, "login.ftl");
-    }
-  }
 
   private static class LoginDoctorHandler implements TemplateViewRoute {
     @Override
@@ -174,6 +162,7 @@ public final class Main {
       if (login.loginUser(qm.value("username"), qm.value("password")) == null) {
         error = "Username/Password incorrect";
         res.redirect("/apollo");
+        return null;
       }
       error = "";
       res.redirect("/apollo");

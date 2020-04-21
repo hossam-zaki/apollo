@@ -18,6 +18,7 @@
 <h1>Apollo</h1>
 <div class="form">
 <h3>Welcome</h3>
+<h4>${status}</h4>
 <form method="POST" action="/loginDoctor">
 	<input type="text" placeholder="username" name="username" id="username" required></input><br>
 	<input type="password" placeholder="password" name="password" id="password" required></input><br> <br>
