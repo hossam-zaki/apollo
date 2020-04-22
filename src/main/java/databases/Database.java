@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import patientData.PatientDatum;
+import patientData.VisitDatum;
 
 /**
  * This is my database class, where I read from a database and make the instance
@@ -113,8 +114,26 @@ public final class Database {
       }
       return toRet;
     } catch (Exception e) {
-      e.printStackTrace();
       System.err.println("ERROR: no patients found");
+      return null;
+    }
+  }
+
+  public static List<VisitDatum> getPatientVisits(String id) {
+    PreparedStatement prep;
+    try {
+      List<VisitDatum> toRet = new ArrayList<VisitDatum>();
+      prep = conn.prepareStatement("SELECT * FROM visit WHERE id = ?");
+      prep.setString(1, id);
+      ResultSet rs = prep.executeQuery();
+      while (rs.next()) {
+        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), null,
+            null);
+        toRet.add(curr);
+      }
+      return toRet;
+    } catch (Exception e) {
+      System.err.println("ERROR: no visits found");
       return null;
     }
   }

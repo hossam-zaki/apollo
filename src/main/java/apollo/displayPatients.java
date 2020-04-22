@@ -28,7 +28,9 @@ public class displayPatients {
         count = 0;
       }
       html.append("<td>");
+      html.append("<ahref=\"/apollo/:username&:patientID");
       html.append("<i class=\"far fa-folder\" style=\"font-size:115px;\">");
+      html.append("</a>");
       html.append("<h5>");
       html.append(patient.getFirstName());
       html.append(" ");

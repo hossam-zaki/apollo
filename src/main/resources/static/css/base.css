@@ -44,10 +44,10 @@ h5 {
   text-decoration: none;
   display: inline-block;
   font-size: 15px;
-  width: 10%;
+  width: 13%;
   cursor: pointer;
-  margin-top: -118px;
-  margin-left: 1200px;
+  margin-top: -8%;
+  margin-left: 61%;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -117,8 +117,8 @@ hr {
 .wrap{
   width: 100%;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 63%;
+  left: 25%;
   transform: translate(-50%, -50%);
 }
 
