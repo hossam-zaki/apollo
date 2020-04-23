@@ -28,8 +28,11 @@ public class displayPatients {
         count = 0;
       }
       html.append("<td>");
-      html.append("<ahref=\"/apollo/:username&:patientID>");
-      html.append("<i class=\"far fa-folder\" style=\"font-size:115px;\">");
+      html.append("<a href=\"/apollo/:");
+//      html.append(username);
+//      html.append("&:");
+      html.append(patient.getID());
+      html.append("\"><i class=\"fas fa-folder\" style=\"font-size:75px;\"> </i>");
       html.append("</a>");
       html.append("<h5>");
       html.append(patient.getFirstName());
@@ -38,7 +41,7 @@ public class displayPatients {
         html.append(patient.getMiddleName());
         html.append(" ");
       }
-      html.append("<br>");
+      //html.append("<br>");
       html.append(patient.getLastName());
       html.append("</h5>");
       count++;

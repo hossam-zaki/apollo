@@ -26,7 +26,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#myPage">Apollo</a>
+      <a class="navbar-brand" href="/apollo">Apollo</a>
     </div>
   </div>
 </nav>

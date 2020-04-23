@@ -1,0 +1,117 @@
+body {
+    background-color: #E0EAFC;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    color: black;
+    font-family: Roboto; 
+    font-size: 250%;
+    text-align: left;
+    padding-left: 50px;
+}
+
+h3 {
+  color:rgb(119, 119, 119);
+  font-family: Roboto; 
+  font-size: 500%;
+  text-align: center;
+  padding-top: 100px;
+  margin-left: -.5%;
+}
+h2 {
+  color: black;
+  font-family: Roboto; 
+  font-size: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+h4 {
+    color: red;
+    font-family: Roboto; 
+  font-size: 100%;
+  text-align: center;
+  margin-top: -5%;
+}
+.button {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  width: 10%;
+  cursor: pointer;
+  margin: auto;
+  display: flex;   
+  flex-flow: column;
+  align-items: center;
+  border-radius: 75px;
+}
+.form {
+  text-align: center;
+  padding: 10px 32px;
+}
+input[type=text] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  color: black;
+  font-size: 10px;
+}
+input[type=password] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  color: black;
+
+}
+hr {
+  display: block;
+  height: 1.5px;
+  border: 0;
+  border-top: 1px solid #000000;
+}
+.navbar {
+min-height: 80px;
+color:black;
+}
+
+.navbar-brand {
+padding: 0 15px;
+height: 80px;
+line-height: 80px;
+color:black;
+}
+
+
+.navbar-toggle {
+/* (80px - button height 34px) / 2 = 23px */
+margin-top: 23px;
+padding: 9px 10px !important;
+}
+
+@media (min-width: 768px) {
+.navbar-nav > li > a {
+  /* (80px - line-height of 27px) / 2 = 26.5px */
+  padding-top: 26.5px;
+  padding-bottom: 26.5px;
+  line-height: 27px;
+  color: black;
+}
+}
+.navbar a{
+color: black;
+font-family: 'Roboto', sans-serif;
+font-size: 3.8em !important;
+}
+.nav a {
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8em !important;
+}

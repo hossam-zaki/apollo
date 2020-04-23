@@ -28,12 +28,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#myPage">Apollo</a>
+      <a class="navbar-brand" href="/apollo">Apollo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#myPage">home</a></li>
-        <li><a href="#myPage">register patient</a></li>
+        <li><a href=${route}>register patient</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">profile
           <span class="caret"></span></a>
@@ -57,5 +57,8 @@
     </div>
   </form>
 </div>
+<div class="patientTable">
+${patients}
+<div>
 </body>
 </html>
