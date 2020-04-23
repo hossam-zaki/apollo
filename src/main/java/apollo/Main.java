@@ -268,7 +268,7 @@ public final class Main {
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "docName",
           docName, "username", username, "route", route, "patients",
           displayPatients.buildHTML(username));
-      return new ModelAndView(map, "base.ftl");
+      return new ModelAndView(map, "base2.ftl");
     }
   }
 
