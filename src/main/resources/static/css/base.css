@@ -129,8 +129,8 @@ hr {
   padding: 50px;
   vertical-align: 50%;
 }
-th,td{
-width: 100px;
+th,td,tr {
+width: 3000000px;
 text-align: center;
 padding: 50px;
 }
@@ -180,4 +180,3 @@ padding: 50px;
  .btn{
    background-color: rgb(248, 248, 248);
  }
- 

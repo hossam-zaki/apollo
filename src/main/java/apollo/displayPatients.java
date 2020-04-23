@@ -19,7 +19,7 @@ public class displayPatients {
     StringBuilder html = new StringBuilder();
     // 4 folders per row
     html.append(
-        "<table cellpadding=120px; style=\"width:400px; margin-left:auto; margin-right:auto; border-collapse:separate; border-spacing:20px 10px;\">");
+        "<table cellpadding=120px; style=\"width:500px; margin-left:auto; margin-right:auto; border-collapse:separate; border-spacing:20px 10px;\">");
     html.append("<tr>");
     int count = 0;
     for (PatientDatum patient : patients) {
@@ -32,16 +32,19 @@ public class displayPatients {
 //      html.append(username);
 //      html.append("&:");
       html.append(patient.getID());
-      html.append("\"><i class=\"fas fa-folder\" style=\"font-size:75px;\"> </i>");
+      html.append(
+          "\"><i class=\"fas fa-folder\" style=\"font-size:75px;\"> </i>");
       html.append("</a>");
       html.append("<h5>");
-      html.append(patient.getFirstName());
-      html.append(" ");
       if (!patient.getMiddleName().equals("")) {
-        html.append(patient.getMiddleName());
+        html.append(patient.getFirstName() + " "
+            + patient.getMiddleName().charAt(0) + ".");
+        html.append(" ");
+      } else {
+        html.append(patient.getFirstName());
         html.append(" ");
       }
-      //html.append("<br>");
+      // html.append("<br>");
       html.append(patient.getLastName());
       html.append("</h5>");
       count++;

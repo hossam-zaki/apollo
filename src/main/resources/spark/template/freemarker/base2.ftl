@@ -26,9 +26,9 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/apollo">Apollo</a>
+      <a class="navbar-brand" href="/apollo/:${username}">Apollo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -50,7 +50,7 @@
 <div class="jumbotron text-center">
   <form class="form-inline">
     <div class="input-group">
-      <input type="email" class="form-control" size="50" placeholder="search for patient" required>
+      <input type="email" class="form-control" size="75" placeholder="search for patient" required>
       <div class="input-group-btn">
         <button type="button" class="btn"><i class="fa fa-search"></i></button>
       </div>
