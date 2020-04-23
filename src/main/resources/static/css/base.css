@@ -117,8 +117,8 @@ hr {
 .wrap{
   width: 100%;
   position: absolute;
-  top: 63%;
-  left: 25%;
+  top: 440px;
+  left: 545px;
   transform: translate(-50%, -50%);
 }
 
