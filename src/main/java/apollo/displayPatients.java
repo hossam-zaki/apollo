@@ -19,7 +19,7 @@ public class displayPatients {
     StringBuilder html = new StringBuilder();
     // 4 folders per row
     html.append(
-        "<table cellpadding=120px; style=\"width:500px; margin-left:auto; margin-right:auto; border-collapse:separate; border-spacing:20px 10px;\">");
+        "<table class=\"table-borderless\" style=\"margin-left:auto; margin-right:auto; border-collapse:separate; border-spacing:20px 10px;\">");
     html.append("<tr>");
     int count = 0;
     for (PatientDatum patient : patients) {

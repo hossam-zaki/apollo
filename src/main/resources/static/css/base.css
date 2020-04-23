@@ -130,9 +130,11 @@ hr {
   vertical-align: 50%;
 }
 th,td,tr {
-width: 3000000px;
 text-align: center;
-padding: 50px;
+padding: 20px;
+padding-left: 20px;
+padding-right: 20px;
+width: 5%;
 }
 .jumbotron {
   background-color: #E0EAFC;
