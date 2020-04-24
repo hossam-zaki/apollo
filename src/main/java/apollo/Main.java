@@ -21,6 +21,8 @@ import databases.Database;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+import patientData.Datum;
+import patientData.PatientDatum;
 import registrationAndLogin.Encryption;
 import registrationAndLogin.Login;
 import registrationAndLogin.PatientRegistration;
@@ -114,10 +116,11 @@ public final class Main {
         freeMarker);
     Spark.post("/apollo/registerPatient/addPatient/:username",
         new addPatientHandler(), freeMarker);
-    Spark.get("/apollo/:username&:patient", new visitHandler(), freeMarker);
+    Spark.get("/apollo/patientBase/:username/:patient", new visitHandler(), freeMarker);
     Spark.get("/apollo/account-details/:username", new accountDetailsHandler(),
         freeMarker);
-    ;
+    Spark.get("/apollo/:username/:patient/registerVisit", new newVisitHandler(), freeMarker);
+
 
   }
 
@@ -306,9 +309,11 @@ public final class Main {
   private static class visitHandler implements TemplateViewRoute {
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
-      String patient = req.params(":patient").replace(":", "");
+      String patient = req.params(":patient").replaceAll(":", "");
+      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+      PatientDatum patientData = Database.getPatient(patient);
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
-          username, "patient", patient);
+          username, "name", patientData.getFirstName(), "route", route);
       return new ModelAndView(map, "visits.ftl");
     }
   }
@@ -324,5 +329,15 @@ public final class Main {
       return new ModelAndView(map, "accountDetails.ftl");
     }
   }
-
+  private static class newVisitHandler implements TemplateViewRoute {
+	    public ModelAndView handle(Request req, Response res) {
+	    	String username = req.params(":username").replaceAll(":", "");
+	        String patient = req.params(":patient").replaceAll(":", "");
+	        String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+	        PatientDatum patientData = Database.getPatient(patient);
+	        Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
+	            username, "name", patientData.getFirstName(), "route", route);
+	      return new ModelAndView(map, "registerVisit.ftl");
+	    }
+	  }
 }

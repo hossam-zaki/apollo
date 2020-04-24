@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/../normalize.css">
     <link rel="stylesheet" href="../../../css/html5bp.css">
-	<link rel="stylesheet" href="../../../css/base.css">     
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
@@ -20,6 +19,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <script src="js/jquery-2.1.1.js"></script>
+    	<link rel="stylesheet" href="../../../css/newvisit.css">     
   </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -49,18 +49,19 @@
   </div>
 </nav>
 <div class="jumbotron text-center">
-  <h3>${name}'s Visits</h3>
-  <br>
-  <br>
-  <form class="form-inline">
-    <div class="input-group">
-      <input type="date" class="form-control" size="75" placeholder="search for patient" required>
-      <div class="input-group-btn">
-        <button type="button" class="btn"><i class="fa fa-search"></i></button>
-      </div>
+      <div id="controls">
+  	 <button id="recordButton">Record</button>
+  	 <button id="pauseButton" disabled>Pause</button>
+  	 <button id="stopButton" disabled>Stop</button>
     </div>
-  </form>
-</div>
+    <div id="formats"></div>
+  	<p><strong>Recordings:</strong></p>
+  	<ol id="recordingsList"></ol>
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+  	<script src="../../../js/recorder.js"></script>
+  	<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </div>
 <br>
 <!-- <div class="folder" style="color: black; margin-left: 50%; ">

@@ -46,6 +46,10 @@ public class DatabaseSetup {
             + "last_name TEXT," + "date_of_birth TEXT,"
             + "phoneNumber NVARCHAR(320)," + "email NVARCHAR(320),"
             + "emergency_phone_number TEXT," + "primary_doctor TEXT);");
+        prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS appointments("
+                + "doctor_username TEXT," + "patient_id UUID,"
+                + "appointment_date DATE," + "audio_file BLOB,"
+                + "transcipt TEXT);");
         prep.executeUpdate();
         System.out.println("A new database has been created.");
       }

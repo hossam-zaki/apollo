@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import patientData.Datum;
 import patientData.PatientDatum;
 import patientData.VisitDatum;
 
@@ -164,5 +165,28 @@ public final class Database {
       return null;
     }
   }
-
+  public static PatientDatum getPatient(String id) {
+	 PreparedStatement prep;
+	    try {
+			prep = conn.prepareStatement("SELECT * FROM patient WHERE id = ?");
+		    prep.setString(1, id);
+		    ResultSet rs = prep.executeQuery();
+		    PatientDatum patient = new PatientDatum(
+		    		rs.getString(1), //id
+		    		rs.getString(2), //firstname
+		    		rs.getString(3), //midname
+		    		rs.getString(4), //lastname
+		    		rs.getString(5), //dob
+		    		rs.getString(6), //phone 
+		    		rs.getString(7),//email 
+		    		rs.getString(8), //emergency number
+		    		rs.getString(9)); //docusername
+		    return patient;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.err.println("ERROR: Patient not found");
+			return null;
+		}
+  }
 }

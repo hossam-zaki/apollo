@@ -28,9 +28,11 @@ public class displayPatients {
         count = 0;
       }
       html.append("<td>");
-      html.append("<a href=\"/apollo/:");
+      html.append("<a href=\"/apollo/patientBase/:");
 //      html.append(username);
 //      html.append("&:");
+      html.append(username);
+      html.append("/:");
       html.append(patient.getID());
       html.append(
           "\"><i class=\"fas fa-folder\" style=\"font-size:75px;\"> </i>");
