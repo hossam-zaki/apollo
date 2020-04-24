@@ -1,11 +1,9 @@
 package patientData;
 
-import java.util.UUID;
-
 public interface Datum {
 
-  public UUID getID();
+  public String getID();
 
-  public void setID(UUID id);
+  public void setID(String id);
 
 }

@@ -1,9 +1,7 @@
 package patientData;
 
-import java.util.UUID;
-
 public class PatientDatum implements Datum {
-  private UUID uuid;
+  private String uuid;
   private String firstName;
   private String middleName;
   private String lastName;
@@ -11,11 +9,11 @@ public class PatientDatum implements Datum {
   private String phoneNumber;
   private String email;
   private String emergencyPhoneNumber;
-  private UUID primaryDoctorID;
+  private String docUsername;
 
-  public PatientDatum(UUID uuid, String firstName, String middleName,
+  public PatientDatum(String uuid, String firstName, String middleName,
       String lastName, String dateOfBirth, String phoneNumber, String email,
-      String emergencyPhoneNumber, UUID primaryDoctorID) {
+      String emergencyPhoneNumber, String docUsername) {
     this.uuid = uuid;
     this.firstName = firstName;
     this.middleName = middleName;
@@ -24,12 +22,12 @@ public class PatientDatum implements Datum {
     this.phoneNumber = phoneNumber;
     this.email = email;
     this.emergencyPhoneNumber = emergencyPhoneNumber;
-    this.primaryDoctorID = primaryDoctorID;
+    this.docUsername = docUsername;
   }
 
   // --------- Getters for PatientDatum Class ---------
   @Override
-  public UUID getID() {
+  public String getID() {
     return this.uuid;
   }
 
@@ -61,13 +59,13 @@ public class PatientDatum implements Datum {
     return this.email;
   }
 
-  public UUID getPrimaryDoctorID() {
-    return this.primaryDoctorID;
+  public String getPrimaryDoctorUsername() {
+    return this.docUsername;
   }
 
   // --------- Setters for PatientDatum Class ---------
   @Override
-  public void setID(UUID id) {
+  public void setID(String id) {
     this.uuid = id;
   }
 
@@ -99,8 +97,8 @@ public class PatientDatum implements Datum {
     this.email = email;
   }
 
-  public void setPrimaryDoctorID(UUID id) {
-    this.primaryDoctorID = id;
+  public void setDoctorUsername(String us) {
+    this.docUsername = us;
   }
 
 }
