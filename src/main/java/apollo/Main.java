@@ -115,6 +115,8 @@ public final class Main {
     Spark.post("/apollo/registerPatient/addPatient/:username",
         new addPatientHandler(), freeMarker);
     Spark.get("/apollo/:username&:patient", new visitHandler(), freeMarker);
+    Spark.get("/apollo/account-details/:username", new accountDetailsHandler(),
+        freeMarker);
     ;
 
   }
@@ -308,6 +310,18 @@ public final class Main {
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
           username, "patient", patient);
       return new ModelAndView(map, "visits.ftl");
+    }
+  }
+
+  private static class accountDetailsHandler implements TemplateViewRoute {
+    public ModelAndView handle(Request req, Response res) {
+      String username = req.params(":username").replaceAll(":", "");
+      String route = "/apollo/registerPatient/:" + username;
+      String docName = Database.getDocName(username);
+      Map<String, String> details = Database.getDoctorInfo(username);
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "route",
+          route, "docName", docName, "details", details, "username", username);
+      return new ModelAndView(map, "accountDetails.ftl");
     }
   }
 

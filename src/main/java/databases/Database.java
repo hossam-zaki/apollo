@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import patientData.PatientDatum;
 import patientData.VisitDatum;
@@ -137,4 +139,30 @@ public final class Database {
       return null;
     }
   }
+
+  public static Map<String, String> getDoctorInfo(String username) {
+    PreparedStatement prep;
+    try {
+      Map<String, String> toRet = new LinkedHashMap<String, String>();
+      prep = conn.prepareStatement("SELECT * FROM doctor WHERE username = ?");
+      prep.setString(1, username);
+      ResultSet rs = prep.executeQuery();
+      while (rs.next()) {
+        toRet.put("first name:", rs.getString(2)); // first name
+        toRet.put("middle name:", rs.getString(3)); // middle name
+        toRet.put("last name:", rs.getString(4)); // last name
+        toRet.put("email:", rs.getString(5)); // email
+        toRet.put("username:", rs.getString(6)); // username
+        // toRet.put("password", rs.getString(7)); // password
+        toRet.put("phone number:", rs.getString(8)); // phone number
+        toRet.put("medical institution:", rs.getString(9)); // medical
+                                                            // institution
+      }
+      return toRet;
+    } catch (Exception e) {
+      System.err.println("ERROR: doctor not found");
+      return null;
+    }
+  }
+
 }

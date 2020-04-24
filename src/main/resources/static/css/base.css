@@ -16,7 +16,7 @@ h3 {
   color: black;
   font-family: Roboto;
   font-size: 350%;
-  text-align: left;
+  text-align: center;
   margin-left: 48px;
 }
 h2 {
@@ -84,7 +84,6 @@ hr {
 .search {
   width: 100%;
   display: flex;
-  margin-top: -260px;
   margin-left: 1450px;
 }
 
@@ -118,7 +117,7 @@ hr {
 .wrap{
   width: 100%;
   position: absolute;
-  top: 440px;
+  top: 200px;
   left: 545px;
   transform: translate(-50%, -50%);
 }

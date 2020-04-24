@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../css/base.css"> 
+    <link rel="stylesheet" href="../../../css/accountDetails.css"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="js/jquery-2.1.1.js"></script>
@@ -38,7 +38,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">profile
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="/apollo/account-details/:${username}">account information</a></li>
+            <li><a href="#">account information</a></li>
             <li><a href="/apollo">logout</a></li>
           </ul>
         </li>
@@ -46,21 +46,15 @@
     </div>
   </div>
 </nav>
-<div class="jumbotron text-center">
-  <h3>Hello, Doctor ${docName}.</h3>
-  <br>
-  <br>
-  <form class="form-inline">
-    <div class="input-group">
-      <input type="email" class="form-control" size="75" placeholder="search for patient" required>
-      <div class="input-group-btn">
-        <button type="button" class="btn"><i class="fa fa-search"></i></button>
-      </div>
-    </div>
-  </form>
-</div>
-<div class="patientTable">
-${patients}
-<div>
+<h3>Doctor ${docName}'s Account</h3>
+<table class="table-borderless">
+  <tbody>
+  <#list details as label, value>
+  <tr>
+  <th scope="row">${label}</th><td>${value}</td>
+  </tr>
+  </#list>
+  </tbody>
+</table>
 </body>
 </html>
