@@ -59,7 +59,7 @@
   <i class="far fa-folder"></i>
 </div> -->
 
-<div id="reportrange" style="color:black; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%; margin-left: auto; margin-right: auto; margin-top: -2%">
+<div id="reportrange" style="color:black; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%; margin-left: auto; margin-right: auto; margin-top: -4%">
     <i style="color:black" class="fa fa-calendar"></i>&nbsp;
     <span style="color:black"> <i style="color:black" class="fa fa-caret-down"></i>
 <script style="color:black" type="text/javascript" class="ranger">

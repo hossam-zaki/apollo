@@ -18,6 +18,9 @@ public class displayVisits {
 
     StringBuilder html = new StringBuilder();
     // 4 folders per row
+    html.append("<br>");
+    html.append("<br>");
+    html.append("<br>");
     html.append(
         "<table class=\"table-borderless\" style=\"margin-left:auto; margin-right:auto; border-collapse:separate; border-spacing:20px 10px;\">");
     html.append("<tr>");
