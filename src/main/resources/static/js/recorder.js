@@ -149,15 +149,26 @@ function createDownloadLink(blob) {
 		  var xhr=new XMLHttpRequest();
 		  var fd=new FormData();
 		  fd.append("audio_data",blob, filename);
-		  var str=window.location.href
+		  var str=window.location.href;
+		  var list=[];
+		  var link="";
+		  boolean=false;
 		  for (var i = 0; i < str.length; i++) {
 			if(str.charAt(i) == ':'){
 				boolean=true;
 			}
+			if(str.charAt(i) == '/' && boolean){
+				list.push(link);
+				console.log(link);
+				link="";
+				boolean=false;
+			}
+			if(boolean){
+				link+=str.charAt(i);
+			}
 		  }
 		  var req = jQuery.ajax({
-			  
-			url: '/send',
+			url: '/send/' + list[list.length-2] + '/' + list[list.length-1],
 			method: 'POST',
 			data: fd, // sends fields with filename mimetype etc
 			// data: aFiles[0], // optional just sends the binary

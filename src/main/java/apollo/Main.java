@@ -110,7 +110,7 @@ public final class Main {
     Spark.post("/registerDoctor", new RegisterDoctorHandler(), freeMarker);
     Spark.post("/loginDoctor", new LoginDoctorHandler(), freeMarker);
     Spark.get("/record", new RecordHandler(), freeMarker);
-    Spark.post("/send", new SendHandler(), freeMarker);
+    Spark.post("/send/:username/:patient", new SendHandler(), freeMarker);
     Spark.get("/apollo/:username", new baseHandler(), freeMarker);
     Spark.get("/apollo/registerPatient/:username", new registerPatientHandler(),
         freeMarker);
@@ -248,8 +248,8 @@ public final class Main {
         RunDeepSpeech.transcribe("data/" + filename + ".wav");
         //Files.deleteIfExists(Paths.get("data/" + filename + ".wav"));
         
-//        String username = request.params(":username").replaceAll(":", "");
-//        String patient = request.params(":patient").replaceAll(":", "");
+        String username = request.params(":username").replaceAll(":", "");
+        String patient = request.params(":patient").replaceAll(":", "");
 
         // VisitRegistration visitRegister = new VisitRegistration(username,
         // patient, date, audio, transcript);
