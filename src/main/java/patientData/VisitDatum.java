@@ -1,15 +1,13 @@
 package patientData;
 
-import java.sql.Blob;
-
 public class VisitDatum implements Datum {
   private String uuid;
   private String date;
   private String transcript;
-  private Blob audioRecording;
+  private byte[] audioRecording;
 
-  public VisitDatum(String id, String date, String transcript,
-      Blob audioRecording) {
+  public VisitDatum(String doctor, String id, String date, String transcript,
+      byte[] audioRecording) {
     this.uuid = id;
     this.date = date;
     this.transcript = transcript;
@@ -30,7 +28,7 @@ public class VisitDatum implements Datum {
     return this.transcript;
   }
 
-  public Blob getAudioRecording() {
+  public byte[] getAudioRecording() {
     return this.audioRecording;
   }
 
@@ -48,7 +46,7 @@ public class VisitDatum implements Datum {
     this.transcript = transcript;
   }
 
-  public void setAudioRecording(Blob audio) {
+  public void setAudioRecording(byte[] audio) {
     this.audioRecording = audio;
   }
 

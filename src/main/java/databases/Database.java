@@ -121,25 +121,6 @@ public final class Database {
     }
   }
 
-  public static List<VisitDatum> getPatientVisits(String id) {
-    PreparedStatement prep;
-    try {
-      List<VisitDatum> toRet = new ArrayList<VisitDatum>();
-      prep = conn.prepareStatement("SELECT * FROM visit WHERE id = ?");
-      prep.setString(1, id);
-      ResultSet rs = prep.executeQuery();
-      while (rs.next()) {
-        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), null,
-            null);
-        toRet.add(curr);
-      }
-      return toRet;
-    } catch (Exception e) {
-      System.err.println("ERROR: no visits found");
-      return null;
-    }
-  }
-
   public static Map<String, String> getDoctorInfo(String username) {
     PreparedStatement prep;
     try {
@@ -201,11 +182,12 @@ public final class Database {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
       while (rs.next()) {
         VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
-            rs.getString(4), rs.getBlob(3));
+            rs.getString(3), rs.getString(5), rs.getBytes(4));
         toRet.add(curr);
       }
       return toRet;
     } catch (SQLException e) {
+      e.printStackTrace();
       System.err.println("ERROR: No visits found");
       return null;
     }
