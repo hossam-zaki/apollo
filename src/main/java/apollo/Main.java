@@ -35,6 +35,7 @@ import spark.Response;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
+import speechToText.RunDeepSpeech;
 
 /**
  * The Main class of our project. This is where execution begins.
@@ -243,13 +244,12 @@ public final class Main {
         System.out.println(filename);
         Part uploadedFile = request.raw().getPart("audio_data");
         final InputStream in = uploadedFile.getInputStream();
-        System.out
-            .println(Files.copy(in, Paths.get("data/" + filename + ".wav")));
-
-        response.redirect("/record");
-
-        String username = request.params(":username").replaceAll(":", "");
-        String patient = request.params(":patient").replaceAll(":", "");
+        Files.copy(in, Paths.get("data/" + filename + ".wav"));
+        RunDeepSpeech.transcribe("data/" + filename + ".wav");
+        //Files.deleteIfExists(Paths.get("data/" + filename + ".wav"));
+        
+//        String username = request.params(":username").replaceAll(":", "");
+//        String patient = request.params(":patient").replaceAll(":", "");
 
         // VisitRegistration visitRegister = new VisitRegistration(username,
         // patient, date, audio, transcript);

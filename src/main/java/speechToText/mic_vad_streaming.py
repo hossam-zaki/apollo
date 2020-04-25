@@ -188,7 +188,6 @@ def main(ARGS):
             model.feedAudioContent(stream_context, np.frombuffer(frame, np.int16))
             if ARGS.savewav: wav_data.extend(frame)
         else:
-            print("yee")
             if spinner: spinner.stop()
             logging.debug("end utterence")
             if ARGS.savewav:
@@ -199,6 +198,7 @@ def main(ARGS):
                 f.write(text + "\n")
             print("Recognized: %s" % text)
             stream_context = model.createStream()
+    os.remove(ARGS.file)
 
 if __name__ == '__main__':
     BEAM_WIDTH = 500

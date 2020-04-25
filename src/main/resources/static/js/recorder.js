@@ -149,7 +149,14 @@ function createDownloadLink(blob) {
 		  var xhr=new XMLHttpRequest();
 		  var fd=new FormData();
 		  fd.append("audio_data",blob, filename);
+		  var str=window.location.href
+		  for (var i = 0; i < str.length; i++) {
+			if(str.charAt(i) == ':'){
+				boolean=true;
+			}
+		  }
 		  var req = jQuery.ajax({
+			  
 			url: '/send',
 			method: 'POST',
 			data: fd, // sends fields with filename mimetype etc
