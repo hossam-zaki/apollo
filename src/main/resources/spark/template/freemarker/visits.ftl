@@ -76,10 +76,11 @@ $(function() {
     cb(start, end);
     $('#reportrange').on('apply.daterangepicker', function(ev, res) {
       //do something, like clearing an input
-      console.log(res.startDate._d, res.endDate._d);
+      console.log(res);
   });
 });
 </script></span>
 </div>
+${visits}
 </body>
 </html>

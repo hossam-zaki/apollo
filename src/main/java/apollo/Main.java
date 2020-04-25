@@ -21,7 +21,6 @@ import databases.Database;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-import patientData.Datum;
 import patientData.PatientDatum;
 import registrationAndLogin.Encryption;
 import registrationAndLogin.Login;
@@ -116,11 +115,12 @@ public final class Main {
         freeMarker);
     Spark.post("/apollo/registerPatient/addPatient/:username",
         new addPatientHandler(), freeMarker);
-    Spark.get("/apollo/patientBase/:username/:patient", new visitHandler(), freeMarker);
+    Spark.get("/apollo/patientBase/:username/:patient", new visitHandler(),
+        freeMarker);
     Spark.get("/apollo/account-details/:username", new accountDetailsHandler(),
         freeMarker);
-    Spark.get("/apollo/:username/:patient/registerVisit", new newVisitHandler(), freeMarker);
-
+    Spark.get("/apollo/:username/:patient/registerVisit", new newVisitHandler(),
+        freeMarker);
 
   }
 
@@ -247,6 +247,12 @@ public final class Main {
             .println(Files.copy(in, Paths.get("data/" + filename + ".wav")));
 
         response.redirect("/record");
+
+        String username = request.params(":username").replaceAll(":", "");
+        String patient = request.params(":patient").replaceAll(":", "");
+
+        // VisitRegistration visitRegister = new VisitRegistration(username,
+        // patient, date, audio, transcript);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
             error);
         error = "";
@@ -312,8 +318,11 @@ public final class Main {
       String patient = req.params(":patient").replaceAll(":", "");
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       PatientDatum patientData = Database.getPatient(patient);
+      String visits = displayVisits.buildHTML(username, patient);
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
-          username, "name", patientData.getFirstName(), "route", route);
+          username, "name", patientData.getFirstName(), "route", route,
+          "visits", visits);
+
       return new ModelAndView(map, "visits.ftl");
     }
   }
@@ -329,15 +338,17 @@ public final class Main {
       return new ModelAndView(map, "accountDetails.ftl");
     }
   }
+
   private static class newVisitHandler implements TemplateViewRoute {
-	    public ModelAndView handle(Request req, Response res) {
-	    	String username = req.params(":username").replaceAll(":", "");
-	        String patient = req.params(":patient").replaceAll(":", "");
-	        String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
-	        PatientDatum patientData = Database.getPatient(patient);
-	        Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
-	            username, "name", patientData.getFirstName(), "route", route);
-	      return new ModelAndView(map, "registerVisit.ftl");
-	    }
-	  }
+    public ModelAndView handle(Request req, Response res) {
+      String username = req.params(":username").replaceAll(":", "");
+      String patient = req.params(":patient").replaceAll(":", "");
+      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+      PatientDatum patientData = Database.getPatient(patient);
+      Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
+          username, "name", patientData.getFirstName(), "route", route);
+      return new ModelAndView(map, "registerVisit.ftl");
+    }
+  }
+
 }
