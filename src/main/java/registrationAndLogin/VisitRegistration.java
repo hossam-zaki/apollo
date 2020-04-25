@@ -13,11 +13,11 @@ public class VisitRegistration {
     PreparedStatement prep;
     try {
       prep = conn
-          .prepareStatement("INSERT INTO patient VALUES (?, ?, ?, ?, ?);");
+          .prepareStatement("INSERT INTO appointments VALUES (?, ?, ?, ?, ?);");
       prep.setString(1, docUsername); // doctor username
       prep.setString(2, patientID); // patient id
       prep.setString(3, date); // date
-      prep.setBlob(4, audio); // audio file
+      prep.setBytes(4, audio.readAllBytes()); // audio file
       prep.setString(5, transcript); // transcript
       prep.addBatch();
       prep.executeBatch();

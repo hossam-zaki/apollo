@@ -50,7 +50,7 @@ public class DatabaseSetup {
         prep = conn.prepareStatement(
             "CREATE TABLE IF NOT EXISTS appointments(" + "doctor_username TEXT,"
                 + "patient_id TEXT," + "appointment_date Text,"
-                + "audio_file BLOB," + "transcipt TEXT);");
+                + "audio_file NVARCHAR(320)," + "transcipt TEXT);");
         prep.executeUpdate();
         System.out.println("A new database has been created.");
       }

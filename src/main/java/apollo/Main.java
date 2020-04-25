@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import registrationAndLogin.Encryption;
 import registrationAndLogin.Login;
 import registrationAndLogin.PatientRegistration;
 import registrationAndLogin.Registration;
+import registrationAndLogin.VisitRegistration;
 import repl.Repl;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
@@ -246,16 +248,22 @@ public final class Main {
         final InputStream in = uploadedFile.getInputStream();
         Files.copy(in, Paths.get("data/" + filename + ".wav"));
         RunDeepSpeech.transcribe("data/" + filename + ".wav");
-        //Files.deleteIfExists(Paths.get("data/" + filename + ".wav"));
-        
+        System.out.println("Transcribing...");
+        while(Paths.get("data/" + filename + ".wav").toFile().exists()) {
+            ;
+        }
+        System.out.println("yee");
         String username = request.params(":username").replaceAll(":", "");
         String patient = request.params(":patient").replaceAll(":", "");
+        String content = Files.readString(Paths.get("data/transcripts/test.txt"), StandardCharsets.US_ASCII);
 
-        // VisitRegistration visitRegister = new VisitRegistration(username,
-        // patient, date, audio, transcript);
+        VisitRegistration visitRegister = new VisitRegistration();
+        visitRegister.register(username,
+        patient, filename.substring(0, 10), in, content);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
             error);
         error = "";
+        Paths.get("data/transcripts/test.txt").toFile().delete();
         return new ModelAndView(map, "recording.ftl");
       } catch (Exception e) {
         e.printStackTrace();
