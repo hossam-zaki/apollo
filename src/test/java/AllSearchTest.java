@@ -26,15 +26,15 @@ public class AllSearchTest {
 		dates = new HashMap<String, String>();
 		String date1 = "March10";
 		String transcript1 = "Jcnrjncr\n" + "\n" + "what are your reasons for today's visit\n" + "\n"
-				+ "i fell from my bike and hit my head on a rock\n" + "\n" + "end reasons for visit\n" + "\n"
+				+ "I fell from my bike and hit my head on a rock\n" + "\n" + "end reasons for visit\n" + "\n"
 				+ "what are your symptoms\n" + "\n" + "my head hurts and my stomach hurts\n" + "\n" + "end symptoms\n"
 				+ "\n" + "Gjntjtn";
 		String date2 = "May7";
 		String transcript2 = "Jcnrjncr\n" + "\n" + "what are your reasons for today's visit\n" + "\n"
-				+ "i keep feeling my head hurts";
+				+ "I keep feeling my head hurts";
 		String date3 = "June5";
 		String transcript3 = "Jcnrjncr\n" + "\n" + "what are your reasons for today's visit\n" + "\n"
-				+ "these headaches don't go away i think it's a migraine";
+				+ "these headaches don't go away I think it's a migraine";
 		dates.put(date1, transcript1);
 		dates.put(date2, transcript2);
 		dates.put(date3, transcript3);
