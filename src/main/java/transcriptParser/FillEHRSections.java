@@ -4,15 +4,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class FillEHRSections {
   private FillSymptoms symptomParse;
   private FillVisit reasonsParse;
-  private List<String> symptoms;
+  private Map<String, List<String>> symptoms;
   private String reasons;
 
   public FillEHRSections(String symStart, String symEnd, String vStart,
-      String vEnd, List<String> symptomPatterns, String fullTranscript) {
+      String vEnd, Map<String, List<String>> symptomPatterns,
+      String fullTranscript) {
     symptomParse = new FillSymptoms(symStart, symEnd, symptomPatterns,
         fullTranscript);
     reasonsParse = new FillVisit(vStart, vEnd, fullTranscript);
@@ -26,37 +28,35 @@ public class FillEHRSections {
 
   public String printFound() {
     try {
+      if (symptoms == null || reasons == null || symptoms.isEmpty()) {
+        return null;
+      }
       StringBuilder toReturn = new StringBuilder();
       toReturn.append("Reasons for Visit: \n\n");
-      toReturn.append(reasons + "\n\n");
+      if (!reasons.isBlank()) {
+        toReturn.append(reasons + "\n\n");
+      }
       toReturn.append("Symptoms Reported: \n\n");
-      for (String s : symptoms) {
-        toReturn.append(s + "\n");
+      if (symptoms.containsKey("none")) {
+        toReturn.append("");
+      } else {
+        for (String key : symptoms.keySet()) {
+          if (symptoms.get(key).size() != 0 && symptoms.get(key) != null)
+            toReturn.append(key + ": ");
+          for (String s : symptoms.get(key)) {
+            if (s.equals(symptoms.get(key).get(symptoms.get(key).size() - 1))) {
+              toReturn.append(s + "\n");
+            } else {
+              toReturn.append(s + ", ");
+            }
+          }
+        }
       }
       System.out.println(toReturn.toString());
       return toReturn.toString();
     } catch (Exception e) {
       return null;
     }
-
-  }
-
-  public String buildResult() {
-    try {
-      StringBuilder toReturn = new StringBuilder();
-      toReturn.append("<br>");
-      toReturn.append("<h5>Reasons for Visit: </h5>");
-      toReturn.append("<h5>" + reasons + "</h5>");
-      toReturn.append("<br>");
-      toReturn.append("<h5>Symptoms Reported:<h5>");
-      for (String s : symptoms) {
-        toReturn.append("<h5>" + s + "<h5>");
-      }
-      return toReturn.toString();
-    } catch (Exception e) {
-      return null;
-    }
-
   }
 
   public boolean printToFile() {
@@ -84,6 +84,42 @@ public class FillEHRSections {
     } catch (Exception e) {
       System.err.println("ERORR: could not create summary file");
       return false;
+    }
+  }
+
+  public String buildResult() {
+    try {
+      if (symptoms == null || reasons == null || symptoms.isEmpty()) {
+        return null;
+      }
+      StringBuilder toReturn = new StringBuilder();
+      toReturn.append("<br>");
+      toReturn.append("<h5>Reasons for Visit: </h5>");
+      toReturn.append("<br>");
+      if (!reasons.isBlank()) {
+        toReturn.append("<h5>" + reasons + "</h5>");
+      }
+      toReturn.append("<br>");
+      toReturn.append("<h5>Symptoms Reported:</h5>");
+      if (symptoms.containsKey("none")) {
+        toReturn.append("<br>");
+      } else {
+        for (String key : symptoms.keySet()) {
+          if (symptoms.get(key).size() != 0 && symptoms.get(key) != null)
+            toReturn.append("<h5>" + key + ": ");
+          for (String s : symptoms.get(key)) {
+            if (s.equals(symptoms.get(key).get(symptoms.get(key).size() - 1))) {
+              toReturn.append(s + "</h5>");
+            } else {
+              toReturn.append(s + ", ");
+            }
+          }
+        }
+      }
+      System.out.println(toReturn.toString());
+      return toReturn.toString();
+    } catch (Exception e) {
+      return null;
     }
   }
 
