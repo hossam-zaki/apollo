@@ -76,9 +76,9 @@ public class ToParse implements Executable {
     File symptomsFile = new File(input.get(2));
     List<String> symptoms = this.readSymptoms(symptomsFile);
     String symStart = "what are your symptoms";
-    String symEnd = "end symptoms";
-    String vStart = "what are your reasons for todays visit";
-    String vEnd = "end reasons for visit";
+    String symEnd = "stop symptoms";
+    String vStart = "what are your reasons";
+    String vEnd = "stop reasons";
     FillEHRSections fill = new FillEHRSections(symStart, symEnd, vStart, vEnd,
         symptoms, transcriptString);
     fill.printToFile();

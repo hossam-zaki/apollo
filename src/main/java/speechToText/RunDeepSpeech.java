@@ -21,11 +21,8 @@ public class RunDeepSpeech {
 	       Process process;
 		try {
 			StringBuilder str = new StringBuilder();
-			str.append("src/main/java/speechToText/mic_vad_streaming.py ");
-			str.append("--model src/main/java/speechToText/output_graph.pbmm ");
-			str.append("--lm src/main/java/speechToText/lm.binary ");
-			str.append("-t src/main/java/speechToText/trie ");
-			str.append("--file ");
+			str.append("src/main/java/speechToText/speechtotext.py ");
+			str.append("--audio ");
 			str.append(filename);
 			System.out.println(str.toString());
 			process = Runtime.getRuntime().exec(str.toString());

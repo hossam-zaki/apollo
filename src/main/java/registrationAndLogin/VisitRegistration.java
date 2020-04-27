@@ -13,7 +13,7 @@ public class VisitRegistration {
     PreparedStatement prep;
     try {
       prep = conn.prepareStatement(
-          "INSERT INTO appointments VALUES (?, ?, ?, LOAD_FILE(?), ?);");
+          "INSERT INTO appointments VALUES (?, ?, ?, ?, ?);");
       prep.setString(1, docUsername); // doctor username
       prep.setString(2, patientID); // patient id
       prep.setString(3, date); // date

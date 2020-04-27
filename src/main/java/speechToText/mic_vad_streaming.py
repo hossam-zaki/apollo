@@ -199,7 +199,7 @@ def main(ARGS):
                 f.write(text + "\n")
                 print("Recognized: %s" % text)
                 stream_context = model.createStream()
-    os.remove(ARGS.file)
+    #os.remove(ARGS.file)
 
 if __name__ == '__main__':
     BEAM_WIDTH = 500
