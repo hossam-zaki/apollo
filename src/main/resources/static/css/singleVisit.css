@@ -29,13 +29,14 @@ h2 {
 h4 {
     color: black;
     font-family: Roboto;
-  font-size: 120%;
+  font-size: 130%;
   text-align: left;
   margin-left: 6%;
+  text-decoration: underline;
 }
 
 h5 {
-  font-size: 50%;
+  font-size: 100%;
   font-family: 'Roboto', sans-serif;
 }
 .button {
@@ -187,9 +188,11 @@ width: 5%;
  .transcript {
    color:black;
    margin-left: 6%;
+   width: 45%;
  }
 
  .summary {
    color:black;
-   margin-left: 40%;
+   margin-left: 6%;
+   width: 45%;
  }

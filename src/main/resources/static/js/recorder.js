@@ -144,7 +144,7 @@ function createDownloadLink(blob) {
 	//upload link
 	var upload = document.createElement('a');
 	upload.href="#";
-	upload.innerHTML = "Use This Recording.";
+	upload.innerHTML = "Register Visit Using This Recording.";
 	upload.addEventListener("click", function(event){
 		  var xhr=new XMLHttpRequest();
 		  var fd=new FormData();

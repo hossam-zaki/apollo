@@ -382,6 +382,9 @@ public final class Main {
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       String transcript = Database.getTranscript(username, patient, date);
       String summary = Database.getSummary(username, patient, date);
+      if (summary == null) {
+        summary = "We could not find any symptoms or reasons for visit in the transcript. Please use the manual commands.";
+      }
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("title", "Apollo");
       map.put("username", username);

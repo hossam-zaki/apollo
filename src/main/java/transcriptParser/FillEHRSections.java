@@ -44,9 +44,27 @@ public class FillEHRSections {
 
   }
 
+  public String buildResult() {
+    try {
+      StringBuilder toReturn = new StringBuilder();
+      toReturn.append("<br>");
+      toReturn.append("<h5>Reasons for Visit: </h5>");
+      toReturn.append("<h5>" + reasons + "</h5>");
+      toReturn.append("<br>");
+      toReturn.append("<h5>Symptoms Reported:<h5>");
+      for (String s : symptoms) {
+        toReturn.append("<h5>" + s + "<h5>");
+      }
+      return toReturn.toString();
+    } catch (Exception e) {
+      return null;
+    }
+
+  }
+
   public boolean printToFile() {
     String toPrint = printFound();
-    this.result = toPrint;
+    this.result = buildResult();
     if (toPrint == null) {
       toPrint = "Sorry, we couldn't find anything to report. Please use the manual sentences.";
     }

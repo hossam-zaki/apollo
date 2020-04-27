@@ -61,6 +61,8 @@
 </div>
 <h4>Visit Transcript:</h4>
 <div class="transcript">${transcript}</div>
+<br>
+<br>
 <h4>Visit Summary</h4>
 <div class="summary">${summary}</div>
 </body>

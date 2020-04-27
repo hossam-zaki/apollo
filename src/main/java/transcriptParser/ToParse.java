@@ -79,7 +79,7 @@ public class ToParse implements Executable {
     List<String> symptoms = this.readSymptoms(symptomsFile);
     String symStart = "what are your symptoms";
     String symEnd = "stop symptoms";
-    String vStart = "what are your reasons";
+    String vStart = "what are your reasons for today's visit";
     String vEnd = "stop reasons";
     FillEHRSections fill = new FillEHRSections(symStart, symEnd, vStart, vEnd,
         symptoms, transcriptString);
@@ -90,20 +90,5 @@ public class ToParse implements Executable {
   public String getResult() {
     return result;
   }
-
-//  public String executeGUI(String transcriptString) {
-//    System.out.println("STRING " + transcriptString);
-//    File symptomsFile = new File("data/symptoms.csv");
-//    List<String> symptoms = this.readSymptoms(symptomsFile);
-//    System.out.println("SYMPTOMS " + symptoms);
-//    String symStart = "what are your symptoms";
-//    String symEnd = "stop symptoms";
-//    String vStart = "what are your reasons";
-//    String vEnd = "stop reasons";
-//    FillEHRSections fill = new FillEHRSections(symStart, symEnd, vStart, vEnd,
-//        symptoms, transcriptString);
-//    System.out.println("FOUND " + fill.printFound());
-//    return fill.printFound();
-//  }
 
 }
