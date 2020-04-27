@@ -12,12 +12,13 @@ public class VisitRegistration {
     Connection conn = Database.getConn();
     PreparedStatement prep;
     try {
-      prep = conn
-          .prepareStatement("INSERT INTO appointments VALUES (?, ?, ?, ?, ?);");
+      prep = conn.prepareStatement(
+          "INSERT INTO appointments VALUES (?, ?, ?, LOAD_FILE(?), ?;");
       prep.setString(1, docUsername); // doctor username
       prep.setString(2, patientID); // patient id
       prep.setString(3, date); // date
-      prep.setBytes(4, audio.readAllBytes()); // audio file
+      String path = "data/hendrix.wav";
+      prep.setString(4, path); // audio file
       prep.setString(5, transcript); // transcript
       prep.addBatch();
       prep.executeBatch();

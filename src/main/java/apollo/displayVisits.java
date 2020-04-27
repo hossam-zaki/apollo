@@ -31,12 +31,10 @@ public class displayVisits {
         count = 0;
       }
       html.append("<td>");
-      html.append("<a href=\"/apollo/patientBase/:");
+      html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
+          + "/visit/:" + visit.getDate());
 //      html.append(username);
 //      html.append("&:");
-      html.append(docUsername);
-      html.append("/:");
-      html.append(visit.getID());
       html.append(
           "\"><i class=\"fas fa-folder\" style=\"font-size:75px;\"> </i>");
       html.append("</a>");

@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -254,7 +255,6 @@ public final class Main {
         while (Paths.get("data/" + filename + ".wav").toFile().exists()) {
           ;
         }
-        System.out.println("yee");
         String username = request.params(":username").replaceAll(":", "");
         String patient = request.params(":patient").replaceAll(":", "");
         String content = Files.readString(
@@ -368,8 +368,16 @@ public final class Main {
       String username = req.params(":username").replaceAll(":", "");
       String patient = req.params(":patient").replaceAll(":", "");
       String date = req.params(":date").replaceAll(":", "");
-      Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
-          username, "patient", patient, "date", date);
+      byte[] audio = Database.getAudioFile(username, patient, date);
+      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+      Map<String, Object> map = new HashMap<String, Object>();
+      map.put("title", "Apollo");
+      map.put("username", username);
+      map.put("patient", patient);
+      map.put("date", date);
+      map.put("route", route);
+      map.put("audio", audio);
+
       return new ModelAndView(map, "single_visit.ftl");
     }
   }
