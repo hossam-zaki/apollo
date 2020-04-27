@@ -40,7 +40,6 @@ public class FillSymptoms {
                                              // symptoms portion of
                                              // transcript
     } catch (Exception e) {
-      e.printStackTrace();
       System.out.println(
           "ERROR: nothing found in transcript. Please use the given manual sentences");
       return new KMP("".toCharArray());

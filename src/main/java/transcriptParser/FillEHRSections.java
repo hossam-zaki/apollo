@@ -10,7 +10,6 @@ public class FillEHRSections {
   private FillVisit reasonsParse;
   private List<String> symptoms;
   private String reasons;
-  private String result;
 
   public FillEHRSections(String symStart, String symEnd, String vStart,
       String vEnd, List<String> symptomPatterns, String fullTranscript) {
@@ -21,7 +20,6 @@ public class FillEHRSections {
       symptoms = symptomParse.getSymptoms();
       reasons = reasonsParse.getPortion().trim();
     } catch (Exception e) {
-      e.printStackTrace();
       return;
     }
   }
@@ -31,7 +29,6 @@ public class FillEHRSections {
       StringBuilder toReturn = new StringBuilder();
       toReturn.append("Reasons for Visit: \n\n");
       toReturn.append(reasons + "\n\n");
-      System.out.println(reasons);
       toReturn.append("Symptoms Reported: \n\n");
       for (String s : symptoms) {
         toReturn.append(s + "\n");
@@ -64,7 +61,6 @@ public class FillEHRSections {
 
   public boolean printToFile() {
     String toPrint = printFound();
-    this.result = buildResult();
     if (toPrint == null) {
       toPrint = "Sorry, we couldn't find anything to report. Please use the manual sentences.";
     }
@@ -89,10 +85,6 @@ public class FillEHRSections {
       System.err.println("ERORR: could not create summary file");
       return false;
     }
-  }
-
-  public String getResult() {
-    return this.result;
   }
 
 }

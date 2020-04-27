@@ -72,7 +72,6 @@ public class ToParse implements Executable {
 
   @Override
   public void executeCommand(List<String> input) {
-    System.out.println(input.size());
     File transcript = new File(input.get(1));
     String transcriptString = this.getTranscriptString(transcript);
     File symptomsFile = new File(input.get(2));
@@ -83,8 +82,8 @@ public class ToParse implements Executable {
     String vEnd = "stop reasons";
     FillEHRSections fill = new FillEHRSections(symStart, symEnd, vStart, vEnd,
         symptoms, transcriptString);
-    fill.printToFile();
-    this.result = fill.getResult();
+    // fill.printToFile(); -- Prints to a file, used for testing
+    this.result = fill.buildResult();
   }
 
   public String getResult() {
