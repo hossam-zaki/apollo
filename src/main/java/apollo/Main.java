@@ -39,6 +39,7 @@ import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
 import speechToText.RunDeepSpeech;
+import transcriptParser.ToParse;
 
 /**
  * The Main class of our project. This is where execution begins.
@@ -252,9 +253,9 @@ public final class Main {
         Files.copy(in, Paths.get("data/" + filename + ".wav"));
         RunDeepSpeech.transcribe("data/" + filename + ".wav");
         System.out.println("Transcribing...");
-//        while (Paths.get("data/" + filename + ".wav").toFile().exists()) {
-//          ;
-//        }
+        while (Paths.get("data/" + filename + ".wav").toFile().exists()) {
+          ;
+        }
         String username = request.params(":username").replaceAll(":", "");
         String patient = request.params(":patient").replaceAll(":", "");
         String content = Files.readString(
@@ -262,11 +263,19 @@ public final class Main {
 
         VisitRegistration visitRegister = new VisitRegistration();
         System.out.println(in.readAllBytes().toString());
+        ToParse parser = new ToParse();
+        ArrayList<String> input = new ArrayList<String>();
+        input.add("parseTranscript");
+        input.add("data/transcripts/test.txt");
+        input.add("data/symptoms.csv");
+        parser.executeCommand(input);
+        String summary = parser.getResult();
         visitRegister.register(username, patient, filename.substring(0, 10),
-            "data/" + filename + ".wav", content);
+            "data/" + filename + ".wav", content, summary);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
             error);
         error = "";
+
         // Paths.get("data/transcripts/test.txt").toFile().delete();
         return new ModelAndView(map, "recording.ftl");
       } catch (Exception e) {
@@ -372,6 +381,7 @@ public final class Main {
       // byte[] audio = Database.getAudioFile(username, patient, date);
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       String transcript = Database.getTranscript(username, patient, date);
+      String summary = Database.getSummary(username, patient, date);
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("title", "Apollo");
       map.put("username", username);
@@ -380,6 +390,7 @@ public final class Main {
       map.put("route", route);
       // map.put("audio", audio);
       map.put("transcript", transcript);
+      map.put("summary", summary);
       return new ModelAndView(map, "single_visit.ftl");
     }
   }

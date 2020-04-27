@@ -1,15 +1,16 @@
-#!/Users/hossamzaki/anaconda3/bin/python
+#!/Library/Frameworks/Python.framework/Versions/3.7/bin/python3
 
 import speech_recognition as sr
 
 # obtain path to "english.wav" in the same folder as this script
+import os
 from os import path
 import sys
 import argparse
 from argparse import ArgumentParser
 
 def runSpeechToText(audioFile):
-    AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "../../../../data/" + audioFile)
+    AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "../../../../" + audioFile)
     # AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "french.aiff")
     # AUDIO_FILE = path.join(path.dirname(path.realpath(__file__)), "chinese.flac")
 
@@ -38,11 +39,9 @@ def runSpeechToText(audioFile):
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
+    os.remove(audioFile)
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument('--audio',type=str,required=True)
     config = parser.parse_args()
     runSpeechToText(config.audio)
-
-        

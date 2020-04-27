@@ -236,4 +236,26 @@ public final class Database {
       return null;
     }
   }
+
+  public static String getSummary(String docUsername, String patientID,
+      String date) {
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement(
+          "SELECT summary FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+      prep.setString(1, docUsername);
+      prep.setString(2, patientID);
+      prep.setString(3, date);
+      ResultSet rs = prep.executeQuery();
+      String toRet = null;
+      while (rs.next()) {
+        toRet = rs.getString(1);
+      }
+      return toRet;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.err.println("ERROR: No audio file found");
+      return null;
+    }
+  }
 }

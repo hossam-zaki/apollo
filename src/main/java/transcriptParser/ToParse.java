@@ -11,6 +11,7 @@ import java.util.List;
 import repl.Executable;
 
 public class ToParse implements Executable {
+  private String result;
 
   public String getTranscriptString(File transcript) {
     BufferedReader reader = null;
@@ -71,6 +72,7 @@ public class ToParse implements Executable {
 
   @Override
   public void executeCommand(List<String> input) {
+    System.out.println(input.size());
     File transcript = new File(input.get(1));
     String transcriptString = this.getTranscriptString(transcript);
     File symptomsFile = new File(input.get(2));
@@ -82,5 +84,26 @@ public class ToParse implements Executable {
     FillEHRSections fill = new FillEHRSections(symStart, symEnd, vStart, vEnd,
         symptoms, transcriptString);
     fill.printToFile();
+    this.result = fill.getResult();
   }
+
+  public String getResult() {
+    return result;
+  }
+
+//  public String executeGUI(String transcriptString) {
+//    System.out.println("STRING " + transcriptString);
+//    File symptomsFile = new File("data/symptoms.csv");
+//    List<String> symptoms = this.readSymptoms(symptomsFile);
+//    System.out.println("SYMPTOMS " + symptoms);
+//    String symStart = "what are your symptoms";
+//    String symEnd = "stop symptoms";
+//    String vStart = "what are your reasons";
+//    String vEnd = "stop reasons";
+//    FillEHRSections fill = new FillEHRSections(symStart, symEnd, vStart, vEnd,
+//        symptoms, transcriptString);
+//    System.out.println("FOUND " + fill.printFound());
+//    return fill.printFound();
+//  }
+
 }

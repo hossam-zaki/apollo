@@ -16,17 +16,19 @@ public class ParserTest {
   public void basicTest() {
     File symptomsFile = new File("data/symptoms.csv");
     List<String> symptoms = parser.readSymptoms(symptomsFile);
-    String transcriptString = "Jcnrjncr\n" + "\n" + "what are your reasons for today's visit\n"
-        + "\n" + "i fell from my bike and hit my head on a rock\n" + "\n"
-        + "end reasons for visit\n" + "\n" + "what are your symptoms\n" + "\n"
-        + "my head hurts and my stomach hurts\n" + "\n" + "end symptoms\n" + "\n" + "Gjntjtn";
-    filler = new FillEHRSections("what are your symptoms", "end symptoms",
-        "what are your reasons for today's visit", "end reasons for visit", symptoms,
-        transcriptString);
+    String transcriptString = "Jcnrjncr\n" + "\n"
+        + "what are your reasons for todays visit\n" + "\n"
+        + "I fell from my bike and hit my head on a rock\n" + "\n"
+        + "stop reasons for visit\n" + "\n" + "what are your symptoms\n" + "\n"
+        + "my head hurts and my stomach hurts\n" + "\n" + "stop symptoms\n"
+        + "\n" + "Gjntjtn";
+    filler = new FillEHRSections("what are your symptoms", "stop symptoms",
+        "what are your reasons for todays visit", "stop reasons for visit",
+        symptoms, transcriptString);
     String res = filler.printFound();
     StringBuilder test = new StringBuilder();
     test.append("Reasons for Visit: \n\n");
-    test.append("i fell from my bike and hit my head on a rock" + "\n\n");
+    test.append("I fell from my bike and hit my head on a rock" + "\n\n");
     test.append("Symptoms Reported: \n\n");
     test.append("my head hurts\n");
     assertEquals(res, test.toString());
@@ -36,17 +38,17 @@ public class ParserTest {
   public void realisticTest() {
     File symptomsFile = new File("data/symptoms.csv");
     List<String> symptoms = parser.readSymptoms(symptomsFile);
-    String transcriptString = "hello, thanks for coming in what are your reasons for today's visit i ate some weird food and now i don't feel great end reasons for visit what are your symptoms i have the chills and i feel sick end symptoms okay have a good day";
-    filler = new FillEHRSections("what are your symptoms", "end symptoms",
-        "what are your reasons for today's visit", "end reasons for visit", symptoms,
-        transcriptString);
+    String transcriptString = "hello, thanks for coming in what are your reasons for today's visit I ate some weird food and now I don't feel great stop reasons for visit what are your symptoms I have the chills and I feel sick stop symptoms okay have a good day";
+    filler = new FillEHRSections("what are your symptoms", "stop symptoms",
+        "what are your reasons for today's visit", "stop reasons for visit",
+        symptoms, transcriptString);
     String res = filler.printFound();
     StringBuilder test = new StringBuilder();
     test.append("Reasons for Visit: \n\n");
-    test.append("i ate some weird food and now i don't feel great" + "\n\n");
+    test.append("I ate some weird food and now I don't feel great" + "\n\n");
     test.append("Symptoms Reported: \n\n");
-    test.append("i have the chills\n");
-    test.append("i feel sick\n");
+    test.append("I have the chills\n");
+    test.append("I feel sick\n");
     assertEquals(res, test.toString());
   }
 
@@ -54,10 +56,10 @@ public class ParserTest {
   public void nothingTest() {
     File symptomsFile = new File("data/symptoms.csv");
     List<String> symptoms = parser.readSymptoms(symptomsFile);
-    String transcriptString = "hello so today i wanted to see how you are doing and this test has none of the trigger sentences so nothing should show up";
-    filler = new FillEHRSections("what are your symptoms", "end symptoms",
-        "what are your reasons for today's visit", "end reasons for visit", symptoms,
-        transcriptString);
+    String transcriptString = "hello so today I wanted to see how you are doing and this test has none of the trigger sentences so nothing should show up";
+    filler = new FillEHRSections("what are your symptoms", "stop symptoms",
+        "what are your reasons for today's visit", "stop reasons for visit",
+        symptoms, transcriptString);
     String res = filler.printFound();
     assertEquals(res, null);
   }
@@ -66,13 +68,15 @@ public class ParserTest {
   public void noSuchFileTest() {
     File symptomsFile = new File("doesn't exist");
     List<String> symptoms = parser.readSymptoms(symptomsFile);
-    String transcriptString = "Jcnrjncr\n" + "\n" + "what are your reasons for today's visit\n"
-        + "\n" + "i fell from my bike and hit my head on a rock\n" + "\n"
-        + "end reasons for visit\n" + "\n" + "what are your symptoms\n" + "\n"
-        + "my head hurts and my stomach hurts\n" + "\n" + "end symptoms\n" + "\n" + "Gjntjtn";
-    filler = new FillEHRSections("what are your symptoms", "end symptoms",
-        "what are your reasons for today's visit", "end reasons for visit", symptoms,
-        transcriptString);
+    String transcriptString = "Jcnrjncr\n" + "\n"
+        + "what are your reasons for today's visit\n" + "\n"
+        + "I fell from my bike and hit my head on a rock\n" + "\n"
+        + "stop reasons for visit\n" + "\n" + "what are your symptoms\n" + "\n"
+        + "my head hurts and my stomach hurts\n" + "\n" + "stop symptoms\n"
+        + "\n" + "Gjntjtn";
+    filler = new FillEHRSections("what are your symptoms", "stop symptoms",
+        "what are your reasons for today's visit", "stop reasons for visit",
+        symptoms, transcriptString);
     String res = filler.printFound();
     assertEquals(res, null);
   }
@@ -81,13 +85,15 @@ public class ParserTest {
   public void emptyFileTest() {
     File symptomsFile = new File("");
     List<String> symptoms = parser.readSymptoms(symptomsFile);
-    String transcriptString = "Jcnrjncr\n" + "\n" + "what are your reasons for today's visit\n"
-        + "\n" + "i fell from my bike and hit my head on a rock\n" + "\n"
-        + "end reasons for visit\n" + "\n" + "what are your symptoms\n" + "\n"
-        + "my head hurts and my stomach hurts\n" + "\n" + "end symptoms\n" + "\n" + "Gjntjtn";
+    String transcriptString = "Jcnrjncr\n" + "\n"
+        + "what are your reasons for today's visit\n" + "\n"
+        + "I fell from my bike and hit my head on a rock\n" + "\n"
+        + "stop reasons for visit\n" + "\n" + "what are your symptoms\n" + "\n"
+        + "my head hurts and my stomach hurts\n" + "\n" + "stop symptoms\n"
+        + "\n" + "Gjntjtn";
     filler = new FillEHRSections("what are your symptoms", "end symptoms",
-        "what are your reasons for today's visit", "end reasons for visit", symptoms,
-        transcriptString);
+        "what are your reasons for today's visit", "stop reasons for visit",
+        symptoms, transcriptString);
     String res = filler.printFound();
     assertEquals(res, null);
   }
