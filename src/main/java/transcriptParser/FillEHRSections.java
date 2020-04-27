@@ -11,9 +11,10 @@ public class FillEHRSections {
   private List<String> symptoms;
   private String reasons;
 
-  public FillEHRSections(String symStart, String symEnd, String vStart, String vEnd,
-      List<String> symptomPatterns, String fullTranscript) {
-    symptomParse = new FillSymptoms(symStart, symEnd, symptomPatterns, fullTranscript);
+  public FillEHRSections(String symStart, String symEnd, String vStart,
+      String vEnd, List<String> symptomPatterns, String fullTranscript) {
+    symptomParse = new FillSymptoms(symStart, symEnd, symptomPatterns,
+        fullTranscript);
     reasonsParse = new FillVisit(vStart, vEnd, fullTranscript);
     try {
       symptoms = symptomParse.getSymptoms();
@@ -33,6 +34,24 @@ public class FillEHRSections {
         toReturn.append(s + "\n");
       }
       System.out.println(toReturn.toString());
+      return toReturn.toString();
+    } catch (Exception e) {
+      return null;
+    }
+
+  }
+
+  public String buildResult() {
+    try {
+      StringBuilder toReturn = new StringBuilder();
+      toReturn.append("<br>");
+      toReturn.append("<h5>Reasons for Visit: </h5>");
+      toReturn.append("<h5>" + reasons + "</h5>");
+      toReturn.append("<br>");
+      toReturn.append("<h5>Symptoms Reported:<h5>");
+      for (String s : symptoms) {
+        toReturn.append("<h5>" + s + "<h5>");
+      }
       return toReturn.toString();
     } catch (Exception e) {
       return null;

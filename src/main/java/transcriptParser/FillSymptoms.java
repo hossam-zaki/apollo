@@ -13,7 +13,8 @@ public class FillSymptoms {
   private String transcript;
   private Search kmp;
 
-  public FillSymptoms(String start, String end, List<String> patterns, String fullTranscript) {
+  public FillSymptoms(String start, String end, List<String> patterns,
+      String fullTranscript) {
     doctorStart = start;
     doctorEnd = end;
     symptomPatterns = patterns;
@@ -26,16 +27,21 @@ public class FillSymptoms {
       System.out.println("ERROR: File not found");
       return null;
     }
+    System.out.println("TRANSCRIPT" + transcript);
     KMP full = new KMP(transcript.toCharArray());
     try {
-      Integer startIndex = full.search(doctorStart.toCharArray()).get(0); // get start phrase
-      Integer endIndex = full.search(doctorEnd.toCharArray()).get(0); // get end phrase
+      Integer startIndex = full.search(doctorStart.toCharArray()).get(0); // get
+                                                                          // start
+                                                                          // phrase
+      Integer endIndex = full.search(doctorEnd.toCharArray()).get(0); // get end
+                                                                      // phrase
       String portion = transcript.substring(startIndex, endIndex);
-      return new KMP(portion.toCharArray()); // kmp to only search through symptoms portion of
+      return new KMP(portion.toCharArray()); // kmp to only search through
+                                             // symptoms portion of
                                              // transcript
     } catch (Exception e) {
-      System.out
-          .println("ERROR: nothing found in transcript. Please use the given manual sentences");
+      System.out.println(
+          "ERROR: nothing found in transcript. Please use the given manual sentences");
       return new KMP("".toCharArray());
     }
 

@@ -11,6 +11,7 @@ import java.util.List;
 import repl.Executable;
 
 public class ToParse implements Executable {
+  private String result;
 
   public String getTranscriptString(File transcript) {
     BufferedReader reader = null;
@@ -76,11 +77,17 @@ public class ToParse implements Executable {
     File symptomsFile = new File(input.get(2));
     List<String> symptoms = this.readSymptoms(symptomsFile);
     String symStart = "what are your symptoms";
-    String symEnd = "end symptoms";
+    String symEnd = "stop symptoms";
     String vStart = "what are your reasons for today's visit";
-    String vEnd = "end reasons for visit";
-    FillEHRSections fill = new FillEHRSections(symStart, symEnd, vStart, vEnd, symptoms,
-        transcriptString);
-    fill.printToFile();
+    String vEnd = "stop reasons";
+    FillEHRSections fill = new FillEHRSections(symStart, symEnd, vStart, vEnd,
+        symptoms, transcriptString);
+    // fill.printToFile(); -- Prints to a file, used for testing
+    this.result = fill.buildResult();
   }
+
+  public String getResult() {
+    return result;
+  }
+
 }

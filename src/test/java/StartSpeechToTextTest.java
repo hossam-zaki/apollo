@@ -30,16 +30,16 @@ public class StartSpeechToTextTest {
 		System.setErr(originalErr);
 	}
 
-	@Test
-	public void testValidInput() {
-		RunDeepSpeech.transcribe("data/audioFiles/test.wav");
-		try {
-			FileReader file = new FileReader("data/transcripts/test.txt");
-		} catch (FileNotFoundException e1) {
-			fail("text file not made");
-			return;
-		}
-	}
+//	@Test
+//	public void testValidInput() {
+//		RunDeepSpeech.transcribe("data/audioFiles/test.wav");
+//		try {
+//			FileReader file = new FileReader("data/transcripts/test.txt");
+//		} catch (FileNotFoundException e1) {
+//			fail("text file not made");
+//			return;
+//		}
+//	}
 
 	@Test
 	public void testinValidInput() {

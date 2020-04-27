@@ -1,4 +1,5 @@
 #!/Users/hossamzaki/anaconda3/bin/python
+
 import time, logging
 from datetime import datetime
 import threading, collections, queue, os, os.path
@@ -181,24 +182,24 @@ def main(ARGS):
         spinner = Halo(spinner='line')
     stream_context = model.createStream()
     wav_data = bytearray()
-    for frame in frames:
-        if frame is not None:
-            if spinner: spinner.start()
-            logging.debug("streaming frame")
-            model.feedAudioContent(stream_context, np.frombuffer(frame, np.int16))
-            if ARGS.savewav: wav_data.extend(frame)
-        else:
-            print("yee")
-            if spinner: spinner.stop()
-            logging.debug("end utterence")
-            if ARGS.savewav:
-                vad_audio.write_wav(os.path.join(ARGS.savewav, datetime.now().strftime("savewav_%Y-%m-%d_%H-%M-%S_%f.wav")), wav_data)
-                wav_data = bytearray()
-            text = model.finishStream(stream_context)
-            with open("data/transcripts/test.txt", "a+") as f:
+    with open("data/transcripts/test.txt", "w+") as f:
+        for frame in frames:
+            if frame is not None:
+                if spinner: spinner.start()
+                logging.debug("streaming frame")
+                model.feedAudioContent(stream_context, np.frombuffer(frame, np.int16))
+                if ARGS.savewav: wav_data.extend(frame)
+            else:
+                if spinner: spinner.stop()
+                logging.debug("end utterence")
+                if ARGS.savewav:
+                    vad_audio.write_wav(os.path.join(ARGS.savewav, datetime.now().strftime("savewav_%Y-%m-%d_%H-%M-%S_%f.wav")), wav_data)
+                    wav_data = bytearray()
+                text = model.finishStream(stream_context)
                 f.write(text + "\n")
-            print("Recognized: %s" % text)
-            stream_context = model.createStream()
+                print("Recognized: %s" % text)
+                stream_context = model.createStream()
+    #os.remove(ARGS.file)
 
 if __name__ == '__main__':
     BEAM_WIDTH = 500

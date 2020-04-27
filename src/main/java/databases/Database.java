@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import patientData.Datum;
 import patientData.PatientDatum;
 import patientData.VisitDatum;
 
@@ -122,25 +121,6 @@ public final class Database {
     }
   }
 
-  public static List<VisitDatum> getPatientVisits(String id) {
-    PreparedStatement prep;
-    try {
-      List<VisitDatum> toRet = new ArrayList<VisitDatum>();
-      prep = conn.prepareStatement("SELECT * FROM visit WHERE id = ?");
-      prep.setString(1, id);
-      ResultSet rs = prep.executeQuery();
-      while (rs.next()) {
-        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), null,
-            null);
-        toRet.add(curr);
-      }
-      return toRet;
-    } catch (Exception e) {
-      System.err.println("ERROR: no visits found");
-      return null;
-    }
-  }
-
   public static Map<String, String> getDoctorInfo(String username) {
     PreparedStatement prep;
     try {
@@ -165,28 +145,117 @@ public final class Database {
       return null;
     }
   }
+
   public static PatientDatum getPatient(String id) {
-	 PreparedStatement prep;
-	    try {
-			prep = conn.prepareStatement("SELECT * FROM patient WHERE id = ?");
-		    prep.setString(1, id);
-		    ResultSet rs = prep.executeQuery();
-		    PatientDatum patient = new PatientDatum(
-		    		rs.getString(1), //id
-		    		rs.getString(2), //firstname
-		    		rs.getString(3), //midname
-		    		rs.getString(4), //lastname
-		    		rs.getString(5), //dob
-		    		rs.getString(6), //phone 
-		    		rs.getString(7),//email 
-		    		rs.getString(8), //emergency number
-		    		rs.getString(9)); //docusername
-		    return patient;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("ERROR: Patient not found");
-			return null;
-		}
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement("SELECT * FROM patient WHERE id = ?");
+      prep.setString(1, id);
+      ResultSet rs = prep.executeQuery();
+      PatientDatum patient = new PatientDatum(rs.getString(1), // id
+          rs.getString(2), // firstname
+          rs.getString(3), // midname
+          rs.getString(4), // lastname
+          rs.getString(5), // dob
+          rs.getString(6), // phone
+          rs.getString(7), // email
+          rs.getString(8), // emergency number
+          rs.getString(9)); // docusername
+      return patient;
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      System.err.println("ERROR: Patient not found");
+      return null;
+    }
+  }
+
+  public static List<VisitDatum> getVisits(String docUsername,
+      String patientID) {
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement(
+          "SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ?");
+      prep.setString(1, docUsername);
+      prep.setString(2, patientID);
+      ResultSet rs = prep.executeQuery();
+      List<VisitDatum> toRet = new ArrayList<VisitDatum>();
+      while (rs.next()) {
+        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
+            rs.getString(3), rs.getString(5), rs.getBytes(4));
+        toRet.add(curr);
+      }
+      return toRet;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.err.println("ERROR: No visits found");
+      return null;
+    }
+  }
+
+  public static byte[] getVisitDetails(String docUsername, String patientID,
+      String date) {
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement(
+          "SELECT audio_file FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+      prep.setString(1, docUsername);
+      prep.setString(2, patientID);
+      prep.setString(3, date);
+      ResultSet rs = prep.executeQuery();
+      byte[] toRet = null;
+      while (rs.next()) {
+        toRet = rs.getBytes(1);
+      }
+      return toRet;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.err.println("ERROR: No audio file found");
+      return null;
+    }
+  }
+
+  public static String getTranscript(String docUsername, String patientID,
+      String date) {
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement(
+          "SELECT transcipt FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+      prep.setString(1, docUsername);
+      prep.setString(2, patientID);
+      prep.setString(3, date);
+      ResultSet rs = prep.executeQuery();
+      String toRet = null;
+      while (rs.next()) {
+        toRet = rs.getString(1);
+      }
+      return toRet;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.err.println("ERROR: No audio file found");
+      return null;
+    }
+  }
+
+  public static String getSummary(String docUsername, String patientID,
+      String date) {
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement(
+          "SELECT summary FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+      prep.setString(1, docUsername);
+      prep.setString(2, patientID);
+      prep.setString(3, date);
+      ResultSet rs = prep.executeQuery();
+      String toRet = null;
+      while (rs.next()) {
+        toRet = rs.getString(1);
+      }
+      return toRet;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.err.println("ERROR: No audio file found");
+      return null;
+    }
   }
 }

@@ -5,7 +5,7 @@ var gumStream; 						//stream from getUserMedia()
 var rec; 							//Recorder.js object
 var input; 							//MediaStreamAudioSourceNode we'll be recording
 
-// shim for AudioContext when it's not avb. 
+// shim for AudioContext when it's not avb.
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext //audio context to help us record
 
@@ -25,11 +25,11 @@ function startRecording() {
 		Simple constraints object, for more advanced audio features see
 		https://addpipe.com/blog/audio-constraints-getusermedia/
 	*/
-    
+
     var constraints = { audio: true, video:false }
 
  	/*
-    	Disable the record button until we get a success or fail from getUserMedia() 
+    	Disable the record button until we get a success or fail from getUserMedia()
 	*/
 
 	recordButton.disabled = true;
@@ -37,7 +37,7 @@ function startRecording() {
 	pauseButton.disabled = false
 
 	/*
-    	We're using the standard promise based getUserMedia() 
+    	We're using the standard promise based getUserMedia()
     	https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 	*/
 
@@ -51,16 +51,16 @@ function startRecording() {
 		*/
 		audioContext = new AudioContext();
 
-		//update the format 
+		//update the format
 		document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
 
 		/*  assign to gumStream for later use  */
 		gumStream = stream;
-		
+
 		/* use the stream */
 		input = audioContext.createMediaStreamSource(stream);
 
-		/* 
+		/*
 			Create the Recorder object and configure to record mono sound (1 channel)
 			Recording 2 channels  will double the file size
 		*/
@@ -103,7 +103,7 @@ function stopRecording() {
 
 	//reset button just in case the recording is stopped while paused
 	pauseButton.innerHTML="Pause";
-	
+
 	//tell the recorder to stop the recording
 	rec.stop();
 
@@ -115,7 +115,7 @@ function stopRecording() {
 }
 
 function createDownloadLink(blob) {
-	
+
 	var url = URL.createObjectURL(blob);
 	var au = document.createElement('audio');
 	var li = document.createElement('li');
@@ -134,30 +134,48 @@ function createDownloadLink(blob) {
 
 	//add the new audio element to li
 	li.appendChild(au);
-	
+
 	//add the filename to the li
 	// li.appendChild(document.createTextNode(filename+".wav "))
 
 	//add the save to disk link to li
 	li.appendChild(link);
-	
+
 	//upload link
 	var upload = document.createElement('a');
 	upload.href="#";
-	upload.innerHTML = "Upload";
+	upload.innerHTML = "register visit using this recording.";
 	upload.addEventListener("click", function(event){
 		  var xhr=new XMLHttpRequest();
 		  var fd=new FormData();
 		  fd.append("audio_data",blob, filename);
+		  var str=window.location.href;
+		  var list=[];
+		  var link="";
+		  boolean=false;
+		  for (var i = 0; i < str.length; i++) {
+			if(str.charAt(i) == ':'){
+				boolean=true;
+			}
+			if(str.charAt(i) == '/' && boolean){
+				list.push(link);
+				console.log(link);
+				link="";
+				boolean=false;
+			}
+			if(boolean){
+				link+=str.charAt(i);
+			}
+		  }
 		  var req = jQuery.ajax({
-			url: '/send', 
+			url: '/send/' + list[list.length-2] + '/' + list[list.length-1],
 			method: 'POST',
 			data: fd, // sends fields with filename mimetype etc
 			// data: aFiles[0], // optional just sends the binary
 			processData: false, // don't let jquery process the data
 			contentType: false // let xhr set the content type
 		  });
-		  // jQuery is promise A++ compatible and is the todays norms of doing things 
+		  // jQuery is promise A++ compatible and is the todays norms of doing things
 		  req.then(function(response) {
 			console.log(response)
 		  }, function(xhr) {

@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,12 +23,12 @@ import databases.Database;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-import patientData.Datum;
 import patientData.PatientDatum;
 import registrationAndLogin.Encryption;
 import registrationAndLogin.Login;
 import registrationAndLogin.PatientRegistration;
 import registrationAndLogin.Registration;
+import registrationAndLogin.VisitRegistration;
 import repl.Repl;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
@@ -36,6 +38,8 @@ import spark.Response;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
+import speechToText.RunDeepSpeech;
+import transcriptParser.ToParse;
 
 /**
  * The Main class of our project. This is where execution begins.
@@ -110,17 +114,20 @@ public final class Main {
     Spark.post("/registerDoctor", new RegisterDoctorHandler(), freeMarker);
     Spark.post("/loginDoctor", new LoginDoctorHandler(), freeMarker);
     Spark.get("/record", new RecordHandler(), freeMarker);
-    Spark.post("/send", new SendHandler(), freeMarker);
+    Spark.post("/send/:username/:patient", new SendHandler(), freeMarker);
     Spark.get("/apollo/:username", new baseHandler(), freeMarker);
     Spark.get("/apollo/registerPatient/:username", new registerPatientHandler(),
         freeMarker);
     Spark.post("/apollo/registerPatient/addPatient/:username",
         new addPatientHandler(), freeMarker);
-    Spark.get("/apollo/patientBase/:username/:patient", new visitHandler(), freeMarker);
+    Spark.get("/apollo/patientBase/:username/:patient", new visitHandler(),
+        freeMarker);
     Spark.get("/apollo/account-details/:username", new accountDetailsHandler(),
         freeMarker);
-    Spark.get("/apollo/:username/:patient/registerVisit", new newVisitHandler(), freeMarker);
-
+    Spark.get("/apollo/:username/:patient/registerVisit", new newVisitHandler(),
+        freeMarker);
+    Spark.get("/apollo/:username/:patient/visit/:date",
+        new singleVisitHandler(), freeMarker);
 
   }
 
@@ -243,13 +250,33 @@ public final class Main {
         System.out.println(filename);
         Part uploadedFile = request.raw().getPart("audio_data");
         final InputStream in = uploadedFile.getInputStream();
-        System.out
-            .println(Files.copy(in, Paths.get("data/" + filename + ".wav")));
+        Files.copy(in, Paths.get("data/" + filename + ".wav"));
+        RunDeepSpeech.transcribe("data/" + filename + ".wav");
+        System.out.println("Transcribing...");
+        while (Paths.get("data/" + filename + ".wav").toFile().exists()) {
+          ;
+        }
+        String username = request.params(":username").replaceAll(":", "");
+        String patient = request.params(":patient").replaceAll(":", "");
+        String content = Files.readString(
+            Paths.get("data/transcripts/test.txt"), StandardCharsets.US_ASCII);
 
-        response.redirect("/record");
+        VisitRegistration visitRegister = new VisitRegistration();
+        System.out.println(in.readAllBytes().toString());
+        ToParse parser = new ToParse();
+        ArrayList<String> input = new ArrayList<String>();
+        input.add("parseTranscript");
+        input.add("data/transcripts/test.txt");
+        input.add("data/symptoms.csv");
+        parser.executeCommand(input);
+        String summary = parser.getResult();
+        visitRegister.register(username, patient, filename.substring(0, 10),
+            "data/" + filename + ".wav", content, summary);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
             error);
         error = "";
+
+        // Paths.get("data/transcripts/test.txt").toFile().delete();
         return new ModelAndView(map, "recording.ftl");
       } catch (Exception e) {
         e.printStackTrace();
@@ -312,8 +339,12 @@ public final class Main {
       String patient = req.params(":patient").replaceAll(":", "");
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       PatientDatum patientData = Database.getPatient(patient);
+      String visits = displayVisits.buildHTML(username, patient);
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
-          username, "name", patientData.getFirstName(), "route", route);
+          username, "name", patientData.getFirstName(), "route", route,
+          "visits", visits);
+      System.out.println("VISITS " + visits);
+
       return new ModelAndView(map, "visits.ftl");
     }
   }
@@ -329,15 +360,42 @@ public final class Main {
       return new ModelAndView(map, "accountDetails.ftl");
     }
   }
+
   private static class newVisitHandler implements TemplateViewRoute {
-	    public ModelAndView handle(Request req, Response res) {
-	    	String username = req.params(":username").replaceAll(":", "");
-	        String patient = req.params(":patient").replaceAll(":", "");
-	        String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
-	        PatientDatum patientData = Database.getPatient(patient);
-	        Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
-	            username, "name", patientData.getFirstName(), "route", route);
-	      return new ModelAndView(map, "registerVisit.ftl");
-	    }
-	  }
+    public ModelAndView handle(Request req, Response res) {
+      String username = req.params(":username").replaceAll(":", "");
+      String patient = req.params(":patient").replaceAll(":", "");
+      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+      PatientDatum patientData = Database.getPatient(patient);
+      Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
+          username, "name", patientData.getFirstName(), "route", route);
+      return new ModelAndView(map, "registerVisit.ftl");
+    }
+  }
+
+  private static class singleVisitHandler implements TemplateViewRoute {
+    public ModelAndView handle(Request req, Response res) {
+      String username = req.params(":username").replaceAll(":", "");
+      String patient = req.params(":patient").replaceAll(":", "");
+      String date = req.params(":date").replaceAll(":", "");
+      // byte[] audio = Database.getAudioFile(username, patient, date);
+      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+      String transcript = Database.getTranscript(username, patient, date);
+      String summary = Database.getSummary(username, patient, date);
+      if (summary == null) {
+        summary = "We could not find any symptoms or reasons for visit in the transcript. Please use the manual commands.";
+      }
+      Map<String, Object> map = new HashMap<String, Object>();
+      map.put("title", "Apollo");
+      map.put("username", username);
+      map.put("patient", patient);
+      map.put("date", date);
+      map.put("route", route);
+      // map.put("audio", audio);
+      map.put("transcript", transcript);
+      map.put("summary", summary);
+      return new ModelAndView(map, "single_visit.ftl");
+    }
+  }
+
 }

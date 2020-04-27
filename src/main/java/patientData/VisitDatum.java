@@ -1,15 +1,13 @@
 package patientData;
 
-import java.io.File;
-
 public class VisitDatum implements Datum {
   private String uuid;
   private String date;
-  private File transcript;
-  private File audioRecording;
+  private String transcript;
+  private byte[] audioRecording;
 
-  public VisitDatum(String id, String date, File transcript,
-      File audioRecording) {
+  public VisitDatum(String doctor, String id, String date, String transcript,
+      byte[] audioRecording) {
     this.uuid = id;
     this.date = date;
     this.transcript = transcript;
@@ -26,11 +24,11 @@ public class VisitDatum implements Datum {
     return this.date;
   }
 
-  public File getTranscript() {
+  public String getTranscript() {
     return this.transcript;
   }
 
-  public File getAudioRecording() {
+  public byte[] getAudioRecording() {
     return this.audioRecording;
   }
 
@@ -44,11 +42,11 @@ public class VisitDatum implements Datum {
     this.date = date;
   }
 
-  public void setTranscript(File transcript) {
+  public void setTranscript(String transcript) {
     this.transcript = transcript;
   }
 
-  public void setAudioRecording(File audio) {
+  public void setAudioRecording(byte[] audio) {
     this.audioRecording = audio;
   }
 
