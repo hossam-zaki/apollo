@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/Users/hossamzaki/anaconda3/bin/python
+
 import time, logging
 from datetime import datetime
 import threading, collections, queue, os, os.path

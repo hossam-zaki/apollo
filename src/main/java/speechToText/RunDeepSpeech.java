@@ -27,6 +27,7 @@ public class RunDeepSpeech {
 			str.append("-t src/main/java/speechToText/trie ");
 			str.append("--file ");
 			str.append(filename);
+			System.out.println(str.toString());
 			process = Runtime.getRuntime().exec(str.toString());
 		} catch (IOException e) {
 			System.err.println("ERROR: Error with executing the script");

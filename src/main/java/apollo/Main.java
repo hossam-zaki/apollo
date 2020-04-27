@@ -252,21 +252,22 @@ public final class Main {
         Files.copy(in, Paths.get("data/" + filename + ".wav"));
         RunDeepSpeech.transcribe("data/" + filename + ".wav");
         System.out.println("Transcribing...");
-        while (Paths.get("data/" + filename + ".wav").toFile().exists()) {
-          ;
-        }
+//        while (Paths.get("data/" + filename + ".wav").toFile().exists()) {
+//          ;
+//        }
         String username = request.params(":username").replaceAll(":", "");
         String patient = request.params(":patient").replaceAll(":", "");
         String content = Files.readString(
             Paths.get("data/transcripts/test.txt"), StandardCharsets.US_ASCII);
 
         VisitRegistration visitRegister = new VisitRegistration();
-        visitRegister.register(username, patient, filename.substring(0, 10), in,
+        System.out.println(in.readAllBytes().toString());
+        visitRegister.register(username, patient, filename.substring(0, 10), "data/" + filename + ".wav",
             content);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
             error);
         error = "";
-        Paths.get("data/transcripts/test.txt").toFile().delete();
+        //Paths.get("data/transcripts/test.txt").toFile().delete();
         return new ModelAndView(map, "recording.ftl");
       } catch (Exception e) {
         e.printStackTrace();
