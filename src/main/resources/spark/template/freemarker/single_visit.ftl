@@ -59,19 +59,7 @@
     </div>
   </form>
 </div>
-<div>
-  <button onclick="myFunction()">Try it</button>
-
-  <script>
-  function myFunction() {
-    var x = document.createElement("AUDIO");
-
-
-      x.setAttribute("src",${audio});
-    x.setAttribute("controls", "controls");
-    document.body.appendChild(x);
-  }
-  </script>
-<div>
+<h4>Visit Transcript:</h4>
+<div class="transcript">${transcript}</div>
 </body>
 </html>

@@ -262,12 +262,12 @@ public final class Main {
 
         VisitRegistration visitRegister = new VisitRegistration();
         System.out.println(in.readAllBytes().toString());
-        visitRegister.register(username, patient, filename.substring(0, 10), "data/" + filename + ".wav",
-            content);
+        visitRegister.register(username, patient, filename.substring(0, 10),
+            "data/" + filename + ".wav", content);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
             error);
         error = "";
-        //Paths.get("data/transcripts/test.txt").toFile().delete();
+        // Paths.get("data/transcripts/test.txt").toFile().delete();
         return new ModelAndView(map, "recording.ftl");
       } catch (Exception e) {
         e.printStackTrace();
@@ -369,16 +369,17 @@ public final class Main {
       String username = req.params(":username").replaceAll(":", "");
       String patient = req.params(":patient").replaceAll(":", "");
       String date = req.params(":date").replaceAll(":", "");
-      byte[] audio = Database.getAudioFile(username, patient, date);
+      // byte[] audio = Database.getAudioFile(username, patient, date);
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+      String transcript = Database.getTranscript(username, patient, date);
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("title", "Apollo");
       map.put("username", username);
       map.put("patient", patient);
       map.put("date", date);
       map.put("route", route);
-      map.put("audio", audio);
-
+      // map.put("audio", audio);
+      map.put("transcript", transcript);
       return new ModelAndView(map, "single_visit.ftl");
     }
   }
