@@ -353,6 +353,10 @@ public final class Main {
 				}
 				System.out.println(summary);
 				System.out.println(dates);
+				String visitsSearched = displayVisits.buildHTMLDates(username, patient, dates);
+				if (searched != null) {
+					map.put("visits", visitsSearched);
+				}
 				// getVisits with this username, patient, dates
 				// visits = new display visits method that also takes in date
 			} catch (Exception e) {

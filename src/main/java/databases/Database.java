@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import patientData.PatientDatum;
 import patientData.VisitDatum;
@@ -181,6 +182,31 @@ public final class Database {
 				VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5),
 						rs.getBytes(4));
 				toRet.add(curr);
+			}
+			return toRet;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("ERROR: No visits found");
+			return null;
+		}
+	}
+
+	public static List<VisitDatum> getVisitsFromDates(String docUsername, String patientID, Set<String> dates) {
+		PreparedStatement prep;
+		try {
+			List<VisitDatum> toRet = new ArrayList<VisitDatum>();
+			for (String date : dates) {
+				prep = conn.prepareStatement(
+						"SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+				prep.setString(1, docUsername);
+				prep.setString(2, patientID);
+				prep.setString(3, date);
+				ResultSet rs = prep.executeQuery();
+				while (rs.next()) {
+					VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5),
+							rs.getBytes(4));
+					toRet.add(curr);
+				}
 			}
 			return toRet;
 		} catch (SQLException e) {
