@@ -116,9 +116,9 @@ hr {
 
 /*Resize the wrap to see the search bar change!*/
 .wrap{
-  width: 100%;
+  width: 20%;
   position: absolute;
-  top: 200px;
+  top: 500px;
   left: 545px;
   transform: translate(-50%, -50%);
 }
@@ -182,4 +182,10 @@ width: 5%;
 
  .daterangepicker {
    color: black;
+ }
+
+ .input-group {
+   width: 30%;
+   margin-left: 10%;
+   margin-top: -4%;
  }

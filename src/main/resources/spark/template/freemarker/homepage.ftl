@@ -17,14 +17,14 @@
             <link rel="stylesheet" href="css/homepage.css">
   </head>
 
-<body> 
+<body>
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/apollo">Apollo</a>
     </div>
@@ -36,11 +36,11 @@
 <form method="POST" action="/loginDoctor">
 	<input type="text" placeholder="username" name="username" id="username" required></input><br>
 	<input type="password" placeholder="password" name="password" id="password" required></input><br> <br>
-  <input class="button" type="submit" value="Sign In">
+  <input class="button" type="submit" value="Log In">
 </form>
 <h2>or</h2>
 <form method="GET" action="/register">
-  <input class="button" type="submit" value="Sign Up">
+  <input class="button" type="submit" value="Register">
 </form>
 <br>
 <br>

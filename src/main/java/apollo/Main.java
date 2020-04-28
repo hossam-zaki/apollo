@@ -10,8 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.Part;
@@ -39,6 +41,7 @@ import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
 import speechToText.RunDeepSpeech;
+import transcriptParser.SearchAllTranscripts;
 import transcriptParser.ToParse;
 
 /**
@@ -320,15 +323,52 @@ public final class Main {
 	private static class visitHandler implements TemplateViewRoute {
 		@Override
 		public ModelAndView handle(Request req, Response res) {
+			QueryParamsMap qmap = req.queryMap();
 			String username = req.params(":username").replaceAll(":", "");
 			String patient = req.params(":patient").replaceAll(":", "");
 			String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+			String route2 = "/apollo/patientBase/:" + username + "/:" + patient;
 			PatientDatum patientData = Database.getPatient(patient);
 			String visits = displayVisits.buildHTML(username, patient);
-			Map<String, String> map = ImmutableMap.of("title", "Apollo", "username", username, "name",
-					patientData.getFirstName(), "route", route, "visits", visits);
-			System.out.println("VISITS " + visits);
-
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("title", "Apollo");
+			map.put("username", username);
+			map.put("name", patientData.getFirstName());
+			map.put("route", route);
+			map.put("visits", visits);
+			map.put("route2", route2);
+			map.put("patient", patient);
+			try {
+				String searched = req.queryParams("searched");
+				SearchAllTranscripts searcher = new SearchAllTranscripts();
+				ArrayList<String> input = new ArrayList<String>();
+				input.add("searchAll");
+				input.add(patient);
+				input.add(searched);
+				searcher.executeCommand(input);
+				String summary = searcher.getResult();
+				Set<String> dates = new HashSet<String>();
+				if (searcher.getAllResults() != null && !searcher.getAllResults().isEmpty()) {
+					dates = searcher.getDates(searcher.getAllResults());
+				}
+				System.out.println(summary);
+				System.out.println(dates);
+				String visitsSearched = displayVisits.buildHTMLDates(username, patient, dates);
+				if (searched != null) {
+					map.put("visits", visitsSearched);
+				}
+				// getVisits with this username, patient, dates
+				// visits = new display visits method that also takes in date
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				String startDate = req.queryParams("startDate");
+				String endDate = req.queryParams("endDate");
+				System.out.println(startDate + endDate);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			return new ModelAndView(map, "visits.ftl");
 		}
 	}

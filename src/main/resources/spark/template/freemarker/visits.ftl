@@ -59,7 +59,7 @@
   <i class="far fa-folder"></i>
 </div> -->
 
-<div id="reportrange" style="color:black; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%; margin-left: auto; margin-right: auto; margin-top: -4%">
+<div id="reportrange" style="color:black; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%; margin-left: 60%; margin-top: -4%">
     <i style="color:black" class="fa fa-calendar"></i>&nbsp;
     <span style="color:black"> <i style="color:black" class="fa fa-caret-down"></i>
 <script style="color:black" type="text/javascript" class="ranger">
@@ -75,11 +75,29 @@ $(function() {
     }, cb);
     cb(start, end);
     $('#reportrange').on('apply.daterangepicker', function(ev, res) {
+      var xhttp = new XMLHttpRequest();
       //do something, like clearing an input
-      console.log(res);
+      $.ajax({
+        url: "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d,
+        type: "GET"
+      })
+      // xhttp.open("GET", "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d, true);
+      // xhttp.send();
+      console.log(res.startDate._d, res.endDate._d);
+      console.log("${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d);
   });
 });
 </script></span>
+</div>
+<div>
+  <form class="form-inline">
+    <div class="input-group">
+      <input type="text" class="form-control" size="75" placeholder="search transcripts for keywords" name="searched" id="searched" required>
+      <div method="GET" action="${route2}" class="input-group-btn">
+        <button style="color:black; margin-top:21%" type="submit" class="btn"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+  </form>
 </div>
 ${visits}
 </body>
