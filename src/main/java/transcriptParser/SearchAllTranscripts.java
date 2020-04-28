@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import databases.Database;
@@ -14,6 +15,7 @@ import searchAlgorithms.Search;
 public class SearchAllTranscripts implements Executable {
 	private Map<String, String> transcripts;
 	private String pattern;
+	private String result;
 
 	/**
 	 * Empty constructor.
@@ -93,6 +95,36 @@ public class SearchAllTranscripts implements Executable {
 
 	}
 
+	public void buildResults(Map<String, List<Integer>> searchResults) {
+		try {
+			StringBuilder toReturn = new StringBuilder();
+			toReturn.append("<h5>Search Results:</h5>");
+			toReturn.append("<br>");
+			if (!searchResults.isEmpty() && !(searchResults == null)) {
+				for (String date : searchResults.keySet()) {
+					toReturn.append("<h5>Date: " + date + "</h5>");
+					toReturn.append("<br>");
+					toReturn.append("<h5>Indices: ");
+					List<Integer> indices = searchResults.get(date);
+					for (Integer index : indices) {
+						if (index.equals(indices.get(indices.size() - 1))) {
+							toReturn.append(index + "</h5>");
+						} else {
+							toReturn.append(index + ", ");
+						}
+					}
+				}
+			} else {
+				toReturn.append("<h5>No results found</h5>");
+			}
+			System.out.println(toReturn.toString());
+			result = toReturn.toString();
+		} catch (Exception e) {
+			result = "<h5>No results found</h5>";
+		}
+
+	}
+
 	/**
 	 * For testing in REPL.
 	 */
@@ -122,6 +154,15 @@ public class SearchAllTranscripts implements Executable {
 		if (pattern == null) {
 			this.pattern = input.get(1);
 		}
-		this.printFound(this.getAllResults());
+		// this.printFound(this.getAllResults());
+		this.buildResults(this.getAllResults());
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public Set<String> getDates(Map<String, List<Integer>> searchResults) {
+		return searchResults.keySet();
 	}
 }
