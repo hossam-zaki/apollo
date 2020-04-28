@@ -340,38 +340,36 @@ public final class Main {
 			map.put("patient", patient);
 			try {
 				String searched = req.queryParams("searched");
-				SearchAllTranscripts searcher = new SearchAllTranscripts();
-				ArrayList<String> input = new ArrayList<String>();
-				input.add("searchAll");
-				input.add(patient);
-				input.add(searched);
-				searcher.executeCommand(input);
-				Set<String> dates = new HashSet<String>();
-				if (searcher.getAllResults() != null && !searcher.getAllResults().isEmpty()) {
-					dates = searcher.getDates(searcher.getAllResults());
-				}
-				String visitsSearched = displayVisits.buildHTMLDates(username, patient, dates);
-				if (searched != null) {
-					map.put("visits", visitsSearched);
-				}
-			} catch (Exception e) {
-				System.out.println("Nothing in search bar");
-			}
-			try {
 				String startDate = req.queryParams("startDate");
 				String endDate = req.queryParams("endDate");
-				if (startDate != null && endDate != null) {
+				System.out.println("Searched: " + searched);
+				System.out.println("Start: " + startDate);
+				System.out.println("End: " + endDate);
+				if (searched != null && searched != "") {
+					SearchAllTranscripts searcher = new SearchAllTranscripts();
+					ArrayList<String> input = new ArrayList<String>();
+					input.add("searchAll");
+					input.add(patient);
+					input.add(searched);
+					searcher.executeCommand(input);
+					Set<String> ids = new HashSet<String>();
+					if (searcher.getAllResults() != null && !searcher.getAllResults().isEmpty()) {
+						ids = searcher.getDates(searcher.getAllResults());
+					}
+					String visitsSearched = displayVisits.buildHTMLid(username, patient, ids);
+					map.put("visits", visitsSearched);
+				} else if (startDate != null && endDate != null) {
 					startDate = dateProcessor(startDate);
 					endDate = dateProcessor(endDate);
 					Set<String> dateRanges = new HashSet<String>();
 					dateRanges.add(startDate);
 					dateRanges.add(endDate);
-					String visitsSearched = displayVisits.buildHTMLDates(username, patient, dateRanges);
-					map.put("visits", visitsSearched);
-
+					String visitsDate = displayVisits.buildHTMLDates(username, patient, dateRanges);
+					System.out.println(visitsDate);
+					map.put("visits", visitsDate);
 				}
 			} catch (Exception e) {
-				System.out.println("No dates added to range");
+				System.out.println("Nothing in search bar or no date range given");
 			}
 			return new ModelAndView(map, "visits.ftl");
 		}
