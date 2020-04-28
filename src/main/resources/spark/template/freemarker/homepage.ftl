@@ -36,11 +36,11 @@
 <form method="POST" action="/loginDoctor">
 	<input type="text" placeholder="username" name="username" id="username" required></input><br>
 	<input type="password" placeholder="password" name="password" id="password" required></input><br> <br>
-  <input class="button" type="submit" value="Sign In">
+  <input class="button" type="submit" value="Log In">
 </form>
 <h2>or</h2>
 <form method="GET" action="/register">
-  <input class="button" type="submit" value="Sign Up">
+  <input class="button" type="submit" value="Register">
 </form>
 <br>
 <br>
