@@ -352,6 +352,7 @@ public final class Main {
       map.put("route", route);
       map.put("visits", visits);
       map.put("route2", route2);
+      map.put("patient", patient);
       try {
         String searched = req.queryParams("searched");
         // integrate Matan's search all transcripts
@@ -360,6 +361,13 @@ public final class Main {
         // visits = new display visits method that also takes in date
       } catch (Exception e) {
         ;
+      }
+      try {
+        String startDate = req.queryParams("startDate");
+        String endDate = req.queryParams("endDate");
+        System.out.println(startDate + endDate);
+      } catch (Exception e) {
+        e.printStackTrace();
       }
       return new ModelAndView(map, "visits.ftl");
     }

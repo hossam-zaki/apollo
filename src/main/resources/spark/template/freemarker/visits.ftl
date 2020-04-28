@@ -75,8 +75,16 @@ $(function() {
     }, cb);
     cb(start, end);
     $('#reportrange').on('apply.daterangepicker', function(ev, res) {
+      var xhttp = new XMLHttpRequest();
       //do something, like clearing an input
-      console.log(res);
+      $.ajax({
+        url: "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d,
+        type: "GET"
+      })
+      // xhttp.open("GET", "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d, true);
+      // xhttp.send();
+      console.log(res.startDate._d, res.endDate._d);
+      console.log("${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d);
   });
 });
 </script></span>
@@ -85,7 +93,7 @@ $(function() {
   <form class="form-inline">
     <div class="input-group">
       <input type="text" class="form-control" size="75" placeholder="search transcripts for keywords" name="searched" id="searched" required>
-      <div method="POST" action="${route2}" class="input-group-btn">
+      <div method="GET" action="${route2}" class="input-group-btn">
         <button style="color:black; margin-top:21%" type="submit" class="btn"><i class="fa fa-search"></i></button>
       </div>
     </div>
