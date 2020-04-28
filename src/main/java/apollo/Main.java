@@ -352,6 +352,15 @@ public final class Main {
       map.put("route", route);
       map.put("visits", visits);
       map.put("route2", route2);
+      try {
+        String searched = req.queryParams("searched");
+        // integrate Matan's search all transcripts
+        String dates = "returned from Matan's";
+        // getVisits with this username, patient, dates
+        // visits = new display visits method that also takes in date
+      } catch (Exception e) {
+        ;
+      }
       return new ModelAndView(map, "visits.ftl");
     }
   }
@@ -405,21 +414,6 @@ public final class Main {
       map.put("transcript", transcript);
       map.put("summary", summary);
       return new ModelAndView(map, "single_visit.ftl");
-    }
-  }
-
-  private static class searchVisitTranscriptHandler
-      implements TemplateViewRoute {
-    @Override
-    public ModelAndView handle(Request req, Response res) {
-      QueryParamsMap qm = req.queryMap();
-      String username = req.params(":username").replaceAll(":", "");
-      String patient = req.params(":patient").replaceAll(":", "");
-      String route2 = "/apollo/patientBase/:" + username + "/:" + patient;
-      String searched = qm.value("searched");
-      System.out.println("SEARCHED " + searched);
-      res.redirect(route2);
-      return null;
     }
   }
 
