@@ -179,8 +179,8 @@ public final class Database {
 			ResultSet rs = prep.executeQuery();
 			List<VisitDatum> toRet = new ArrayList<VisitDatum>();
 			while (rs.next()) {
-				VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5),
-						rs.getBytes(4));
+				VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(6), rs.getBytes(5));
 				toRet.add(curr);
 			}
 			return toRet;
@@ -203,8 +203,33 @@ public final class Database {
 				prep.setString(3, date);
 				ResultSet rs = prep.executeQuery();
 				while (rs.next()) {
-					VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5),
-							rs.getBytes(4));
+					VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+							rs.getString(6), rs.getBytes(5));
+					toRet.add(curr);
+				}
+			}
+			return toRet;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("ERROR: No visits found");
+			return null;
+		}
+	}
+
+	public static List<VisitDatum> getVisitsFromIds(String docUsername, String patientID, Set<String> Ids) {
+		PreparedStatement prep;
+		try {
+			List<VisitDatum> toRet = new ArrayList<VisitDatum>();
+			for (String id : Ids) {
+				prep = conn.prepareStatement(
+						"SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+				prep.setString(1, docUsername);
+				prep.setString(2, patientID);
+				prep.setString(3, id);
+				ResultSet rs = prep.executeQuery();
+				while (rs.next()) {
+					VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+							rs.getString(6), rs.getBytes(5));
 					toRet.add(curr);
 				}
 			}
@@ -241,7 +266,7 @@ public final class Database {
 		PreparedStatement prep;
 		try {
 			prep = conn.prepareStatement(
-					"SELECT transcipt FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+					"SELECT transcript FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
 			prep.setString(1, docUsername);
 			prep.setString(2, patientID);
 			prep.setString(3, date);
@@ -282,7 +307,7 @@ public final class Database {
 	public static Map<String, String> getAllTranscripts(String id) {
 		PreparedStatement prep;
 		try {
-			prep = conn.prepareStatement("SELECT appointment_date, transcipt FROM appointments WHERE patient_id = ?");
+			prep = conn.prepareStatement("SELECT visit_id, transcript FROM appointments WHERE patient_id = ?");
 			prep.setString(1, id);
 			ResultSet rs = prep.executeQuery();
 			Map<String, String> transcripts = new HashMap<String, String>();
