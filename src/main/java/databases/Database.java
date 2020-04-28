@@ -262,14 +262,14 @@ public final class Database {
 		}
 	}
 
-	public static String getTranscript(String docUsername, String patientID, String date) {
+	public static String getTranscript(String docUsername, String patientID, String id) {
 		PreparedStatement prep;
 		try {
 			prep = conn.prepareStatement(
-					"SELECT transcript FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+					"SELECT transcript FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
 			prep.setString(1, docUsername);
 			prep.setString(2, patientID);
-			prep.setString(3, date);
+			prep.setString(3, id);
 			ResultSet rs = prep.executeQuery();
 			String toRet = null;
 			while (rs.next()) {
@@ -283,14 +283,14 @@ public final class Database {
 		}
 	}
 
-	public static String getSummary(String docUsername, String patientID, String date) {
+	public static String getSummary(String docUsername, String patientID, String id) {
 		PreparedStatement prep;
 		try {
 			prep = conn.prepareStatement(
-					"SELECT summary FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+					"SELECT summary FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
 			prep.setString(1, docUsername);
 			prep.setString(2, patientID);
-			prep.setString(3, date);
+			prep.setString(3, id);
 			ResultSet rs = prep.executeQuery();
 			String toRet = null;
 			while (rs.next()) {

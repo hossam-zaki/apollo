@@ -442,8 +442,8 @@ public final class Main {
 			String id = req.params(":id").replaceAll(":", "");
 			// byte[] audio = Database.getAudioFile(username, patient, date);
 			String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
-			String transcript = Database.getTranscript(username, patient, date);
-			String summary = Database.getSummary(username, patient, date);
+			String transcript = Database.getTranscript(username, patient, id);
+			String summary = Database.getSummary(username, patient, id);
 			if (summary == null) {
 				summary = "We could not find any symptoms or reasons for visit in the transcript. Please use the manual commands.";
 			}
