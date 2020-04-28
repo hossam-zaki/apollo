@@ -21,7 +21,8 @@ public class SearchAllTranscripts implements Executable {
 	 * Empty constructor.
 	 */
 	public SearchAllTranscripts() {
-
+		transcripts = new HashMap<String, String>();
+		pattern = "";
 	}
 
 	/**
@@ -59,7 +60,7 @@ public class SearchAllTranscripts implements Executable {
 
 	public Map<String, List<Integer>> getAllResults() {
 		Map<String, List<Integer>> allResults = new HashMap<String, List<Integer>>();
-		if (transcripts.isEmpty() || transcripts == null) {
+		if (transcripts == null || transcripts.isEmpty()) {
 			return allResults;
 		}
 		for (String date : transcripts.keySet()) {
@@ -87,7 +88,7 @@ public class SearchAllTranscripts implements Executable {
 			} else {
 				toReturn.append("No results found");
 			}
-			System.out.println(toReturn.toString());
+			// System.out.println(toReturn.toString());
 			return toReturn.toString();
 		} catch (Exception e) {
 			return null;
@@ -117,7 +118,7 @@ public class SearchAllTranscripts implements Executable {
 			} else {
 				toReturn.append("<h5>No results found</h5>");
 			}
-			System.out.println(toReturn.toString());
+			// System.out.println(toReturn.toString());
 			result = toReturn.toString();
 		} catch (Exception e) {
 			result = "<h5>No results found</h5>";
@@ -148,12 +149,11 @@ public class SearchAllTranscripts implements Executable {
 			return;
 		}
 		String patient = input.get(1);
-		if (transcripts == null) {
-			this.transcripts = Database.getAllTranscripts(patient);
-		}
-		if (pattern == null) {
-			this.pattern = input.get(1);
-		}
+		this.transcripts = Database.getAllTranscripts(patient);
+		this.pattern = input.get(2);
+		// System.out.println(patient);
+		// System.out.println(transcripts);
+		// System.out.println(pattern);
 		// this.printFound(this.getAllResults());
 		this.buildResults(this.getAllResults());
 	}

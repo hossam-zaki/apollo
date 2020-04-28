@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -346,11 +347,16 @@ public final class Main {
 				input.add(searched);
 				searcher.executeCommand(input);
 				String summary = searcher.getResult();
-				Set<String> dates = searcher.getDates(searcher.getAllResults());
+				Set<String> dates = new HashSet<String>();
+				if (searcher.getAllResults() != null && !searcher.getAllResults().isEmpty()) {
+					dates = searcher.getDates(searcher.getAllResults());
+				}
+				System.out.println(summary);
+				System.out.println(dates);
 				// getVisits with this username, patient, dates
 				// visits = new display visits method that also takes in date
 			} catch (Exception e) {
-				;
+				e.printStackTrace();
 			}
 			try {
 				String startDate = req.queryParams("startDate");
