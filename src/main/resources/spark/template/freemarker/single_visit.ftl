@@ -47,17 +47,6 @@
 </nav>
 <div class="jumbotron text-center">
   <h3>Records for the visit on ${date}.</h3>
-  <br>
-  <br>
-  <br>
-  <form style="margin-left: 6%; width: 30%;" class="form-inline">
-    <div class="input-group">
-      <input type="email" class="form-control" size="75" placeholder="search for keywords" required>
-      <div class="input-group-btn">
-        <button type="button" class="btn"><i class="fa fa-search"></i></button>
-      </div>
-    </div>
-  </form>
 </div>
 <h4>Visit Transcript:</h4>
 <div class="transcript">${transcript}</div>
