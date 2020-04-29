@@ -180,13 +180,7 @@ function createDownloadLink(blob) {
 		  });
 		  // jQuery is promise A++ compatible and is the todays norms of doing things
 		  req.then(function(response) {
-			console.log("Finished");
-			console.log(list[list.length-2]);
-			console.log(list[list.length-1]);
-			//console.log(window.location.replace)
-			//$(location).attr('href', "apollo/patientBase/:" + list[list.length-2] + '/:' + list[list.length-1]);
 			window.location.href = "../../patientBase/" + list[list.length-2] + "/" + list[list.length-1];
-			//window.location.reload(true);
 		  }, function(xhr) {
 			console.error('failed to fetch xhr', xhr)
 		  })
