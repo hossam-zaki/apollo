@@ -382,10 +382,10 @@ public final class Main {
           startDate = dateProcessor(startDate);
           System.out.println("START" + startDate);
           endDate = dateProcessor(endDate);
-          Set<String> dateRanges = new HashSet<String>();
+          List<String> dateRanges = new ArrayList<String>();
           dateRanges.add(startDate);
           dateRanges.add(endDate);
-          String visitsDate = displayVisits.buildHTMLDates(username, patient,
+          String visitsDate = displayVisits.buildHTMLDateRanges(username, patient,
               dateRanges);
           System.out.println(visitsDate);
           map.put("visits", visitsDate);

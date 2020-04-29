@@ -122,7 +122,10 @@ function createDownloadLink(blob) {
 	var link = document.createElement('a');
 
 	//name of .wav file to use during upload and download (without extendion)
-	var filename = new Date().toISOString();
+	var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+	var filename = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+	console.log(filename);
+	// console.log(new Date( new Date().getTime() - new Date().getTimezoneOffset() * -60000 ));
 
 	//add controls to the <audio> element
 	au.controls = true;

@@ -216,6 +216,31 @@ public final class Database {
 		}
 	}
 
+	public static List<VisitDatum> getVisitsFromDateRanges(String docUsername, String patientID, List<String> dates) {
+		PreparedStatement prep;
+		try {
+			List<VisitDatum> toRet = new ArrayList<VisitDatum>();
+			prep = conn.prepareStatement(
+					"SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date BETWEEN ? AND ?");
+			prep.setString(1, docUsername);
+			prep.setString(2, patientID);
+			prep.setString(3, dates.get(0));
+			prep.setString(4, dates.get(1));
+			ResultSet rs = prep.executeQuery();
+			while (rs.next()) {
+				VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(6), rs.getBytes(5));
+				toRet.add(curr);
+			}
+
+			return toRet;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("ERROR: No visits found");
+			return null;
+		}
+	}
+
 	public static List<VisitDatum> getVisitsFromIds(String docUsername, String patientID, Set<String> Ids) {
 		PreparedStatement prep;
 		try {
