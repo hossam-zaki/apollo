@@ -8,8 +8,6 @@
          concatenated. Here, separate normalize from our code, and
          avoid minification for clarity. -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/../normalize.css">
-    <link rel="stylesheet" href="../../../css/html5bp.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
@@ -51,15 +49,32 @@
   <br>
   <form class="form-inline">
     <div class="input-group">
-      <input type="email" class="form-control" size="75" placeholder="search for patient" required>
+      <input type="search" size="75" placeholder="search for patient" class="form-control" id="myInput" required>
       <div class="input-group-btn">
         <button type="button" class="btn"><i class="fa fa-search"></i></button>
       </div>
     </div>
   </form>
 </div>
-<div class="patientTable">
-${patients}
-<div>
+  <div id="myDIV">
+    <div class="patientTable">
+    ${patients}
+    </div>
+  </div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myDIV td").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+
+
 </body>
 </html>
