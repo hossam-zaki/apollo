@@ -8,8 +8,6 @@
          concatenated. Here, separate normalize from our code, and
          avoid minification for clarity. -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/../normalize.css">
-    <link rel="stylesheet" href="../../../css/html5bp.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
@@ -47,6 +45,11 @@
 </nav>
 <div class="jumbotron text-center">
   <h3>Records for the visit on ${date}.</h3>
+</div>
+<div class="audioStuff">
+<audio controls>
+  <source src="../../../../../audio/${audio}" type="audio/wav">
+</audio>
 </div>
 <h4>Visit Transcript:</h4>
 <div class="transcript">${transcript}</div>

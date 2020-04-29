@@ -253,14 +253,17 @@ public final class Main {
         System.out.println(filename);
         Part uploadedFile = request.raw().getPart("audio_data");
         final InputStream in = uploadedFile.getInputStream();
-        Files.copy(in, Paths.get("data/" + filename + ".wav"));
-        RunDeepSpeech.transcribe("data/" + filename + ".wav");
+        Files.copy(in, Paths.get("src/main/resources/static/audio/" + filename + ".wav"));
+        RunDeepSpeech.transcribe("src/main/resources/static/audio/" + filename + ".wav");
         System.out.println("Transcribing...");
-        while (Paths.get("data/" + filename + ".wav").toFile().exists()) {
-          ;
-        }
         String username = request.params(":username").replaceAll(":", "");
         String patient = request.params(":patient").replaceAll(":", "");
+        File myObj = new File(filename + ".txt");
+        myObj.createNewFile();
+        while (Paths.get(filename + ".txt").toFile().exists()) {
+          ;
+        }
+        System.out.println("yee");
         String content = Files.readString(
             Paths.get("data/transcripts/test.txt"), StandardCharsets.US_ASCII);
 
@@ -274,7 +277,7 @@ public final class Main {
         parser.executeCommand(input);
         String summary = parser.getResult();
         visitRegister.register(username, patient, filename.substring(0, 10),
-            "data/" + filename + ".wav", content, summary);
+        		"src/main/resources/static/audio/" + filename + ".wav", content, summary);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
             error);
         error = "";
@@ -460,7 +463,7 @@ public final class Main {
       String patient = req.params(":patient").replaceAll(":", "");
       String date = req.params(":date").replaceAll(":", "");
       String id = req.params(":id").replaceAll(":", "");
-      // byte[] audio = Database.getAudioFile(username, patient, date);
+      String audio = Database.getAudio(username, patient, date);
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       String transcript = Database.getTranscript(username, patient, id);
       String summary = Database.getSummary(username, patient, id);
@@ -476,6 +479,8 @@ public final class Main {
       // map.put("audio", audio);
       map.put("transcript", transcript);
       map.put("summary", summary);
+      System.out.println(audio);
+      map.put("audio", audio.substring(32));
       return new ModelAndView(map, "single_visit.ftl");
     }
   }

@@ -266,7 +266,7 @@ public final class Database {
 		}
 	}
 
-	public static byte[] getVisitDetails(String docUsername, String patientID, String date) {
+	public static String getAudio(String docUsername, String patientID, String date) {
 		PreparedStatement prep;
 		try {
 			prep = conn.prepareStatement(
@@ -275,9 +275,9 @@ public final class Database {
 			prep.setString(2, patientID);
 			prep.setString(3, date);
 			ResultSet rs = prep.executeQuery();
-			byte[] toRet = null;
+			String toRet = null;
 			while (rs.next()) {
-				toRet = rs.getBytes(1);
+				toRet = rs.getString(1);
 			}
 			return toRet;
 		} catch (SQLException e) {

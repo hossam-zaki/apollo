@@ -123,7 +123,25 @@ function createDownloadLink(blob) {
 
 	//name of .wav file to use during upload and download (without extendion)
 	var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-	var filename = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+	var str=window.location.href;
+	var list=[];
+	var link1="";
+	boolean=false;
+	for (var i = 0; i < str.length; i++) {
+	if(str.charAt(i) == ':'){
+		boolean=true;
+	}
+	if(str.charAt(i) == '/' && boolean){
+		list.push(link1);
+		console.log(link1);
+		link1="";
+		boolean=false;
+	}
+	if(boolean){
+		link1+=str.charAt(i);
+	}
+	}
+	var filename = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1) + list[list.length-1].slice(1, );
 	console.log(filename);
 	// console.log(new Date( new Date().getTime() - new Date().getTimezoneOffset() * -60000 ));
 
@@ -152,24 +170,24 @@ function createDownloadLink(blob) {
 		  var xhr=new XMLHttpRequest();
 		  var fd=new FormData();
 		  fd.append("audio_data",blob, filename);
-		  var str=window.location.href;
-		  var list=[];
-		  var link="";
-		  boolean=false;
-		  for (var i = 0; i < str.length; i++) {
-			if(str.charAt(i) == ':'){
-				boolean=true;
-			}
-			if(str.charAt(i) == '/' && boolean){
-				list.push(link);
-				console.log(link);
-				link="";
-				boolean=false;
-			}
-			if(boolean){
-				link+=str.charAt(i);
-			}
-		  }
+		  // var str=window.location.href;
+		  // var list=[];
+		  // var link="";
+		  // boolean=false;
+		  // for (var i = 0; i < str.length; i++) {
+			// if(str.charAt(i) == ':'){
+			// 	boolean=true;
+			// }
+			// if(str.charAt(i) == '/' && boolean){
+			// 	list.push(link);
+			// 	console.log(link);
+			// 	link="";
+			// 	boolean=false;
+			// }
+			// if(boolean){
+			// 	link+=str.charAt(i);
+			// }
+		  // }
 		  var req = jQuery.ajax({
 			url: '/send/' + list[list.length-2] + '/' + list[list.length-1],
 			method: 'POST',
