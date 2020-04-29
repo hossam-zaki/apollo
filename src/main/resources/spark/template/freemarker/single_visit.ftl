@@ -8,13 +8,11 @@
          concatenated. Here, separate normalize from our code, and
          avoid minification for clarity. -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/../normalize.css">
-    <link rel="stylesheet" href="../../../css/html5bp.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../../css/singleVisit.css"> 
+    <link rel="stylesheet" href="../../../../../css/singleVisit.css"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
@@ -47,17 +45,11 @@
 </nav>
 <div class="jumbotron text-center">
   <h3>Records for the visit on ${date}.</h3>
-  <br>
-  <br>
-  <br>
-  <form style="margin-left: 6%; width: 30%;" class="form-inline">
-    <div class="input-group">
-      <input type="email" class="form-control" size="75" placeholder="search for keywords" required>
-      <div class="input-group-btn">
-        <button type="button" class="btn"><i class="fa fa-search"></i></button>
-      </div>
-    </div>
-  </form>
+</div>
+<div class="audioStuff">
+<audio controls>
+  <source src="../../../../../audio/${audio}" type="audio/wav">
+</audio>
 </div>
 <h4>Visit Transcript:</h4>
 <div class="transcript">${transcript}</div>

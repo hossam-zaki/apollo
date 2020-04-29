@@ -77,14 +77,21 @@ $(function() {
     $('#reportrange').on('apply.daterangepicker', function(ev, res) {
       var xhttp = new XMLHttpRequest();
       //do something, like clearing an input
-      $.ajax({
-        url: "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d,
-        type: "GET"
-      })
+      var url = "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d;
+      window.location = url;
+      // var req = $.ajax({
+      //   url: "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d,
+      //   type: "GET"
+      // })
       // xhttp.open("GET", "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d, true);
       // xhttp.send();
       console.log(res.startDate._d, res.endDate._d);
       console.log("${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d);
+     //  req.then(function(response) {
+     //
+     // }, function(xhr) {
+     // console.error('failed to fetch xhr', xhr)
+     // })
   });
 });
 </script></span>

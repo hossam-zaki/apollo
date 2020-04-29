@@ -79,7 +79,7 @@ public class SearchAllTranscripts implements Executable {
 			toReturn.append("Search Results: \n\n");
 			if (!searchResults.isEmpty() && !(searchResults == null)) {
 				for (String date : searchResults.keySet()) {
-					toReturn.append("\nDate: " + date + "\nIndices: ");
+					toReturn.append("\nID: " + date + "\nIndices: ");
 					List<Integer> indices = searchResults.get(date);
 					for (Integer index : indices) {
 						toReturn.append(index + ", ");
@@ -103,7 +103,7 @@ public class SearchAllTranscripts implements Executable {
 			toReturn.append("<br>");
 			if (!searchResults.isEmpty() && !(searchResults == null)) {
 				for (String date : searchResults.keySet()) {
-					toReturn.append("<h5>Date: " + date + "</h5>");
+					toReturn.append("<h5>ID: " + date + "</h5>");
 					toReturn.append("<br>");
 					toReturn.append("<h5>Indices: ");
 					List<Integer> indices = searchResults.get(date);

@@ -179,8 +179,8 @@ public final class Database {
 			ResultSet rs = prep.executeQuery();
 			List<VisitDatum> toRet = new ArrayList<VisitDatum>();
 			while (rs.next()) {
-				VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5),
-						rs.getBytes(4));
+				VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(6), rs.getBytes(5));
 				toRet.add(curr);
 			}
 			return toRet;
@@ -203,8 +203,8 @@ public final class Database {
 				prep.setString(3, date);
 				ResultSet rs = prep.executeQuery();
 				while (rs.next()) {
-					VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(5),
-							rs.getBytes(4));
+					VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+							rs.getString(6), rs.getBytes(5));
 					toRet.add(curr);
 				}
 			}
@@ -216,32 +216,61 @@ public final class Database {
 		}
 	}
 
-	public static byte[] getVisitDetails(String docUsername, String patientID, String date) {
+	public static List<VisitDatum> getVisitsFromDateRanges(String docUsername, String patientID, List<String> dates) {
 		PreparedStatement prep;
 		try {
+			List<VisitDatum> toRet = new ArrayList<VisitDatum>();
 			prep = conn.prepareStatement(
-					"SELECT audio_file FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+					"SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date BETWEEN ? AND ?");
 			prep.setString(1, docUsername);
 			prep.setString(2, patientID);
-			prep.setString(3, date);
+			prep.setString(3, dates.get(0));
+			prep.setString(4, dates.get(1));
 			ResultSet rs = prep.executeQuery();
-			byte[] toRet = null;
 			while (rs.next()) {
-				toRet = rs.getBytes(1);
+				VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(6), rs.getBytes(5));
+				toRet.add(curr);
 			}
+
 			return toRet;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.println("ERROR: No audio file found");
+			System.err.println("ERROR: No visits found");
 			return null;
 		}
 	}
 
-	public static String getTranscript(String docUsername, String patientID, String date) {
+	public static List<VisitDatum> getVisitsFromIds(String docUsername, String patientID, Set<String> Ids) {
+		PreparedStatement prep;
+		try {
+			List<VisitDatum> toRet = new ArrayList<VisitDatum>();
+			for (String id : Ids) {
+				prep = conn.prepareStatement(
+						"SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+				prep.setString(1, docUsername);
+				prep.setString(2, patientID);
+				prep.setString(3, id);
+				ResultSet rs = prep.executeQuery();
+				while (rs.next()) {
+					VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+							rs.getString(6), rs.getBytes(5));
+					toRet.add(curr);
+				}
+			}
+			return toRet;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("ERROR: No visits found");
+			return null;
+		}
+	}
+
+	public static String getAudio(String docUsername, String patientID, String date) {
 		PreparedStatement prep;
 		try {
 			prep = conn.prepareStatement(
-					"SELECT transcipt FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+					"SELECT audio_file FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
 			prep.setString(1, docUsername);
 			prep.setString(2, patientID);
 			prep.setString(3, date);
@@ -258,14 +287,35 @@ public final class Database {
 		}
 	}
 
-	public static String getSummary(String docUsername, String patientID, String date) {
+	public static String getTranscript(String docUsername, String patientID, String id) {
 		PreparedStatement prep;
 		try {
 			prep = conn.prepareStatement(
-					"SELECT summary FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+					"SELECT transcript FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
 			prep.setString(1, docUsername);
 			prep.setString(2, patientID);
-			prep.setString(3, date);
+			prep.setString(3, id);
+			ResultSet rs = prep.executeQuery();
+			String toRet = null;
+			while (rs.next()) {
+				toRet = rs.getString(1);
+			}
+			return toRet;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("ERROR: No audio file found");
+			return null;
+		}
+	}
+
+	public static String getSummary(String docUsername, String patientID, String id) {
+		PreparedStatement prep;
+		try {
+			prep = conn.prepareStatement(
+					"SELECT summary FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+			prep.setString(1, docUsername);
+			prep.setString(2, patientID);
+			prep.setString(3, id);
 			ResultSet rs = prep.executeQuery();
 			String toRet = null;
 			while (rs.next()) {
@@ -282,7 +332,7 @@ public final class Database {
 	public static Map<String, String> getAllTranscripts(String id) {
 		PreparedStatement prep;
 		try {
-			prep = conn.prepareStatement("SELECT appointment_date, transcipt FROM appointments WHERE patient_id = ?");
+			prep = conn.prepareStatement("SELECT visit_id, transcript FROM appointments WHERE patient_id = ?");
 			prep.setString(1, id);
 			ResultSet rs = prep.executeQuery();
 			Map<String, String> transcripts = new HashMap<String, String>();

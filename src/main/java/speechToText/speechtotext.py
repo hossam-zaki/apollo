@@ -1,4 +1,4 @@
-#!/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
+#!/Library/Frameworks/Python.framework/Versions/3.7/bin/python3
 
 import speech_recognition as sr
 
@@ -39,7 +39,7 @@ def runSpeechToText(audioFile):
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
-    os.remove(audioFile)
+    os.remove(audioFile[32:-4] + ".txt")
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument('--audio',type=str,required=True)
