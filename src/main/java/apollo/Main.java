@@ -253,8 +253,10 @@ public final class Main {
         System.out.println(filename);
         Part uploadedFile = request.raw().getPart("audio_data");
         final InputStream in = uploadedFile.getInputStream();
-        Files.copy(in, Paths.get("src/main/resources/static/audio/" + filename + ".wav"));
-        RunDeepSpeech.transcribe("src/main/resources/static/audio/" + filename + ".wav");
+        Files.copy(in,
+            Paths.get("src/main/resources/static/audio/" + filename + ".wav"));
+        RunDeepSpeech
+            .transcribe("src/main/resources/static/audio/" + filename + ".wav");
         System.out.println("Transcribing...");
         String username = request.params(":username").replaceAll(":", "");
         String patient = request.params(":patient").replaceAll(":", "");
@@ -277,7 +279,8 @@ public final class Main {
         parser.executeCommand(input);
         String summary = parser.getResult();
         visitRegister.register(username, patient, filename.substring(0, 10),
-        		"src/main/resources/static/audio/" + filename + ".wav", content, summary);
+            "src/main/resources/static/audio/" + filename + ".wav", content,
+            summary);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
             error);
         error = "";
@@ -388,8 +391,8 @@ public final class Main {
           List<String> dateRanges = new ArrayList<String>();
           dateRanges.add(startDate);
           dateRanges.add(endDate);
-          String visitsDate = displayVisits.buildHTMLDateRanges(username, patient,
-              dateRanges);
+          String visitsDate = displayVisits.buildHTMLDateRanges(username,
+              patient, dateRanges);
           System.out.println(visitsDate);
           map.put("visits", visitsDate);
         }
@@ -479,7 +482,6 @@ public final class Main {
       // map.put("audio", audio);
       map.put("transcript", transcript);
       map.put("summary", summary);
-      System.out.println(audio);
       map.put("audio", audio.substring(32));
       return new ModelAndView(map, "single_visit.ftl");
     }
