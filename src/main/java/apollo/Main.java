@@ -282,7 +282,7 @@ public final class Main {
             error);
         error = "";
 
-        // Paths.get("data/transcripts/test.txt").toFile().delete();
+        Paths.get("data/transcripts/test.txt").toFile().delete();
         return new ModelAndView(map, "recording.ftl");
       } catch (Exception e) {
         e.printStackTrace();
