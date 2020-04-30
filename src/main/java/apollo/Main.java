@@ -357,7 +357,16 @@ public final class Main {
       Map<String, String> map = new HashMap<String, String>();
       map.put("title", "Apollo");
       map.put("username", username);
-      map.put("name", patientData.getFirstName());
+      String firstName = patientData.getFirstName();
+      String middleName = patientData.getMiddleName();
+      String lastName = patientData.getLastName();
+      StringBuilder name = new StringBuilder();
+      name.append(firstName);
+      name.append(" ");
+      name.append(middleName);
+      name.append(" ");
+      name.append(lastName);
+      map.put("name", name.toString());
       map.put("route", route);
       map.put("visits", visits);
       map.put("route2", route2);
