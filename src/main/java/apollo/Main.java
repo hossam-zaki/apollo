@@ -479,6 +479,19 @@ public final class Main {
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       String transcript = Database.getTranscript(username, patient, id);
       String summary = Database.getSummary(username, patient, id);
+      PatientDatum patientData = Database.getPatient(patient);
+      String firstName = patientData.getFirstName();
+      String middleName = patientData.getMiddleName();
+      String lastName = patientData.getLastName();
+      StringBuilder name = new StringBuilder();
+      String dob = patientData.getDateOfBirth();
+      String number = patientData.getPhoneNumber();
+      String email = patientData.getEmail();
+      name.append(firstName);
+      name.append(" ");
+      name.append(middleName);
+      name.append(" ");
+      name.append(lastName);
       if (summary == null) {
         summary = "We could not find any symptoms or reasons for visit in the transcript. Please use the manual commands.";
       }
@@ -492,6 +505,10 @@ public final class Main {
       map.put("transcript", transcript);
       map.put("summary", summary);
       map.put("audio", audio.substring(32));
+      map.put("name", name);
+      map.put("dob", dob);
+      map.put("number", number);
+      map.put("email", email);
       return new ModelAndView(map, "single_visit.ftl");
     }
   }

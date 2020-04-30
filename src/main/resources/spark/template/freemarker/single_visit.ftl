@@ -47,15 +47,25 @@
   <h3>Records for the visit on ${date}.</h3>
 </div>
 <div class="audioStuff">
+<br>
 <audio controls>
   <source src="../../../../../audio/${audio}" type="audio/wav">
 </audio>
 </div>
-<h4>Visit Transcript:</h4>
-<div class="transcript">${transcript}</div>
+<h4>Patient Details</h4>
+<div style="color:black; margin-left: 6%;" class="details">
+  Name: ${name} <br>
+  Date of Birth: ${dob} <br>
+  Email: ${number} <br>
+  Phone Number: ${email}
+</div>
 <br>
-<br>
-<h4>Visit Summary</h4>
-<div class="summary">${summary}</div>
+<div>
+  <h4>Visit Transcript:</h4>
+  <div class="transcript">${transcript}</div>
+  <br>
+  <h4>Visit Summary</h4>
+  <div class="summary">${summary}</div>
+</div>
 </body>
 </html>

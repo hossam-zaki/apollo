@@ -93,13 +93,10 @@ public class FillEHRSections {
         return null;
       }
       StringBuilder toReturn = new StringBuilder();
-      toReturn.append("<br>");
       toReturn.append("<h5>Reasons for Visit: </h5>");
-      toReturn.append("<br>");
       if (!reasons.isBlank()) {
         toReturn.append("<h5>" + reasons + "</h5>");
       }
-      toReturn.append("<br>");
       toReturn.append("<h5>Symptoms Reported:</h5>");
       if (symptoms.containsKey("none")) {
         toReturn.append("<br>");
