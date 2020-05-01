@@ -24,6 +24,8 @@ public final class AcceptablePhrases {
 		end.add("End symptoms");
 		end.add("stop symptoms");
 		end.add("Stop symptoms");
+		end.add("stopped symptoms");
+		end.add("Stopped symptoms");
 		end.add(". Symptoms");
 		end.add("no more symptoms");
 		end.add("No more symptoms");
@@ -49,6 +51,8 @@ public final class AcceptablePhrases {
 		end.add("End reasons");
 		end.add("stop reasons");
 		end.add("Stop reasons");
+		end.add("stopped reasons");
+		end.add("Stopped reasons");
 		end.add(". Reasons");
 		end.add("no more reasons");
 		end.add("No more reasons");
