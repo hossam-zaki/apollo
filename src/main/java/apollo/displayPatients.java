@@ -5,11 +5,25 @@ import java.util.List;
 import databases.Database;
 import patientData.PatientDatum;
 
+/*
+ * This class is used to display patient information onto the GUI.
+ */
 public class displayPatients {
 
+  /**
+   * Empty constructor for displayPatients class.
+   */
   public displayPatients() {
   }
 
+  /**
+   * This method is needed to build the HTML that displays the information of
+   * all patients of a doctor given a doctor username.
+   * 
+   * @param username A String, representing a doctor's username.
+   * @return A String, the HTML needed to display patient information on the
+   *         GUI.
+   */
   public static String buildHTML(String username) {
     List<PatientDatum> patients = Database.getDoctorPatients(username);
     if (patients == null) {
@@ -29,8 +43,6 @@ public class displayPatients {
       }
       html.append("<td>");
       html.append("<a href=\"/apollo/patientBase/:");
-//      html.append(username);
-//      html.append("&:");
       html.append(username);
       html.append("/:");
       html.append(patient.getID());
@@ -46,7 +58,6 @@ public class displayPatients {
         html.append(patient.getFirstName());
         html.append(" ");
       }
-      // html.append("<br>");
       html.append(patient.getLastName());
       html.append("</h5>");
       count++;
