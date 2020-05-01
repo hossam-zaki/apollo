@@ -210,8 +210,6 @@ public final class Database {
           rs.getString(9)); // docusername
       return patient;
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
       System.err.println("ERROR: Patient not found");
       return null;
     }
@@ -243,7 +241,6 @@ public final class Database {
       }
       return toRet;
     } catch (SQLException e) {
-      e.printStackTrace();
       System.err.println("ERROR: No visits found");
       return null;
     }
@@ -279,7 +276,6 @@ public final class Database {
       }
       return toRet;
     } catch (SQLException e) {
-      e.printStackTrace();
       System.err.println("ERROR: No visits found");
       return null;
     }
@@ -315,7 +311,6 @@ public final class Database {
 
       return toRet;
     } catch (SQLException e) {
-      e.printStackTrace();
       System.err.println("ERROR: No visits found");
       return null;
     }
@@ -352,7 +347,6 @@ public final class Database {
       }
       return toRet;
     } catch (SQLException e) {
-      e.printStackTrace();
       System.err.println("ERROR: No visits found");
       return null;
     }
@@ -383,7 +377,6 @@ public final class Database {
       }
       return toRet;
     } catch (SQLException e) {
-      e.printStackTrace();
       System.err.println("ERROR: No audio file found");
       return null;
     }
@@ -414,7 +407,6 @@ public final class Database {
       }
       return toRet;
     } catch (SQLException e) {
-      e.printStackTrace();
       System.err.println("ERROR: No audio file found");
       return null;
     }
@@ -444,10 +436,10 @@ public final class Database {
       }
       return toRet;
     } catch (SQLException e) {
-      e.printStackTrace();
       System.err.println("ERROR: No audio file found");
       return null;
     }
+
   }
 
   /**
@@ -471,8 +463,6 @@ public final class Database {
       }
       return transcripts;
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
       System.err.println("ERROR: Patient not found");
       return null;
     }
