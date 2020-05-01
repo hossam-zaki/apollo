@@ -47,9 +47,9 @@
 </nav>
 <div class="jumbotron text-center">
       <div id="controls">
-  	 <button id="recordButton">Record</button>
-  	 <button id="pauseButton" disabled>Pause</button>
-  	 <button id="stopButton" disabled>Stop</button>
+  	 <button id="recordButton"> Record  &nbsp<i class="fas fa-microphone"></i></button>
+  	 <button id="pauseButton" disabled> Pause &nbsp<i class="fas fa-pause"></i></button>
+  	 <button id="stopButton" disabled>Stop &nbsp<i class="fas fa-stop"></i></button>
     </div>
     <div id="formats"></div>
   	<p><strong>Recordings:</strong></p>
