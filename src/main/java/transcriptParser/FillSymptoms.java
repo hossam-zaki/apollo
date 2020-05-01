@@ -9,15 +9,11 @@ import searchAlgorithms.KMP;
 import searchAlgorithms.Search;
 
 public class FillSymptoms {
-	private String doctorStart;
-	private String doctorEnd;
 	private Map<String, List<String>> symptomPatterns;
 	private String transcript;
 	private Search kmp;
 
-	public FillSymptoms(String start, String end, Map<String, List<String>> patterns, String fullTranscript) {
-		doctorStart = start;
-		doctorEnd = end;
+	public FillSymptoms(Map<String, List<String>> patterns, String fullTranscript) {
 		symptomPatterns = patterns;
 		transcript = fullTranscript;
 		kmp = this.getPortion();
@@ -30,8 +26,26 @@ public class FillSymptoms {
 		}
 		KMP full = new KMP(transcript.toCharArray());
 		try {
-			Integer startIndex = full.search(doctorStart.toCharArray()).get(0); // get start phrase
-			Integer endIndex = full.search(doctorEnd.toCharArray()).get(0); // get end phrase
+			Integer startIndex = -1; // get start phrase
+			for (String phrase : AcceptablePhrases.getSymptomsStartPhrases()) {
+				List<Integer> indices = full.search(phrase.toCharArray());
+				if (indices != null && !indices.isEmpty()) {
+					startIndex = indices.get(0);
+					System.out.println(phrase);
+					System.out.println(startIndex);
+					break;
+				}
+			}
+			Integer endIndex = -1; // get end phrase
+			for (String phrase : AcceptablePhrases.getSymptomsEndPhrases()) {
+				List<Integer> indices = full.search(phrase.toCharArray());
+				if (indices != null && !indices.isEmpty()) {
+					endIndex = indices.get(0);
+					System.out.println(phrase);
+					System.out.println(endIndex);
+					break;
+				}
+			}
 			String portion = transcript.substring(startIndex, endIndex);
 			return new KMP(portion.toCharArray()); // kmp to only search through symptoms portion of
 													// transcript
