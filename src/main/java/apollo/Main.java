@@ -518,7 +518,7 @@ public final class Main {
       String date = req.params(":date").replaceAll(":", "");
       String id = req.params(":id").replaceAll(":", "");
       String audio = Database.getAudio(username, patient, id);
-      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+      String route = "/apollo/patientBase/:" + username + "/:" + patient;
       String transcript = Database.getTranscript(username, patient, id);
       String summary = Database.getSummary(username, patient, id);
       PatientDatum patientData = Database.getPatient(patient);
