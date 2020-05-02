@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import commands.ConnectToDatabase;
 import databases.Database;
-import transcriptParser.SearchAllTranscripts;
+import transcriptparser.SearchAllTranscripts;
 
 public class AllSearchTest {
 	private Map<String, String> dates;

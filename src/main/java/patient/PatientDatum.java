@@ -1,4 +1,4 @@
-package patientData;
+package patient;
 
 public class PatientDatum implements Datum {
   private String uuid;

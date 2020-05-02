@@ -25,12 +25,12 @@ import databases.Database;
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-import patientData.PatientDatum;
+import patient.PatientDatum;
+import patient.PatientRegistration;
+import patient.VisitRegistration;
 import registrationandlogin.Encryption;
 import registrationandlogin.Login;
-import registrationandlogin.PatientRegistration;
 import registrationandlogin.Registration;
-import registrationandlogin.VisitRegistration;
 import repl.Repl;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
@@ -41,8 +41,8 @@ import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
 import speechtotext.RunDeepSpeech;
-import transcriptParser.SearchAllTranscripts;
-import transcriptParser.ToParse;
+import transcriptparser.SearchAllTranscripts;
+import transcriptparser.ToParse;
 
 /**
  * The Main class of our project. This is where execution begins.

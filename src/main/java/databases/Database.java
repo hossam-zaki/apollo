@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import patientData.PatientDatum;
-import patientData.VisitDatum;
+import patient.PatientDatum;
+import patient.VisitDatum;
 
 /**
  * This is my database class, where I read from a database and make the instance

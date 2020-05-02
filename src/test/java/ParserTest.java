@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import transcriptParser.FillEHRSections;
-import transcriptParser.ToParse;
+import transcriptparser.FillEHRSections;
+import transcriptparser.ToParse;
 
 public class ParserTest {
 	ToParse parser = new ToParse();

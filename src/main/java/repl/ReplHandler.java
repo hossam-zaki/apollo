@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 
 import commands.ConnectToDatabase;
 import commands.StartSpeechToText;
-import transcriptParser.SearchAllTranscripts;
-import transcriptParser.ToParse;
+import transcriptparser.SearchAllTranscripts;
+import transcriptparser.ToParse;
 
 /**
  * This class will handle the lines that are read from the repl.

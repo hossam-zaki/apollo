@@ -1,12 +1,12 @@
-package transcriptParser;
+package transcriptparser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import searchAlgorithms.KMP;
-import searchAlgorithms.Search;
+import searchalgorithms.KMP;
+import searchalgorithms.Search;
 
 /**
  * This class is used to find the symptoms reported by a patient during a
