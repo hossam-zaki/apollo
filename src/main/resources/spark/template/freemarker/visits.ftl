@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../css/visits.css"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <script src="../../../js/jquery-2.1.1.js"></script>
@@ -60,21 +60,17 @@
   <i class="far fa-folder"></i>
 </div> -->
 
-<div id="reportrange" style="color:black; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 15%; margin-left: 74%; margin-top: -4%">
+<div id="reportrange" style="color:black; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 15%; margin-left: 10%; margin-top: -4%">
     <i style="color:black" class="fa fa-calendar"></i>&nbsp;
-    <span style="color:black"> <i style="color:black" class="fa fa-caret-down"></i>
+    <span style="color:black">search for visits by date</span>
 <script style="color:black" type="text/javascript" class="ranger">
 $(function() {
     var start = moment().subtract(29, 'days');
     var end = moment();
-    function cb(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
     $('#reportrange').daterangepicker({
         startDate: start,
-        endDate: end
-    }, cb);
-    cb(start, end);
+        endDate: end,
+    });
     $('#reportrange').on('apply.daterangepicker', function(ev, res) {
       var xhttp = new XMLHttpRequest();
       //do something, like clearing an input
@@ -95,7 +91,7 @@ $(function() {
      // })
   });
 });
-</script></span>
+</script>
 </div>
 <div style="text-align:center; color:black">
 

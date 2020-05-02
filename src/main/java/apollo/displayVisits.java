@@ -58,7 +58,41 @@ public class displayVisits {
       count++;
     }
     html.append("</table>");
-    return html.toString();
+    StringBuilder html2 = new StringBuilder();
+    html2.append("<br>");
+    html2.append(
+        "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+    html2.append("<thead>");
+    html2.append("<tr>");
+    html2.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
+    html2.append("<th scope=\"col\"><h4>Time</h4></th>");
+    html2.append("<th scope=\"col\"><h4>Type of Visit</h4></th>");
+    html2.append("<th scope=\"col\"><h4>Go to Visit</h4></th>");
+    html2.append("</tr>");
+    html2.append("</thead>");
+    html2.append("<tbody");
+    for (VisitDatum visit : visits) {
+      html2.append("<tr>");
+      html2.append("<td>");
+      html2.append(visit.getDate());
+      html2.append("</td>");
+      html2.append("<td>");
+      html2.append("LOLTIME");
+      html2.append("</td>");
+      html2.append("<td>" + "general" + "</td>");
+      html2.append("<td>");
+      html2.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
+          + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+      html2.append("\">Go to Visit");
+      html2.append("</a>");
+      html2.append("</td>");
+      html2.append("</tr>");
+
+    }
+    html2.append("</tbody>");
+    html2.append("</table>");
+
+    return html2.toString();
   }
 
   public static String buildHTMLDates(String docUsername, String patientID,
