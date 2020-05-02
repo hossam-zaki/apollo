@@ -34,7 +34,7 @@ h4 {
 }
 
 h5 {
-  font-size: 50%;
+  font-size: 150%;
   font-family: 'Roboto', sans-serif;
 }
 .button {
@@ -123,7 +123,7 @@ hr {
 }
 
 .patientTable {
-  font-size: 40px;
+  font-size: 15px;
   color:black;
   padding: 50px;
   vertical-align: 50%;

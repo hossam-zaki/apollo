@@ -84,11 +84,11 @@ function pauseRecording(){
 	if (rec.recording){
 		//pause
 		rec.stop();
-		pauseButton.innerHTML="Resume";
+		pauseButton.innerHTML="Resume &nbsp<i class='fas fa-microphone'>";
 	}else{
 		//resume
 		rec.record()
-		pauseButton.innerHTML="Pause";
+		pauseButton.innerHTML="Pause &nbsp<i class='fas fa-pause'>";
 
 	}
 }
@@ -102,7 +102,7 @@ function stopRecording() {
 	pauseButton.disabled = true;
 
 	//reset button just in case the recording is stopped while paused
-	pauseButton.innerHTML="Pause";
+	pauseButton.innerHTML="Pause &nbsp<i class='fas fa-pause'>";
 
 	//tell the recorder to stop the recording
 	rec.stop();

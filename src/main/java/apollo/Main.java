@@ -59,8 +59,6 @@ public final class Main {
    * @throws IOException will throw exception if this happens
    */
   public static void main(String[] args) throws IOException {
-//    Permissions permit = new Permissions();
-//    permit.start();
     new Encryption();
     new Main(args).run();
 
@@ -74,6 +72,12 @@ public final class Main {
     error = "";
   }
 
+  /**
+   * Method to run program in terminal with option of GUI tag.
+   *
+   * @throws IOException May results in IO Exception in case of unwanted
+   *                     behaviour.
+   */
   private void run() throws IOException {
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
@@ -91,6 +95,11 @@ public final class Main {
 
   }
 
+  /**
+   * Method to create the FreeMarker Engine used to build GUI.
+   *
+   * @return A free market engine.
+   */
   private static FreeMarkerEngine createEngine() {
     Configuration config = new Configuration();
     File templates = new File("src/main/resources/spark/template/freemarker");
@@ -104,6 +113,11 @@ public final class Main {
     return new FreeMarkerEngine(config);
   }
 
+  /**
+   * Method that maps all necessary Spark Rotues for our GUI.
+   *
+   * @param port A port number on which to run our GUI.
+   */
   private void runSparkServer(int port) {
     Spark.port(port);
     Spark.externalStaticFileLocation("src/main/resources/static");
@@ -131,11 +145,10 @@ public final class Main {
         freeMarker);
     Spark.get("/apollo/:username/:patient/visit/:date/:id",
         new singleVisitHandler(), freeMarker);
-
   }
 
   /**
-   * Handle requests to the front page of our Stars website.
+   * Handle requests to the front page of our website.
    *
    */
   private static class FrontHandler implements TemplateViewRoute {
@@ -167,7 +180,7 @@ public final class Main {
   }
 
   /**
-   * Handle requests to the front page of our Stars website.
+   * Handle requests to the front page of our website.
    *
    */
   private static class RegisterHandler implements TemplateViewRoute {
@@ -180,6 +193,10 @@ public final class Main {
     }
   }
 
+  /**
+   * Handles requests to log a doctor into the Apollo platform.
+   *
+   */
   private static class LoginDoctorHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -191,13 +208,14 @@ public final class Main {
         return null;
       }
       error = "";
+      System.out.println(req.session());
       res.redirect("/apollo/:" + qm.value("username"));
       return null;
     }
   }
 
   /**
-   * Handle requests to the front page of our Stars website.
+   * Handle requests to register a doctor into our Apollo platform.
    *
    */
   private static class RegisterDoctorHandler implements TemplateViewRoute {
@@ -208,6 +226,11 @@ public final class Main {
 
       if (!qm.value("password").equals(qm.value("passwordVali"))) {
         error = "Passwords do not match!";
+        res.redirect("/register");
+        return null;
+      }
+      if (Database.checkValidUsername(qm.value("username"))) {
+        error = "Username is unavailable";
         res.redirect("/register");
         return null;
       }
@@ -227,6 +250,10 @@ public final class Main {
     }
   }
 
+  /**
+   * Handles requests to record the audio of a given visit.
+   *
+   */
   private static class RecordHandler implements TemplateViewRoute {
 
     @Override
@@ -240,6 +267,11 @@ public final class Main {
 
   }
 
+  /*
+   * Handles requests to actually create a visit entry into our database using a
+   * certain recording. This is also where a text transcript is created and
+   * where a visit summary is added to the database.
+   */
   private static class SendHandler implements TemplateViewRoute {
 
     @Override
@@ -265,7 +297,6 @@ public final class Main {
         while (Paths.get(filename + ".txt").toFile().exists()) {
           ;
         }
-        System.out.println("yee");
         String content = Files.readString(
             Paths.get("data/transcripts/test.txt"), StandardCharsets.US_ASCII);
 
@@ -279,6 +310,7 @@ public final class Main {
         parser.executeCommand(input);
         String summary = parser.getResult();
         visitRegister.register(username, patient, filename.substring(0, 10),
+            filename.substring(11, 19),
             "src/main/resources/static/audio/" + filename + ".wav", content,
             summary);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
@@ -296,7 +328,8 @@ public final class Main {
   }
 
   /**
-   * Handle requests to the front page of our Stars website.
+   * Handle requests to the base page of our platform, where a doctor can see al
+   * infromation about patients and register new patients.
    *
    */
   private static class baseHandler implements TemplateViewRoute {
@@ -313,6 +346,9 @@ public final class Main {
     }
   }
 
+  /*
+   * Handles requests to the register patient page.
+   */
   private static class registerPatientHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -323,6 +359,9 @@ public final class Main {
     }
   }
 
+  /*
+   * Handles requests to actually register a patient into our database.
+   */
   private static class addPatientHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -344,6 +383,10 @@ public final class Main {
     }
   }
 
+  /*
+   * Handles requests to the visiits page for an individual patient, where all
+   * patient visits are displayed.
+   */
   private static class visitHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -411,6 +454,16 @@ public final class Main {
       return new ModelAndView(map, "visits.ftl");
     }
 
+    /**
+     * This is a parser that is used to convert dates from the JavaScript format
+     * into the format that we use when registering a visit. This is needed for
+     * us to properly search for visits between date ranges.
+     *
+     * @param date A String, representing a date to convert into our database's
+     *             format.
+     * @return A String, the same date into tehhe correct format:
+     *         "day-month-year".
+     */
     private String dateProcessor(String date) {
       String[] dateArray = new String[3];
       String[] splitDate = date.split("\\s+");
@@ -442,6 +495,9 @@ public final class Main {
     }
   }
 
+  /**
+   * Handles requests to view a doctor's account details page.
+   */
   private static class accountDetailsHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -455,6 +511,10 @@ public final class Main {
     }
   }
 
+  /**
+   * Handles requests to register a new visit.
+   *
+   */
   private static class newVisitHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -468,6 +528,12 @@ public final class Main {
     }
   }
 
+  /**
+   * Handles requests to view the page for a single visit. This includes
+   * displaying the visit transcript, as well as the visit summary, visit
+   * recording, and patient details.
+   *
+   */
   private static class singleVisitHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
@@ -475,7 +541,7 @@ public final class Main {
       String patient = req.params(":patient").replaceAll(":", "");
       String date = req.params(":date").replaceAll(":", "");
       String id = req.params(":id").replaceAll(":", "");
-      String audio = Database.getAudio(username, patient, date);
+      String audio = Database.getAudio(username, patient, id);
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       String transcript = Database.getTranscript(username, patient, id);
       String summary = Database.getSummary(username, patient, id);
@@ -501,7 +567,6 @@ public final class Main {
       map.put("patient", patient);
       map.put("date", date);
       map.put("route", route);
-      // map.put("audio", audio);
       map.put("transcript", transcript);
       map.put("summary", summary);
       map.put("audio", audio.substring(32));

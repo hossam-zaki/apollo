@@ -22,7 +22,8 @@ public class KMP implements Search {
    * Constructor takes in a character array of the text in which we are looking
    * for a pattern.
    *
-   * @param text
+   * @param text An Array of Characters, representing each character in the
+   *             transcript.
    */
   public KMP(char[] text) {
     this.text = text;
@@ -39,13 +40,7 @@ public class KMP implements Search {
    * @return int array with the integer values that correspond to each character
    */
   public int[] buildFailureFunction(char[] pattern) {
-    /*
-     * int len = pattern.length; int[] failureFunction = new int[len];
-     * failureFunction[0] = 0; int j = 0; int i = 1; while (i < len) { if
-     * (pattern[i] == pattern[j]) { j++; failureFunction[i] = j; i++; } else {
-     * if (j != 0) { j = failureFunction[j - 1]; } else { failureFunction[i] =
-     * 0; i++; } } } return failureFunction;
-     */
+
     int len = pattern.length;
     int[] failureFunction = new int[len];
     failureFunction[0] = 0;
@@ -74,19 +69,7 @@ public class KMP implements Search {
    * @return list of indices where the pattern was found
    */
   public List<Integer> search(char[] pattern) {
-    /*
-     * List<Integer> found = new ArrayList<Integer>(); // Stores indices where
-     * the // pattern was found int[] failure = buildFailureFunction(pattern);
-     * int patternLength = pattern.length; int textLength = text.length; int
-     * patternIndex = 0; int textIndex = 0; while (textIndex < textLength) { if
-     * (pattern[patternIndex] == text[textIndex]) { patternIndex++; textIndex++;
-     * if (patternIndex == patternLength) { found.add(textIndex - patternIndex);
-     * patternIndex = failure[patternIndex - 1]; }
-     * 
-     * } else if (textIndex < textLength && pattern[patternIndex] !=
-     * text[textIndex]) { if (patternIndex != 0) { patternIndex =
-     * failure[patternIndex - 1]; } else { textIndex++; } } } return found;
-     */
+
     int[] failureFunction = buildFailureFunction(pattern);
     int patInd = 0;
     int textInd = 0;

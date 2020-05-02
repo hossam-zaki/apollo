@@ -1,26 +1,50 @@
 package transcriptParser;
 
+import java.util.List;
+
 import searchAlgorithms.KMP;
 
+/**
+ * This class fills in the reasons for visit portion of our visit summary.
+ *
+ */
 public class FillVisit {
-  private String doctorStart;
-  private String doctorEnd;
   private String transcript;
 
-  public FillVisit(String start, String end, String fullTranscript) {
-    doctorStart = start;
-    doctorEnd = end;
+  /**
+   * Constructor for the FillVisit class.
+   *
+   * @param fullTranscript A String, representing the full visit transcript.
+   */
+  public FillVisit(String fullTranscript) {
     transcript = fullTranscript;
   }
 
+  /**
+   * This method gets the correct portion of the EHR from which we can find
+   * reasons for visit.
+   *
+   * @return A String, representing the found reasons for visit.
+   */
   public String getPortion() {
     KMP full = new KMP(transcript.toCharArray());
     try {
-      Integer startIndex = full.search(doctorStart.toCharArray()).get(0)
-          + this.doctorStart.length(); // get
-                                       // start
-                                       // phrase
-      Integer endIndex = full.search(doctorEnd.toCharArray()).get(0); // get end phrase
+      Integer startIndex = -1; // get start phrase
+      for (String phrase : AcceptablePhrases.getVisitStartPhrases()) {
+        List<Integer> indices = full.search(phrase.toCharArray());
+        if (indices != null && !indices.isEmpty()) {
+          startIndex = indices.get(0) + phrase.length();
+          break;
+        }
+      }
+      Integer endIndex = -1; // get end phrase
+      for (String phrase : AcceptablePhrases.getVisitEndPhrases()) {
+        List<Integer> indices = full.search(phrase.toCharArray());
+        if (indices != null && !indices.isEmpty()) {
+          endIndex = indices.get(0);
+          break;
+        }
+      }
       String portion = transcript.substring(startIndex, endIndex);
       return portion;
     } catch (Exception e) {

@@ -27,9 +27,9 @@ h2 {
   font-weight: bold;
 }
 h4 {
-    color: red;
-    font-family: Roboto;
-  font-size: 100%;
+  color: black;
+  font-family: Roboto;
+  font-size: 140%;
   text-align: center;
 }
 
@@ -123,18 +123,14 @@ hr {
   transform: translate(-50%, -50%);
 }
 
-.patientTable {
-  font-size: 40px;
-  color:black;
-  padding: 50px;
-  vertical-align: 50%;
-}
-th,td,tr {
-text-align: center;
-padding: 20px;
-padding-left: 20px;
-padding-right: 20px;
-width: 5%;
+
+th {
+  text-align: center;
+  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 5%;
+  font-weight: 900;
 }
 .jumbotron {
   background-color: #E0EAFC;
@@ -182,11 +178,22 @@ width: 5%;
 
  .daterangepicker {
    color: black;
-   
+
  }
 
  .input-group {
-   width: 30%;
-   margin-left: 10%;
+   width: 20%;
+   margin-left: 70%;
    margin-top: -4%;
+ }
+
+ .reportrange {
+ color:black;
+ background: #fff;
+ cursor: pointer;
+ padding: 5px 10px;
+ border: 1px solid #ccc;
+ width: 30%;
+ margin-left: 37.5%;
+ margin-top: 10%;
  }

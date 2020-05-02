@@ -9,48 +9,52 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- *
- * @author sqlitetutorial.net
+ * This class sets up the databases needed for the Apollo platoform.
  */
 public class DatabaseSetup {
 
-	/**
-	 * Connect to a sample database
-	 *
-	 * @param fileName the database file name
-	 */
-	public static void createNewDatabase() {
+  /**
+   * Connect to a sample database
+   *
+   * @param fileName the database file name
+   */
+  public static void createNewDatabase() {
 
-		String url = "jdbc:sqlite:data/db/apollo.sqlite3";
-		try {
-			FileReader file = new FileReader(url);
-			return;
-		} catch (FileNotFoundException e1) {
-			System.out.println("Generating Database...");
-		}
+    String url = "jdbc:sqlite:data/db/apollo.sqlite3";
+    try {
+      FileReader file = new FileReader(url);
+      return;
+    } catch (FileNotFoundException e1) {
+      System.out.println("Generating Database...");
+    }
 
-		try (Connection conn = DriverManager.getConnection(url)) {
-			if (conn != null) {
-				DatabaseMetaData meta = conn.getMetaData();
-				System.out.println("The driver name is " + meta.getDriverName());
-				PreparedStatement prep;
-				prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS doctor(" + "id UUID," + "first_name TEXT,"
-						+ "mid_name TEXT," + "last_name TEXT," + "email NVARCHAR(320)," + "username NVARCHAR(320),"
-						+ "password NVARCHAR(320)," + "phoneNumber NVARCHAR(320)," + "institution TEXT);");
-				prep.executeUpdate();
-				System.out.println("A new database has been created.");
-				prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS patient(" + "id UUID," + "first_name TEXT,"
-						+ "mid_name TEXT," + "last_name TEXT," + "date_of_birth TEXT," + "phoneNumber NVARCHAR(320),"
-						+ "email NVARCHAR(320)," + "emergency_phone_number TEXT," + "primary_doctor TEXT);");
-				prep.executeUpdate();
-				prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS appointments(visit_id UUID,"
-						+ "doctor_username TEXT," + "patient_id TEXT," + "appointment_date Text,"
-						+ "audio_file NVARCHAR(320)," + "transcript TEXT," + "summary Text);");
-				prep.executeUpdate();
-				System.out.println("A new database has been created.");
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
+    try (Connection conn = DriverManager.getConnection(url)) {
+      if (conn != null) {
+        DatabaseMetaData meta = conn.getMetaData();
+        System.out.println("The driver name is " + meta.getDriverName());
+        PreparedStatement prep;
+        // Creates the table to store doctor details
+        prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS doctor(" + "id UUID,"
+            + "first_name TEXT," + "mid_name TEXT," + "last_name TEXT," + "email NVARCHAR(320),"
+            + "username NVARCHAR(320) UNIQUE," + "password NVARCHAR(320),"
+            + "phoneNumber NVARCHAR(320)," + "institution TEXT);");
+        prep.executeUpdate();
+        System.out.println("A new database has been created.");
+        // Creates the table to store patient details
+        prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS patient(" + "id UUID,"
+            + "first_name TEXT," + "mid_name TEXT," + "last_name TEXT," + "date_of_birth TEXT,"
+            + "phoneNumber NVARCHAR(320)," + "email NVARCHAR(320)," + "emergency_phone_number TEXT,"
+            + "primary_doctor TEXT);");
+        prep.executeUpdate();
+        // Creates the table to store visit detials
+        prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS appointments(visit_id UUID,"
+            + "doctor_username TEXT," + "patient_id TEXT," + "appointment_date Text," + "time TEXT,"
+            + "audio_file NVARCHAR(320)," + "transcript TEXT," + "summary Text);");
+        prep.executeUpdate();
+        System.out.println("A new database has been created.");
+      }
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
+  }
 }

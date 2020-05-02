@@ -21,8 +21,7 @@ public class ParserTest {
 				+ "I fell from my bike and hit my head on a rock\n" + "\n" + "stop reasons\n" + "\n"
 				+ "what are your symptoms\n" + "\n" + "my head hurts and my stomach hurts\n" + "\n" + "stop symptoms\n"
 				+ "\n" + "Gjntjtn";
-		filler = new FillEHRSections("what are your symptoms", "stop symptoms", "what are your reasons", "stop reasons",
-				symptoms, transcriptString);
+		filler = new FillEHRSections(symptoms, transcriptString);
 		String res = filler.printFound();
 		StringBuilder test = new StringBuilder();
 		test.append("Reasons for Visit: \n\n");
@@ -38,8 +37,7 @@ public class ParserTest {
 		Map<String, List<String>> symptoms = parser.readSymptoms(symptomsFile);
 		String transcriptString = "hello, thanks for coming in what are your reasons I ate some weird food and now I don't feel great"
 				+ " stop reasons for visit what are your symptoms I have the chills and I feel sick stop symptoms okay have a good day";
-		filler = new FillEHRSections("what are your symptoms", "stop symptoms", "what are your reasons", "stop reasons",
-				symptoms, transcriptString);
+		filler = new FillEHRSections(symptoms, transcriptString);
 		String res = filler.printFound();
 		StringBuilder test = new StringBuilder();
 		test.append("Reasons for Visit: \n\n");
@@ -55,8 +53,7 @@ public class ParserTest {
 		File symptomsFile = new File("data/categorized_symptoms.csv");
 		Map<String, List<String>> symptoms = parser.readSymptoms(symptomsFile);
 		String transcriptString = "hello so today I wanted to see how you are doing and this test has none of the trigger sentences so nothing should show up";
-		filler = new FillEHRSections("what are your symptoms", "stop symptoms", "what are your reasons", "stop reasons",
-				symptoms, transcriptString);
+		filler = new FillEHRSections(symptoms, transcriptString);
 		String res = filler.printFound();
 		StringBuilder test = new StringBuilder();
 		test.append("Reasons for Visit: \n\n");
@@ -73,8 +70,7 @@ public class ParserTest {
 				+ "I fell from my bike and hit my head on a rock\n" + "\n" + "stop reasons for visit\n" + "\n"
 				+ "what are your symptoms\n" + "\n" + "my head hurts and my stomach hurts\n" + "\n" + "stop symptoms\n"
 				+ "\n" + "Gjntjtn";
-		filler = new FillEHRSections("what are your symptoms", "stop symptoms", "what are your reasons", "stop reasons",
-				symptoms, transcriptString);
+		filler = new FillEHRSections(symptoms, transcriptString);
 		String res = filler.printFound();
 		assertEquals(res, null);
 	}
@@ -87,8 +83,7 @@ public class ParserTest {
 				+ "I fell from my bike and hit my head on a rock\n" + "\n" + "end reasons for visit\n" + "\n"
 				+ "what are your symptoms\n" + "\n" + "my head hurts and my stomach hurts\n" + "\n" + "end symptoms\n"
 				+ "\n" + "Gjntjtn";
-		filler = new FillEHRSections("what are your symptoms", "stop symptoms", "what are your reasons", "stop reasons",
-				symptoms, transcriptString);
+		filler = new FillEHRSections(symptoms, transcriptString);
 		String res = filler.printFound();
 		assertEquals(res, null);
 	}

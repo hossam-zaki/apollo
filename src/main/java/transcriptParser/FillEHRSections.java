@@ -6,18 +6,28 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class is needed to produce the summary of visit which corresponds to the
+ * symptoms and reasons for visit in the EHR.
+ *
+ */
 public class FillEHRSections {
   private FillSymptoms symptomParse;
   private FillVisit reasonsParse;
   private Map<String, List<String>> symptoms;
   private String reasons;
 
-  public FillEHRSections(String symStart, String symEnd, String vStart,
-      String vEnd, Map<String, List<String>> symptomPatterns,
+  /**
+   * Constructor for the fillHERSections class.
+   *
+   * @param symptomPatterns A Map from String to a List of Strings, representing
+   *                        the symptoms and their categorization.
+   * @param fullTranscript  A String, representing the visit's full transcript.
+   */
+  public FillEHRSections(Map<String, List<String>> symptomPatterns,
       String fullTranscript) {
-    symptomParse = new FillSymptoms(symStart, symEnd, symptomPatterns,
-        fullTranscript);
-    reasonsParse = new FillVisit(vStart, vEnd, fullTranscript);
+    symptomParse = new FillSymptoms(symptomPatterns, fullTranscript);
+    reasonsParse = new FillVisit(fullTranscript);
     try {
       symptoms = symptomParse.getSymptoms();
       reasons = reasonsParse.getPortion().trim();
@@ -26,6 +36,12 @@ public class FillEHRSections {
     }
   }
 
+  /**
+   * This method is used to produce a string of the found visit transcript onto
+   * the GUI and terminal as needed.
+   *
+   * @return A String, representing the found symptoms and reasons for visit.
+   */
   public String printFound() {
     try {
       if (symptoms == null || reasons == null || symptoms.isEmpty()) {
@@ -59,6 +75,12 @@ public class FillEHRSections {
     }
   }
 
+  /**
+   * This method is used to to print the found summary to a file.
+   *
+   * @return A boolean, true if the printing to a file succeeds, false
+   *         otherwise.
+   */
   public boolean printToFile() {
     String toPrint = printFound();
     if (toPrint == null) {
@@ -87,6 +109,13 @@ public class FillEHRSections {
     }
   }
 
+  /**
+   * This methods builds the resulting the HMTL string needed to print the
+   * summary to the GUI.
+   *
+   * @return A String, representing the HTML needed to display the result to the
+   *         GUI.
+   */
   public String buildResult() {
     try {
       if (symptoms == null || reasons == null || symptoms.isEmpty()) {
@@ -119,5 +148,4 @@ public class FillEHRSections {
       return null;
     }
   }
-
 }

@@ -56,25 +56,19 @@
     </div>
   </form>
 </div>
-  <div id="myDIV">
     <div class="patientTable">
     ${patients}
     </div>
-  </div>
 
 <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
-    $("#myDIV td").filter(function() {
+    $("#patientTable tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
 });
 </script>
-
-
-
-
 </body>
 </html>
