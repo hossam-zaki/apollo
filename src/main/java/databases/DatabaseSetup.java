@@ -53,7 +53,7 @@ public class DatabaseSetup {
         System.out.println("A new database has been created.");
       }
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
+      System.err.println("ERROR: db not made");
     }
   }
 }
