@@ -16,7 +16,6 @@ public class DatabaseSetup {
   /**
    * Connect to a sample database
    *
-   * @param fileName the database file name
    */
   public static void createNewDatabase() {
 

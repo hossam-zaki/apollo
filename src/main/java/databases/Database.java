@@ -34,10 +34,9 @@ public final class Database {
   }
 
   /**
-   * Instantiates the database, creating tables if necessary. Automatically
-   * loads files.
+   * Instantiates the database, creating tables if necessary. Automatically loads
+   * files.
    *
-   * @param filename , file name of SQLite3 database to open.
    * @return int , 1 for correct, 0 for errors.
    */
   public static int makeDatabase() {
@@ -88,8 +87,7 @@ public final class Database {
   public static String getDocName(String username) {
     PreparedStatement prep;
     try {
-      prep = conn
-          .prepareStatement("SELECT last_name FROM doctor WHERE username = ?");
+      prep = conn.prepareStatement("SELECT last_name FROM doctor WHERE username = ?");
       prep.setString(1, username);
       ResultSet rs = prep.executeQuery();
       String toRet = "";
@@ -105,8 +103,8 @@ public final class Database {
 
   /**
    * This method executes the query that checks if a username is valid or not.
-   * Validity in this case means weather or not a username has already been
-   * taken or not.
+   * Validity in this case means weather or not a username has already been taken
+   * or not.
    *
    * @param username A potiential new doctor username.
    * @return A boolean, true if the username is free, false otherwise.
@@ -114,8 +112,7 @@ public final class Database {
   public static boolean checkValidUsername(String username) {
     PreparedStatement prep;
     try {
-      prep = conn
-          .prepareStatement("SELECT username FROM doctor WHERE username = ?");
+      prep = conn.prepareStatement("SELECT username FROM doctor WHERE username = ?");
       prep.setString(1, username);
       ResultSet rs = prep.executeQuery();
       rs.getString(1);
@@ -138,14 +135,13 @@ public final class Database {
     PreparedStatement prep;
     try {
       List<PatientDatum> toRet = new ArrayList<PatientDatum>();
-      prep = conn
-          .prepareStatement("SELECT * FROM patient WHERE primary_doctor = ?");
+      prep = conn.prepareStatement("SELECT * FROM patient WHERE primary_doctor = ?");
       prep.setString(1, username);
       ResultSet rs = prep.executeQuery();
       while (rs.next()) {
-        PatientDatum curr = new PatientDatum(rs.getString("id"),
-            rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-            rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9));
+        PatientDatum curr = new PatientDatum(rs.getString("id"), rs.getString(2), rs.getString(3),
+            rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),
+            rs.getString(9));
         toRet.add(curr);
       }
       return toRet;
@@ -187,8 +183,8 @@ public final class Database {
   }
 
   /**
-   * This method executes the query that retrieves a patient's information given
-   * a patients unique ID.
+   * This method executes the query that retrieves a patient's information given a
+   * patients unique ID.
    *
    * @param id A String, representing a patient's unique ID.
    * @return A patientDatum, representing the patientDatum's.
@@ -224,8 +220,7 @@ public final class Database {
    * @return A list of visitDatums, representing all visits between the given
    *         doctor and patient.
    */
-  public static List<VisitDatum> getVisits(String docUsername,
-      String patientID) {
+  public static List<VisitDatum> getVisits(String docUsername, String patientID) {
     PreparedStatement prep;
     try {
       prep = conn.prepareStatement(
@@ -235,9 +230,8 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
       while (rs.next()) {
-        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
-            rs.getString(3), rs.getString(4), rs.getString(7), rs.getBytes(6),
-            rs.getString(5));
+        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
+            rs.getString(4), rs.getString(7), rs.getBytes(6), rs.getString(5));
         toRet.add(curr);
       }
       return toRet;
@@ -253,11 +247,11 @@ public final class Database {
    * @param docUsername A String, representing a doctor's username.
    * @param patientID   A String, representing a patient's ID.
    * @param dates       A List of Strings, representing dates.
-   * @return A List of VisitDatums, representing all visits between a patient
-   *         and a doctor in specific dates.
+   * @return A List of VisitDatums, representing all visits between a patient and
+   *         a doctor in specific dates.
    */
-  public static List<VisitDatum> getVisitsFromDates(String docUsername,
-      String patientID, Set<String> dates) {
+  public static List<VisitDatum> getVisitsFromDates(String docUsername, String patientID,
+      Set<String> dates) {
     PreparedStatement prep;
     try {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
@@ -269,9 +263,8 @@ public final class Database {
         prep.setString(3, date);
         ResultSet rs = prep.executeQuery();
         while (rs.next()) {
-          VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
-              rs.getString(3), rs.getString(4), rs.getString(7), rs.getBytes(6),
-              rs.getString(5));
+          VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
+              rs.getString(4), rs.getString(7), rs.getBytes(6), rs.getString(5));
           toRet.add(curr);
         }
       }
@@ -285,15 +278,15 @@ public final class Database {
   /**
    * This method executes the query that finds all visits between a doctor and a
    * patient given a date range.
-   * 
+   *
    * @param docUsername A String, representing a doctor's username.
    * @param patientID   A String, representing a patientID.
    * @param dates       A List of Strings, representing a date range.
-   * @return A List of VisitDatums, representing all visits between a doctor and
-   *         a patient in a given dateRange.
+   * @return A List of VisitDatums, representing all visits between a doctor and a
+   *         patient in a given dateRange.
    */
-  public static List<VisitDatum> getVisitsFromDateRanges(String docUsername,
-      String patientID, List<String> dates) {
+  public static List<VisitDatum> getVisitsFromDateRanges(String docUsername, String patientID,
+      List<String> dates) {
     PreparedStatement prep;
     try {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
@@ -305,9 +298,8 @@ public final class Database {
       prep.setString(4, dates.get(1));
       ResultSet rs = prep.executeQuery();
       while (rs.next()) {
-        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
-            rs.getString(3), rs.getString(4), rs.getString(7), rs.getBytes(6),
-            rs.getString(5));
+        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
+            rs.getString(4), rs.getString(7), rs.getBytes(6), rs.getString(5));
         toRet.add(curr);
       }
 
@@ -325,11 +317,11 @@ public final class Database {
    * @param docUsername A String, representing a doctor's username.
    * @param patientID   A String, representing a patient's ID.
    * @param Ids         A Set of Strings, representing visits IDs.
-   * @return A List of VisitDatums, representing a list of visits corresponding
-   *         to the doctor's ID, patient ID, and visit IDs.
+   * @return A List of VisitDatums, representing a list of visits corresponding to
+   *         the doctor's ID, patient ID, and visit IDs.
    */
-  public static List<VisitDatum> getVisitsFromIds(String docUsername,
-      String patientID, Set<String> Ids) {
+  public static List<VisitDatum> getVisitsFromIds(String docUsername, String patientID,
+      Set<String> Ids) {
     PreparedStatement prep;
     try {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
@@ -341,9 +333,8 @@ public final class Database {
         prep.setString(3, id);
         ResultSet rs = prep.executeQuery();
         while (rs.next()) {
-          VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
-              rs.getString(3), rs.getString(4), rs.getString(7), rs.getBytes(6),
-              rs.getString(5));
+          VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
+              rs.getString(4), rs.getString(7), rs.getBytes(6), rs.getString(5));
           toRet.add(curr);
         }
       }
@@ -363,8 +354,7 @@ public final class Database {
    * @param id          A String, representing a visit ID.
    * @return A String, representing a path to a visit's audtio file.
    */
-  public static String getAudio(String docUsername, String patientID,
-      String id) {
+  public static String getAudio(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
       prep = conn.prepareStatement(
@@ -385,16 +375,14 @@ public final class Database {
   }
 
   /**
-   * This method executes the query that gets the transcript for a certain
-   * visit.
+   * This method executes the query that gets the transcript for a certain visit.
    *
    * @param docUsername A String, representing a doctor's username.
    * @param patientID   A String, representing a patient ID.
    * @param id          A String, representing a visit ID.
    * @return A String, representing the visit's transcript.
    */
-  public static String getTranscript(String docUsername, String patientID,
-      String id) {
+  public static String getTranscript(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
       prep = conn.prepareStatement(
@@ -422,8 +410,7 @@ public final class Database {
    * @param id          A String, representing a visit's ID.
    * @return A String, representing a visit's summary.
    */
-  public static String getSummary(String docUsername, String patientID,
-      String id) {
+  public static String getSummary(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
       prep = conn.prepareStatement(
@@ -445,8 +432,7 @@ public final class Database {
   }
 
   /**
-   * This method executes the query that gets all transcripts for a set of
-   * visits.
+   * This method executes the query that gets all transcripts for a set of visits.
    *
    * @param id A String, representing a patient ID.
    * @return A Map from String to String, representing dates and transcripts for
@@ -455,8 +441,8 @@ public final class Database {
   public static Map<String, String> getAllTranscripts(String id) {
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement(
-          "SELECT visit_id, transcript FROM appointments WHERE patient_id = ?");
+      prep = conn
+          .prepareStatement("SELECT visit_id, transcript FROM appointments WHERE patient_id = ?");
       prep.setString(1, id);
       ResultSet rs = prep.executeQuery();
       Map<String, String> transcripts = new HashMap<String, String>();
