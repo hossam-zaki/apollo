@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Test;
 
-import searchAlgorithms.KMP;
+import searchalgorithms.KMP;
 
 public class KMPTest {
 

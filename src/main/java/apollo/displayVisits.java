@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import databases.Database;
-import patientData.VisitDatum;
+import patient.VisitDatum;
 
 /**
  * This class is used to display visits into the GUI.

@@ -8,15 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import commands.ConnectToDatabase;
-import registrationAndLogin.Encryption;
-import registrationAndLogin.Login;
-import registrationAndLogin.Registration;
+import registrationandlogin.Encryption;
+import registrationandlogin.Login;
+import registrationandlogin.Registration;
 
 public class LoginTest {
 
   @Before
   public void setUp() throws Exception {
-    new Encryption();
+    Encryption.registerEncryption();
     ConnectToDatabase connect = new ConnectToDatabase();
     connect.executeCommand(null);
     List<String> registeredUser = new ArrayList();

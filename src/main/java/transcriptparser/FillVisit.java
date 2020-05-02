@@ -1,8 +1,8 @@
-package transcriptParser;
+package transcriptparser;
 
 import java.util.List;
 
-import searchAlgorithms.KMP;
+import searchalgorithms.KMP;
 
 /**
  * This class fills in the reasons for visit portion of our visit summary.

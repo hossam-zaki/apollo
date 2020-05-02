@@ -1,4 +1,4 @@
-package transcriptParser;
+package transcriptparser;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -24,8 +24,7 @@ public class FillEHRSections {
    *                        the symptoms and their categorization.
    * @param fullTranscript  A String, representing the visit's full transcript.
    */
-  public FillEHRSections(Map<String, List<String>> symptomPatterns,
-      String fullTranscript) {
+  public FillEHRSections(Map<String, List<String>> symptomPatterns, String fullTranscript) {
     symptomParse = new FillSymptoms(symptomPatterns, fullTranscript);
     reasonsParse = new FillVisit(fullTranscript);
     try {
@@ -57,8 +56,9 @@ public class FillEHRSections {
         toReturn.append("");
       } else {
         for (String key : symptoms.keySet()) {
-          if (symptoms.get(key).size() != 0 && symptoms.get(key) != null)
+          if (symptoms.get(key).size() != 0 && symptoms.get(key) != null) {
             toReturn.append(key + ": ");
+          }
           for (String s : symptoms.get(key)) {
             if (s.equals(symptoms.get(key).get(symptoms.get(key).size() - 1))) {
               toReturn.append(s + "\n");
@@ -78,8 +78,7 @@ public class FillEHRSections {
   /**
    * This method is used to to print the found summary to a file.
    *
-   * @return A boolean, true if the printing to a file succeeds, false
-   *         otherwise.
+   * @return A boolean, true if the printing to a file succeeds, false otherwise.
    */
   public boolean printToFile() {
     String toPrint = printFound();
@@ -110,8 +109,8 @@ public class FillEHRSections {
   }
 
   /**
-   * This methods builds the resulting the HMTL string needed to print the
-   * summary to the GUI.
+   * This methods builds the resulting the HMTL string needed to print the summary
+   * to the GUI.
    *
    * @return A String, representing the HTML needed to display the result to the
    *         GUI.
@@ -124,15 +123,16 @@ public class FillEHRSections {
       StringBuilder toReturn = new StringBuilder();
       toReturn.append("<h5>Reasons for Visit: </h5>");
       if (!reasons.isBlank()) {
-        toReturn.append("<h5>" + reasons + "</h5>");
+        toReturn.append("<h5>" + reasons + "</h5><br>");
       }
       toReturn.append("<h5>Symptoms Reported:</h5>");
       if (symptoms.containsKey("none")) {
         toReturn.append("<br>");
       } else {
         for (String key : symptoms.keySet()) {
-          if (symptoms.get(key).size() != 0 && symptoms.get(key) != null)
-            toReturn.append("<h5>" + key + ": ");
+          if (symptoms.get(key).size() != 0 && symptoms.get(key) != null) {
+            toReturn.append("<h5><b>" + key + ": </b>");
+          }
           for (String s : symptoms.get(key)) {
             if (s.equals(symptoms.get(key).get(symptoms.get(key).size() - 1))) {
               toReturn.append(s + "</h5>");

@@ -1,4 +1,4 @@
-package patientData;
+package patient;
 
 public class VisitDatum implements Datum {
   private String id;

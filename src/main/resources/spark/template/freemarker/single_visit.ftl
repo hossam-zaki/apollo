@@ -47,25 +47,46 @@
   <h3>Records for the visit on ${date}.</h3>
 </div>
 <div class="audioStuff">
-<br>
 <audio controls>
   <source src="../../../../../audio/${audio}" type="audio/wav">
 </audio>
 </div>
 <h4>Patient Details</h4>
-<div style="color:black; margin-left: 6%;" class="details">
-  Name: ${name} <br>
+<div style="color:black; margin-left: 8%;" class="details">
+  <b>Name:</b> ${name} <br>
   Date of Birth: ${dob} <br>
   Email: ${number} <br>
   Phone Number: ${email}
 </div>
 <br>
-<div>
-  <h4>Visit Transcript:</h4>
+<div class="row">
+  <div class="column left">
+  <h4 style="margin-left: 22%;">Visit Summary</h4>
+  <div class="summary">${summary}</div>  
+  </div>
+<div class="column right">
+  <button class="collapsible"><h4>View Visit Transcript:</h4></button>
+  <div class="content">
   <div class="transcript">${transcript}</div>
-  <br>
-  <h4>Visit Summary</h4>
-  <div class="summary">${summary}</div>
 </div>
+</div>
+</div>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
 </body>
 </html>

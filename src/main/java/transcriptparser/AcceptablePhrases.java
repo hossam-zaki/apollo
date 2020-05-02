@@ -1,4 +1,4 @@
-package transcriptParser;
+package transcriptparser;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,7 +16,6 @@ public class DatabaseSetup {
   /**
    * Connect to a sample database
    *
-   * @param fileName the database file name
    */
   public static void createNewDatabase() {
 
@@ -54,7 +53,7 @@ public class DatabaseSetup {
         System.out.println("A new database has been created.");
       }
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
+      System.err.println("ERROR: db not made");
     }
   }
 }

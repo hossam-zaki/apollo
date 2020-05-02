@@ -1,4 +1,4 @@
-package patientData;
+package patient;
 
 public interface Datum {
 

@@ -1,4 +1,4 @@
-package transcriptParser;
+package transcriptparser;
 
 import java.io.BufferedReader;
 import java.io.File;

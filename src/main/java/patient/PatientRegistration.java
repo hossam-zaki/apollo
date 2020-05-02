@@ -1,4 +1,4 @@
-package registrationAndLogin;
+package patient;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

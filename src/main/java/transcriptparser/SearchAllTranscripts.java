@@ -1,4 +1,4 @@
-package transcriptParser;
+package transcriptparser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +9,8 @@ import java.util.UUID;
 
 import databases.Database;
 import repl.Executable;
-import searchAlgorithms.KMP;
-import searchAlgorithms.Search;
+import searchalgorithms.KMP;
+import searchalgorithms.Search;
 
 /**
  * This class executes the search by keyword on all transcripts from all visits
