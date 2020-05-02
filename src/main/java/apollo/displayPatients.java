@@ -59,6 +59,8 @@ public class displayPatients {
         html.append(" ");
       }
       html.append(patient.getLastName());
+      html.append("<br>");
+      html.append("(" + patient.getDateOfBirth() + ")");
       html.append("</h5>");
       count++;
     }

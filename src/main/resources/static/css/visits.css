@@ -182,22 +182,22 @@ width: 5%;
 
  .daterangepicker {
    color: black;
-   
+
  }
 
  .input-group {
-   width: 30%;
-   margin-left: 37.5%;
-   margin-top: -10%;
+   width: 20%;
+   margin-left: 10%;
+   margin-top: -4%;
  }
 
  .reportrange {
- color:black; 
- background: #fff; 
- cursor: pointer; 
- padding: 5px 10px; 
- border: 1px solid #ccc; 
- width: 30%; 
- margin-left: 37.5%; 
- margin-top: -2%;
+ color:black;
+ background: #fff;
+ cursor: pointer;
+ padding: 5px 10px;
+ border: 1px solid #ccc;
+ width: 30%;
+ margin-left: 37.5%;
+ margin-top: 10%;
  }

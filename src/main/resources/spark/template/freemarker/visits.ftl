@@ -53,13 +53,14 @@
 </nav>
 <div class="jumbotron text-center">
   <h3>${name}'s Visits</h3>
+  <h5>Search visits using keywords or dates!</h5>
 </div>
 <br>
 <!-- <div class="folder" style="color: black; margin-left: 50%; ">
   <i class="far fa-folder"></i>
 </div> -->
 
-<div id="reportrange" style="color:black; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 30%; margin-left: 60%; margin-top: -4%">
+<div id="reportrange" style="color:black; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 15%; margin-left: 74%; margin-top: -4%">
     <i style="color:black" class="fa fa-calendar"></i>&nbsp;
     <span style="color:black"> <i style="color:black" class="fa fa-caret-down"></i>
 <script style="color:black" type="text/javascript" class="ranger">
@@ -95,6 +96,9 @@ $(function() {
   });
 });
 </script></span>
+</div>
+<div style="text-align:center; color:black">
+
 </div>
 <div>
   <form class="form-inline">
