@@ -45,6 +45,13 @@
     </div>
   </div>
 </nav>
+
+  <div class="input-group mb-3" style="margin-left: auto; margin-right: auto; margin-top: 5%">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="inputGroup-sizing-default" >Default</span>
+    </div>
+    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter Type of Visit Here">
+  </div>
 <div class="jumbotron text-center">
       <div id="controls">
   	 <button id="recordButton"> Record  &nbsp<i class="fas fa-microphone"></i></button>
