@@ -31,7 +31,7 @@ h4 {
     font-family: Roboto;
   font-size: 130%;
   text-align: left;
-  margin-left: 6%;
+  margin-left: 8%;
   text-decoration: underline;
 }
 
@@ -187,14 +187,15 @@ width: 5%;
 
  .transcript {
    color:black;
-   margin-left: 6%;
-   width: 45%;
+   margin-left: 10%;
+   padding: 10px;
+   width: 80%;
  }
 
  .summary {
    color:black;
-   margin-left: 6%;
-   width: 45%;
+   margin-left: 22%;
+   width: 70%;
  }
  .audioStuff{
    text-align: center;
@@ -203,3 +204,47 @@ width: 5%;
  .details {
    margin-left: 50%;
  }
+
+ .column {
+  float: left;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 40%;
+}
+
+.right {
+  width: 60%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  margin-left: 30%;
+}
+
+.collapsible {
+  cursor: pointer;
+  width: 50%;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+}
+
+.content {
+  padding: 0 0px;
+  width: 80%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+  border: none;
+  text-align: left;
+}
