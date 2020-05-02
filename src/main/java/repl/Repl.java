@@ -23,6 +23,7 @@ public class Repl {
   /**
    * Calling this method will begin the loop of the REPl, and will process inputs
    * that the user types in.
+   *
    * @throws IOException will throw Exception if I/O error occurs
    */
   public void startRepl() throws IOException {

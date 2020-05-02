@@ -11,14 +11,14 @@ import org.junit.Test;
 
 import commands.ConnectToDatabase;
 import databases.Database;
-import registrationAndLogin.Encryption;
-import registrationAndLogin.Registration;
+import registrationandlogin.Encryption;
+import registrationandlogin.Registration;
 
 public class RegisterTest {
 
   @Before
   public void setUp() throws Exception {
-    new Encryption();
+    Encryption.registerEncryption();
     ConnectToDatabase connect = new ConnectToDatabase();
     connect.executeCommand(null);
 

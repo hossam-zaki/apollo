@@ -26,11 +26,11 @@ import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import patientData.PatientDatum;
-import registrationAndLogin.Encryption;
-import registrationAndLogin.Login;
-import registrationAndLogin.PatientRegistration;
-import registrationAndLogin.Registration;
-import registrationAndLogin.VisitRegistration;
+import registrationandlogin.Encryption;
+import registrationandlogin.Login;
+import registrationandlogin.PatientRegistration;
+import registrationandlogin.Registration;
+import registrationandlogin.VisitRegistration;
 import repl.Repl;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
@@ -59,7 +59,7 @@ public final class Main {
    * @throws IOException will throw exception if this happens
    */
   public static void main(String[] args) throws IOException {
-    new Encryption();
+    Encryption.registerEncryption();
     new Main(args).run();
 
   }
@@ -81,8 +81,7 @@ public final class Main {
   private void run() throws IOException {
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
-    parser.accepts("port").withRequiredArg().ofType(Integer.class)
-        .defaultsTo(DEFAULT_PORT);
+    parser.accepts("port").withRequiredArg().ofType(Integer.class).defaultsTo(DEFAULT_PORT);
     OptionSet options = parser.parse(args);
 
     if (options.has("gui")) {
@@ -106,8 +105,7 @@ public final class Main {
     try {
       config.setDirectoryForTemplateLoading(templates);
     } catch (IOException ioe) {
-      System.out.printf("ERROR: Unable use %s for template loading.%n",
-          templates);
+      System.out.printf("ERROR: Unable use %s for template loading.%n", templates);
       System.exit(1);
     }
     return new FreeMarkerEngine(config);
@@ -133,18 +131,12 @@ public final class Main {
     Spark.get("/record", new RecordHandler(), freeMarker);
     Spark.post("/send/:username/:patient", new SendHandler(), freeMarker);
     Spark.get("/apollo/:username", new baseHandler(), freeMarker);
-    Spark.get("/apollo/registerPatient/:username", new registerPatientHandler(),
-        freeMarker);
-    Spark.post("/apollo/registerPatient/addPatient/:username",
-        new addPatientHandler(), freeMarker);
-    Spark.get("/apollo/patientBase/:username/:patient", new visitHandler(),
-        freeMarker);
-    Spark.get("/apollo/account-details/:username", new accountDetailsHandler(),
-        freeMarker);
-    Spark.get("/apollo/:username/:patient/registerVisit", new newVisitHandler(),
-        freeMarker);
-    Spark.get("/apollo/:username/:patient/visit/:date/:id",
-        new singleVisitHandler(), freeMarker);
+    Spark.get("/apollo/registerPatient/:username", new registerPatientHandler(), freeMarker);
+    Spark.post("/apollo/registerPatient/addPatient/:username", new addPatientHandler(), freeMarker);
+    Spark.get("/apollo/patientBase/:username/:patient", new visitHandler(), freeMarker);
+    Spark.get("/apollo/account-details/:username", new accountDetailsHandler(), freeMarker);
+    Spark.get("/apollo/:username/:patient/registerVisit", new newVisitHandler(), freeMarker);
+    Spark.get("/apollo/:username/:patient/visit/:date/:id", new singleVisitHandler(), freeMarker);
   }
 
   /**
@@ -154,8 +146,7 @@ public final class Main {
   private static class FrontHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
-          error);
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
       error = "";
       return new ModelAndView(map, "homepage.ftl");
     }
@@ -186,8 +177,7 @@ public final class Main {
   private static class RegisterHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
-          error);
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
       error = "";
       return new ModelAndView(map, "register.ftl");
     }
@@ -257,10 +247,8 @@ public final class Main {
   private static class RecordHandler implements TemplateViewRoute {
 
     @Override
-    public ModelAndView handle(Request request, Response response)
-        throws Exception {
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
-          error);
+    public ModelAndView handle(Request request, Response response) throws Exception {
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
       error = "";
       return new ModelAndView(map, "recording.ftl");
     }
@@ -269,26 +257,22 @@ public final class Main {
 
   /*
    * Handles requests to actually create a visit entry into our database using a
-   * certain recording. This is also where a text transcript is created and
-   * where a visit summary is added to the database.
+   * certain recording. This is also where a text transcript is created and where
+   * a visit summary is added to the database.
    */
   private static class SendHandler implements TemplateViewRoute {
 
     @Override
-    public ModelAndView handle(Request request, Response response)
-        throws Exception {
+    public ModelAndView handle(Request request, Response response) throws Exception {
       try {
         request.raw().setAttribute("org.eclipse.jetty.multipartConfig",
             new MultipartConfigElement("/tmp", 100000000, 100000000, 1024));
-        String filename = request.raw().getPart("audio_data")
-            .getSubmittedFileName();
+        String filename = request.raw().getPart("audio_data").getSubmittedFileName();
         System.out.println(filename);
         Part uploadedFile = request.raw().getPart("audio_data");
         final InputStream in = uploadedFile.getInputStream();
-        Files.copy(in,
-            Paths.get("src/main/resources/static/audio/" + filename + ".wav"));
-        RunDeepSpeech
-            .transcribe("src/main/resources/static/audio/" + filename + ".wav");
+        Files.copy(in, Paths.get("src/main/resources/static/audio/" + filename + ".wav"));
+        RunDeepSpeech.transcribe("src/main/resources/static/audio/" + filename + ".wav");
         System.out.println("Transcribing...");
         String username = request.params(":username").replaceAll(":", "");
         String patient = request.params(":patient").replaceAll(":", "");
@@ -297,8 +281,8 @@ public final class Main {
         while (Paths.get(filename + ".txt").toFile().exists()) {
           ;
         }
-        String content = Files.readString(
-            Paths.get("data/transcripts/test.txt"), StandardCharsets.US_ASCII);
+        String content = Files.readString(Paths.get("data/transcripts/test.txt"),
+            StandardCharsets.US_ASCII);
 
         VisitRegistration visitRegister = new VisitRegistration();
         System.out.println(in.readAllBytes().toString());
@@ -310,11 +294,9 @@ public final class Main {
         parser.executeCommand(input);
         String summary = parser.getResult();
         visitRegister.register(username, patient, filename.substring(0, 10),
-            filename.substring(11, 19),
-            "src/main/resources/static/audio/" + filename + ".wav", content,
-            summary);
-        Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status",
-            error);
+            filename.substring(11, 19), "src/main/resources/static/audio/" + filename + ".wav",
+            content, summary);
+        Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
         error = "";
 
         Paths.get("data/transcripts/test.txt").toFile().delete();
@@ -339,9 +321,8 @@ public final class Main {
       String docName = Database.getDocName(username);
       String route = "/apollo/registerPatient/:" + username;
       new displayPatients();
-      Map<String, String> map = ImmutableMap.of("title", "Apollo", "docName",
-          docName, "username", username, "route", route, "patients",
-          displayPatients.buildHTML(username));
+      Map<String, String> map = ImmutableMap.of("title", "Apollo", "docName", docName, "username",
+          username, "route", route, "patients", displayPatients.buildHTML(username));
       return new ModelAndView(map, "base2.ftl");
     }
   }
@@ -353,8 +334,7 @@ public final class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
-      Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
-          username);
+      Map<String, String> map = ImmutableMap.of("title", "Apollo", "username", username);
       return new ModelAndView(map, "registerPatient.ftl");
     }
   }
@@ -429,12 +409,10 @@ public final class Main {
           input.add(searched);
           searcher.executeCommand(input);
           Set<String> ids = new HashSet<String>();
-          if (searcher.getAllResults() != null
-              && !searcher.getAllResults().isEmpty()) {
+          if (searcher.getAllResults() != null && !searcher.getAllResults().isEmpty()) {
             ids = searcher.getDates(searcher.getAllResults());
           }
-          String visitsSearched = displayVisits.buildHTMLid(username, patient,
-              ids);
+          String visitsSearched = displayVisits.buildHTMLid(username, patient, ids);
           map.put("visits", visitsSearched);
         } else if (startDate != null && endDate != null) {
           startDate = dateProcessor(startDate);
@@ -443,8 +421,7 @@ public final class Main {
           List<String> dateRanges = new ArrayList<String>();
           dateRanges.add(startDate);
           dateRanges.add(endDate);
-          String visitsDate = displayVisits.buildHTMLDateRanges(username,
-              patient, dateRanges);
+          String visitsDate = displayVisits.buildHTMLDateRanges(username, patient, dateRanges);
           System.out.println(visitsDate);
           map.put("visits", visitsDate);
         }
@@ -456,13 +433,12 @@ public final class Main {
 
     /**
      * This is a parser that is used to convert dates from the JavaScript format
-     * into the format that we use when registering a visit. This is needed for
-     * us to properly search for visits between date ranges.
+     * into the format that we use when registering a visit. This is needed for us
+     * to properly search for visits between date ranges.
      *
      * @param date A String, representing a date to convert into our database's
      *             format.
-     * @return A String, the same date into tehhe correct format:
-     *         "day-month-year".
+     * @return A String, the same date into tehhe correct format: "day-month-year".
      */
     private String dateProcessor(String date) {
       String[] dateArray = new String[3];
@@ -505,8 +481,8 @@ public final class Main {
       String route = "/apollo/registerPatient/:" + username;
       String docName = Database.getDocName(username);
       Map<String, String> details = Database.getDoctorInfo(username);
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "route",
-          route, "docName", docName, "details", details, "username", username);
+      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "route", route, "docName",
+          docName, "details", details, "username", username);
       return new ModelAndView(map, "accountDetails.ftl");
     }
   }
@@ -522,8 +498,8 @@ public final class Main {
       String patient = req.params(":patient").replaceAll(":", "");
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       PatientDatum patientData = Database.getPatient(patient);
-      Map<String, String> map = ImmutableMap.of("title", "Apollo", "username",
-          username, "name", patientData.getFirstName(), "route", route);
+      Map<String, String> map = ImmutableMap.of("title", "Apollo", "username", username, "name",
+          patientData.getFirstName(), "route", route);
       return new ModelAndView(map, "registerVisit.ftl");
     }
   }

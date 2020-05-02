@@ -1,4 +1,4 @@
-package registrationAndLogin;
+package registrationandlogin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

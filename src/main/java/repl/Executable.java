@@ -11,6 +11,7 @@ public interface Executable {
   /**
    * This is the method to be implemented by every class that implements
    * Executable.
+   *
    * @param string list of strings to process on.
    */
   void executeCommand(List<String> string);
