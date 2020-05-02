@@ -24,8 +24,7 @@ public class FillEHRSections {
    *                        the symptoms and their categorization.
    * @param fullTranscript  A String, representing the visit's full transcript.
    */
-  public FillEHRSections(Map<String, List<String>> symptomPatterns,
-      String fullTranscript) {
+  public FillEHRSections(Map<String, List<String>> symptomPatterns, String fullTranscript) {
     symptomParse = new FillSymptoms(symptomPatterns, fullTranscript);
     reasonsParse = new FillVisit(fullTranscript);
     try {
