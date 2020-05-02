@@ -1,5 +1,6 @@
 package apollo;
 
+import java.util.Calendar;
 import java.util.List;
 
 import databases.Database;
@@ -60,7 +61,11 @@ public class displayPatients {
       }
       html.append(patient.getLastName());
       html.append("<br>");
-      html.append("(" + patient.getDateOfBirth() + ")");
+      Calendar cal = Calendar.getInstance();
+      int year = cal.get(Calendar.YEAR);
+      String[] dateArray = patient.getDateOfBirth().split("/");
+      int age = year - Integer.parseInt(dateArray[2]);
+      html.append("(" + age + " Years Old)");
       html.append("</h5>");
       count++;
     }
