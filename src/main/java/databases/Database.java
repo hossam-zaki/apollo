@@ -236,7 +236,8 @@ public final class Database {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
       while (rs.next()) {
         VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
-            rs.getString(3), rs.getString(4), rs.getString(6), rs.getBytes(5));
+            rs.getString(3), rs.getString(4), rs.getString(7), rs.getBytes(6),
+            rs.getString(5));
         toRet.add(curr);
       }
       return toRet;
@@ -269,8 +270,8 @@ public final class Database {
         ResultSet rs = prep.executeQuery();
         while (rs.next()) {
           VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
-              rs.getString(3), rs.getString(4), rs.getString(6),
-              rs.getBytes(5));
+              rs.getString(3), rs.getString(4), rs.getString(7), rs.getBytes(6),
+              rs.getString(5));
           toRet.add(curr);
         }
       }
@@ -305,7 +306,8 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       while (rs.next()) {
         VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
-            rs.getString(3), rs.getString(4), rs.getString(6), rs.getBytes(5));
+            rs.getString(3), rs.getString(4), rs.getString(7), rs.getBytes(6),
+            rs.getString(5));
         toRet.add(curr);
       }
 
@@ -340,8 +342,8 @@ public final class Database {
         ResultSet rs = prep.executeQuery();
         while (rs.next()) {
           VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2),
-              rs.getString(3), rs.getString(4), rs.getString(6),
-              rs.getBytes(5));
+              rs.getString(3), rs.getString(4), rs.getString(7), rs.getBytes(6),
+              rs.getString(5));
           toRet.add(curr);
         }
       }
@@ -358,18 +360,18 @@ public final class Database {
    *
    * @param docUsername A String, representing a doctor's username.
    * @param patientID   A String, representing a patient's ID.
-   * @param date        A String, representing a date.
+   * @param id          A String, representing a visit ID.
    * @return A String, representing a path to a visit's audtio file.
    */
   public static String getAudio(String docUsername, String patientID,
-      String date) {
+      String id) {
     PreparedStatement prep;
     try {
       prep = conn.prepareStatement(
-          "SELECT audio_file FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
+          "SELECT audio_file FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
-      prep.setString(3, date);
+      prep.setString(3, id);
       ResultSet rs = prep.executeQuery();
       String toRet = null;
       while (rs.next()) {
@@ -467,5 +469,5 @@ public final class Database {
       return null;
     }
   }
-  
+
 }

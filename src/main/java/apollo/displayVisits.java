@@ -31,68 +31,47 @@ public class displayVisits {
     if (visits == null) {
       return "";
     }
-
     StringBuilder html = new StringBuilder();
-    // 4 folders per row
     html.append("<br>");
-    html.append("<br>");
-    html.append("<br>");
-    html.append(
-        "<table class=\"table-borderless\" style=\"margin-left:auto; margin-right:auto; border-collapse:separate; border-spacing:20px 10px;\">");
-    html.append("<tr>");
-    int count = 0;
-    for (VisitDatum visit : visits) {
-      if (count == 4) {
-        html.append("</tr>\n<tr>");
-        count = 0;
-      }
-      html.append("<td>");
-      html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
-          + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+
+    if (visits.size() != 0) {
       html.append(
-          "\"><i class=\"fas fa-folder\" style=\"font-size:75px;\"> </i>");
-      html.append("</a>");
-      html.append("<h5>");
-      html.append(visit.getDate());
-      html.append("</h5>");
-      count++;
-    }
-    html.append("</table>");
-    StringBuilder html2 = new StringBuilder();
-    html2.append("<br>");
-    html2.append(
-        "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
-    html2.append("<thead>");
-    html2.append("<tr>");
-    html2.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
-    html2.append("<th scope=\"col\"><h4>Time</h4></th>");
-    html2.append("<th scope=\"col\"><h4>Type of Visit</h4></th>");
-    html2.append("<th scope=\"col\"><h4>Go to Visit</h4></th>");
-    html2.append("</tr>");
-    html2.append("</thead>");
-    html2.append("<tbody");
-    for (VisitDatum visit : visits) {
-      html2.append("<tr>");
-      html2.append("<td>");
-      html2.append(visit.getDate());
-      html2.append("</td>");
-      html2.append("<td>");
-      html2.append("LOLTIME");
-      html2.append("</td>");
-      html2.append("<td>" + "general" + "</td>");
-      html2.append("<td>");
-      html2.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
-          + "/visit/:" + visit.getDate() + "/:" + visit.getID());
-      html2.append("\">Go to Visit");
-      html2.append("</a>");
-      html2.append("</td>");
-      html2.append("</tr>");
+          "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+      html.append("<thead>");
+      html.append("<tr>");
+      html.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
+      html.append("<th scope=\"col\"><h4>Time</h4></th>");
+      html.append("<th scope=\"col\"><h4>Type of Visit</h4></th>");
+      html.append("<th scope=\"col\"><h4>Visit Link</h4></th>");
+      html.append("</tr>");
+      html.append("</thead>");
+      html.append("<tbody");
+      for (VisitDatum visit : visits) {
+        html.append("<tr>");
+        html.append("<td>");
+        html.append(visit.getDate());
+        html.append("</td>");
+        html.append("<td>");
+        html.append(visit.getTime().substring(0, 5));
+        html.append("</td>");
+        html.append("<td>" + "general" + "</td>");
+        html.append("<td>");
+        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
+            + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+        html.append("\">Go to Visit");
+        html.append("</a>");
+        html.append("</td>");
+        html.append("</tr>");
 
+      }
+      html.append("</tbody>");
+      html.append("</table>");
+    } else {
+      html.append("<br>");
+      html.append("<h3>Registered visits will appear here!</h3>");
     }
-    html2.append("</tbody>");
-    html2.append("</table>");
 
-    return html2.toString();
+    return html.toString();
   }
 
   public static String buildHTMLDates(String docUsername, String patientID,
@@ -105,33 +84,47 @@ public class displayVisits {
     }
 
     StringBuilder html = new StringBuilder();
-    // 4 folders per row
     html.append("<br>");
-    html.append("<br>");
-    html.append("<br>");
-    html.append(
-        "<table class=\"table-borderless\" style=\"margin-left:auto; margin-right:auto; border-collapse:separate; border-spacing:20px 10px;\">");
-    html.append("<tr>");
-    int count = 0;
-    for (VisitDatum visit : visits) {
-      if (count == 4) {
-        html.append("</tr>\n<tr>");
-        count = 0;
-      }
-      html.append("<td>");
-      html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
-          + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+
+    if (visits.size() != 0) {
       html.append(
-          "\"><i class=\"fas fa-folder\" style=\"font-size:75px;\"> </i>");
-      html.append("</a>");
-      html.append("<h5>");
-      // html.append("<br>");
-      html.append(visit.getDate());
-      html.append("</h5>");
-      count++;
+          "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+      html.append("<thead>");
+      html.append("<tr>");
+      html.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
+      html.append("<th scope=\"col\"><h4>Time</h4></th>");
+      html.append("<th scope=\"col\"><h4>Type of Visit</h4></th>");
+      html.append("<th scope=\"col\"><h4>Visit Link</h4></th>");
+      html.append("</tr>");
+      html.append("</thead>");
+      html.append("<tbody");
+      for (VisitDatum visit : visits) {
+        html.append("<tr>");
+        html.append("<td>");
+        html.append(visit.getDate());
+        html.append("</td>");
+        html.append("<td>");
+        html.append(visit.getTime().substring(0, 5));
+        html.append("</td>");
+        html.append("<td>" + "general" + "</td>");
+        html.append("<td>");
+        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
+            + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+        html.append("\">Go to Visit");
+        html.append("</a>");
+        html.append("</td>");
+        html.append("</tr>");
+
+      }
+      html.append("</tbody>");
+      html.append("</table>");
+    } else {
+      html.append("<br>");
+      html.append("<h3>No visits found!</h3>");
     }
-    html.append("</table>");
+
     return html.toString();
+
   }
 
   /**
@@ -154,32 +147,45 @@ public class displayVisits {
     }
 
     StringBuilder html = new StringBuilder();
-    // 4 folders per row
     html.append("<br>");
-    html.append("<br>");
-    html.append("<br>");
-    html.append(
-        "<table class=\"table-borderless\" style=\"margin-left:auto; margin-right:auto; border-collapse:separate; border-spacing:20px 10px;\">");
-    html.append("<tr>");
-    int count = 0;
-    for (VisitDatum visit : visits) {
-      if (count == 4) {
-        html.append("</tr>\n<tr>");
-        count = 0;
-      }
-      html.append("<td>");
-      html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
-          + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+
+    if (visits.size() != 0) {
       html.append(
-          "\"><i class=\"fas fa-folder\" style=\"font-size:75px;\"> </i>");
-      html.append("</a>");
-      html.append("<h5>");
-      // html.append("<br>");
-      html.append(visit.getDate());
-      html.append("</h5>");
-      count++;
+          "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+      html.append("<thead>");
+      html.append("<tr>");
+      html.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
+      html.append("<th scope=\"col\"><h4>Time</h4></th>");
+      html.append("<th scope=\"col\"><h4>Type of Visit</h4></th>");
+      html.append("<th scope=\"col\"><h4>Visit Link</h4></th>");
+      html.append("</tr>");
+      html.append("</thead>");
+      html.append("<tbody");
+      for (VisitDatum visit : visits) {
+        html.append("<tr>");
+        html.append("<td>");
+        html.append(visit.getDate());
+        html.append("</td>");
+        html.append("<td>");
+        html.append(visit.getTime().substring(0, 5));
+        html.append("</td>");
+        html.append("<td>" + "general" + "</td>");
+        html.append("<td>");
+        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
+            + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+        html.append("\">Go to Visit");
+        html.append("</a>");
+        html.append("</td>");
+        html.append("</tr>");
+
+      }
+      html.append("</tbody>");
+      html.append("</table>");
+    } else {
+      html.append("<br>");
+      html.append("<h3>No visits found!</h3>");
     }
-    html.append("</table>");
+
     return html.toString();
   }
 
@@ -204,31 +210,45 @@ public class displayVisits {
     }
 
     StringBuilder html = new StringBuilder();
-    // 4 folders per row
     html.append("<br>");
-    html.append("<br>");
-    html.append("<br>");
-    html.append(
-        "<table class=\"table-borderless\" style=\"margin-left:auto; margin-right:auto; border-collapse:separate; border-spacing:20px 10px;\">");
-    html.append("<tr>");
-    int count = 0;
-    for (VisitDatum visit : visits) {
-      if (count == 4) {
-        html.append("</tr>\n<tr>");
-        count = 0;
-      }
-      html.append("<td>");
-      html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
-          + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+
+    if (visits.size() != 0) {
       html.append(
-          "\"><i class=\"fas fa-folder\" style=\"font-size:75px;\"> </i>");
-      html.append("</a>");
-      html.append("<h5>");
-      html.append(visit.getDate());
-      html.append("</h5>");
-      count++;
+          "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+      html.append("<thead>");
+      html.append("<tr>");
+      html.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
+      html.append("<th scope=\"col\"><h4>Time</h4></th>");
+      html.append("<th scope=\"col\"><h4>Type of Visit</h4></th>");
+      html.append("<th scope=\"col\"><h4>Visit Link</h4></th>");
+      html.append("</tr>");
+      html.append("</thead>");
+      html.append("<tbody");
+      for (VisitDatum visit : visits) {
+        html.append("<tr>");
+        html.append("<td>");
+        html.append(visit.getDate());
+        html.append("</td>");
+        html.append("<td>");
+        html.append(visit.getTime().substring(0, 5));
+        html.append("</td>");
+        html.append("<td>" + "general" + "</td>");
+        html.append("<td>");
+        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
+            + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+        html.append("\">Go to Visit");
+        html.append("</a>");
+        html.append("</td>");
+        html.append("</tr>");
+
+      }
+      html.append("</tbody>");
+      html.append("</table>");
+    } else {
+      html.append("<br>");
+      html.append("<h3>No visits found!</h3>");
     }
-    html.append("</table>");
+
     return html.toString();
   }
 }
