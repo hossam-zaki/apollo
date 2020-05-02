@@ -54,7 +54,7 @@
 	<input type="text" placeholder="middle name" name="middle_name" id="middle_name"></input><br>
 	<input type="text" placeholder="last name" name="last_name" id="last_name" pattern="[A-Za-z]*" title="Last name can only contain letters" required ></input><br>
 	<input type="text" placeholder="date of birth" name="dob" id="dob" pattern="((?:0[1-9])|(?:1[0-2]))\/((?:0[0-9])|(?:[1-2][0-9])|(?:3[0-1]))\/(\d{4})" title="Valid date of birth" required></input><br>
-	<input type="text" placeholder="email" name="email" id="email" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" title="Valid email adress" required></input><br>
+	<input type="text" placeholder="email" name="email" id="email" pattern="^.+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" title="Valid email adress" required></input><br>
 	<input type="text" placeholder="phone" name="phone" id="phone" pattern="^([\+][0-9]{1,3}([ \.\-])?)?([\(]{1}[0-9]{3}[\)])?([0-9A-Z \.\-]{1,32})((x|ext|extension)?[0-9]{1,4}?)$" title="Valid phone number" required></input><br>
 	<input type="text" placeholder="emergency phone number" name="emergency contact phone" id="emergency contact phone" required></input><br>
   <br>
