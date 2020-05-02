@@ -1,29 +1,65 @@
 input[type="number"] {
     width: 3em;
-  }
-  
-  
-  body {
-      background-color: #E0EAFC;
-      color: white;
-      font-family: 'Roboto', sans-serif;
-  }
-  
-  h1 {
-      color: black;
-      font-family: Roboto; 
-      font-size: 250%;
-      text-align: left;
-      padding-left: 50px;
-  }
-  
-  h3 {
+}
+
+body {
+    background-color: #E0EAFC;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    color: black;
+    font-family: Roboto;
+    font-size: 250%;
+    text-align: left;
+    padding-left: 50px;
+}
+
+h3 {
     color: black;
     font-family: Roboto;
     font-size: 500%;
     text-align: center;
-  }
-  .button {
+}
+
+h4 {
+    color: black;
+    font-family: Roboto;
+    font-size: 220%;
+    text-align: center;
+    font-weight: 700;
+}
+
+h5 {
+    color: black;
+    font-family: Roboto;
+    font-size: 225%;
+    text-align: center;
+}
+
+p {
+    color: black;
+    font-family: Roboto;
+    font-size: 150%;
+}
+
+p1 {
+    color: black;
+    font-family: Roboto;
+    font-size: 100%;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+p2 {
+    color: black;
+    font-family: Roboto;
+    font-size: 150%;
+    text-align: center;
+}
+
+.button {
     background-color: white;
     border: none;
     color: black;
@@ -35,18 +71,21 @@ input[type="number"] {
     width: 25%;
     cursor: pointer;
     margin: auto;
-    display: flex;   
+    display: flex;
     flex-flow: column;
     align-items: center;
-  }
-  #text {
-      color: orange;
-  }
-  
-  .top {
-      text-align: center;
-  }
-  /* div.form
+}
+
+#text {
+    color: orange;
+}
+
+.top {
+    text-align: center;
+}
+
+
+/* div.form
   {
       display: block;
       text-align: center;
@@ -58,49 +97,55 @@ input[type="number"] {
       margin-right: auto;
       text-align: left;
   } */
-  /*aaaa*/
-  a {
+
+
+/*aaaa*/
+
+a {
     color: #337ab7;
-  }
-  p {
+}
+
+p {
     margin-top: 1rem;
     font-family: 'Roboto', sans-serif;
-  }
-  a:hover {
-    color:#23527c;
-  }
-  a:visited {
+}
+
+a:hover {
+    color: #23527c;
+}
+
+a:visited {
     color: #8d75a3;
-  }
-  
-  body {
-      line-height: 1.5;
-      font-family: sans-serif;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      color:white;
-      margin:2em;
-  }
-  
-  h2 {
-      font-weight: bold;
-      color: #005A9C;
-      font-size: 140%;
-      text-transform: uppercase;
-  }
-  
-  red {
-      color: red;
-  }
-  
-  #controls {
+}
+
+body {
+    line-height: 1.5;
+    font-family: sans-serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: white;
+    margin: 2em;
+}
+
+h2 {
+    font-weight: bold;
+    color: #005A9C;
+    font-size: 140%;
+    text-transform: uppercase;
+}
+
+red {
+    color: red;
+}
+
+#controls {
     display: flex;
     margin-top: 2rem;
     max-width: 28em;
-    margin:auto;
-  } 
-  
-  button {
+    margin: auto;
+}
+
+button {
     flex-grow: 1;
     height: 3.5rem;
     min-width: 2rem;
@@ -113,56 +158,58 @@ input[type="number"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    color:#ffffff;
+    color: #ffffff;
     font-weight: bold;
     font-size: 1.5rem;
-  }
-  
-  button:hover, button:focus {
+}
+
+button:hover,
+button:focus {
     outline: none;
     background: #c72d1c;
-  }
-  
-  button::-moz-focus-inner {
+}
+
+button::-moz-focus-inner {
     border: 0;
-  }
-  
-  button:active {
+}
+
+button:active {
     box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.2);
     line-height: 3rem;
-  }
-  
-  button:disabled {
+}
+
+button:disabled {
     pointer-events: none;
     background: lightgray;
-  }
-  button:first-child {
+}
+
+button:first-child {
     margin-left: 0;
-  }
-  
-  audio {
+}
+
+audio {
     display: block;
     width: 100%;
     margin-top: 0.2rem;
-  }
-  
-  li {
+}
+
+li {
     list-style: none;
     margin-bottom: 1rem;
-  }
-  
-  #formats {
+}
+
+#formats {
     margin-top: 0.5rem;
     font-size: 80%;
-  }
-  
-  #recordingsList{
-      max-width: 28em;
-      margin:auto;
-      
-  }
-  .jumbotron {
+}
+
+#recordingsList {
+    max-width: 28em;
+    margin: auto;
+}
+
+.jumbotron {
     background-color: #E0EAFC;
     color: black;
     padding-top: 100px;
-  }
+}
