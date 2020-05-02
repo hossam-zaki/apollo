@@ -40,7 +40,7 @@ import spark.Response;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
-import speechToText.RunDeepSpeech;
+import speechtotext.RunDeepSpeech;
 import transcriptParser.SearchAllTranscripts;
 import transcriptParser.ToParse;
 
