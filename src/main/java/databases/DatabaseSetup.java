@@ -42,14 +42,14 @@ public class DatabaseSetup {
         // Creates the table to store patient details
         prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS patient(" + "id UUID,"
             + "first_name TEXT," + "mid_name TEXT," + "last_name TEXT," + "date_of_birth TEXT,"
-            + "phoneNumber NVARCHAR(320)," + "email NVARCHAR(320)," + "emergency_phone_number TEXT,"
+            + "email NVARCHAR(320)," + "phoneNumber NVARCHAR(320)," + "emergency_phone_number TEXT,"
             + "primary_doctor TEXT);");
         prep.executeUpdate();
         // Creates the table to store visit detials
         prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS appointments(visit_id UUID,"
             + "doctor_username TEXT," + "patient_id TEXT," + "appointment_date Text," + "time TEXT,"
-            + "audio_file NVARCHAR(320)," + "transcript TEXT," + "summary Text,"
-            + "visit_type TEXT);");
+            + "audio_file NVARCHAR(320)," + "transcript  NVARCHAR(320)," + "summary  NVARCHAR(320),"
+            + "visit_type NVARCHAR(320));");
         prep.executeUpdate();
         System.out.println("A new database has been created.");
       }

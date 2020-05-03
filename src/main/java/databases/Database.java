@@ -17,6 +17,7 @@ import java.util.Set;
 
 import patient.PatientDatum;
 import patient.VisitDatum;
+import registrationandlogin.Encryption;
 
 /**
  * This is my database class, where I read from a database and make the instance
@@ -115,10 +116,13 @@ public final class Database {
       prep = conn.prepareStatement("SELECT username FROM doctor WHERE username = ?");
       prep.setString(1, username);
       ResultSet rs = prep.executeQuery();
-      rs.getString(1);
-      return true;
+      while (rs.next()) {
+        rs.getString(1);
+        return true;
+      }
+      return false;
     } catch (Exception e) {
-      System.err.println("ERROR: couldn't find doctor name");
+      System.err.println("ERROR: couldn't validate username");
       return false;
     }
   }
@@ -231,7 +235,7 @@ public final class Database {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
       while (rs.next()) {
         VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-            rs.getString(4), rs.getString(7), rs.getBytes(6), rs.getString(5), rs.getString(9));
+            rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
         toRet.add(curr);
       }
       return toRet;
@@ -264,7 +268,7 @@ public final class Database {
         ResultSet rs = prep.executeQuery();
         while (rs.next()) {
           VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-              rs.getString(4), rs.getString(7), rs.getBytes(6), rs.getString(5), rs.getString(9));
+              rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
           toRet.add(curr);
         }
       }
@@ -299,7 +303,7 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       while (rs.next()) {
         VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-            rs.getString(4), rs.getString(7), rs.getBytes(6), rs.getString(5), rs.getString(9));
+            rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
         toRet.add(curr);
       }
 
@@ -334,7 +338,7 @@ public final class Database {
         ResultSet rs = prep.executeQuery();
         while (rs.next()) {
           VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-              rs.getString(4), rs.getString(7), rs.getBytes(6), rs.getString(5), rs.getString(9));
+              rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
           toRet.add(curr);
         }
       }
@@ -365,7 +369,7 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       String toRet = null;
       while (rs.next()) {
-        toRet = rs.getString(1);
+        toRet = Encryption.decrypt(rs.getBytes(1));
       }
       return toRet;
     } catch (SQLException e) {
@@ -393,7 +397,7 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       String toRet = null;
       while (rs.next()) {
-        toRet = rs.getString(1);
+        toRet = Encryption.decrypt(rs.getBytes(1));
       }
       return toRet;
     } catch (SQLException e) {
@@ -421,7 +425,7 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       String toRet = null;
       while (rs.next()) {
-        toRet = rs.getString(1);
+        toRet = Encryption.decrypt(rs.getBytes(1));
       }
       return toRet;
     } catch (SQLException e) {
@@ -450,7 +454,7 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       String toRet = null;
       while (rs.next()) {
-        toRet = rs.getString(1);
+        toRet = Encryption.decrypt(rs.getBytes(1));
       }
       return toRet;
     } catch (SQLException e) {
@@ -476,7 +480,7 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       Map<String, String> transcripts = new HashMap<String, String>();
       while (rs.next()) {
-        transcripts.put(rs.getString(1), rs.getString(2));
+        transcripts.put(rs.getString(1), Encryption.decrypt(rs.getBytes(2)));
       }
       return transcripts;
     } catch (SQLException e) {

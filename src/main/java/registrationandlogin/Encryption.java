@@ -64,15 +64,23 @@ public final class Encryption {
    * @throws Exception , when encrypting.
    * @return byte[] , the encrypted string.
    */
-  public static byte[] encrypt(String string) throws Exception {
+  public static byte[] encrypt(String string) {
     // 1. Obtain a keyset handle.
-    KeysetHandle handle = getKeysetHandle(keyset);
-    // 2. Get a primitive.
-    Aead aead = handle.getPrimitive(Aead.class);
-    // 3. Do crypto.
-    byte[] plaintext = string.getBytes();
-    byte[] ciphertext = aead.encrypt(plaintext, new byte[0]);
-    return ciphertext;
+    KeysetHandle handle;
+
+    try {
+      handle = getKeysetHandle(keyset);
+      // 2. Get a primitive.
+      Aead aead = handle.getPrimitive(Aead.class);
+      // 3. Do crypto.
+      byte[] plaintext = string.getBytes();
+      byte[] ciphertext = aead.encrypt(plaintext, new byte[0]);
+      return ciphertext;
+    } catch (GeneralSecurityException | IOException e) {
+      System.err.println("ERROR: encrypting in Encryption.");
+      return null;
+    }
+
   }
 
   /**
@@ -82,12 +90,19 @@ public final class Encryption {
    * @throws Exception , when decrypting.
    * @return String , the decrypted string.
    */
-  public static String decrypt(byte[] string) throws Exception {
-    KeysetHandle handle = getKeysetHandle(keyset);
-    Aead aead = handle.getPrimitive(Aead.class);
-    byte[] ciphertext = string;
-    String plaintext = new String(aead.decrypt(ciphertext, new byte[0]));
-    return plaintext;
+  public static String decrypt(byte[] string) {
+    KeysetHandle handle;
+    try {
+      handle = getKeysetHandle(keyset);
+      Aead aead = handle.getPrimitive(Aead.class);
+      byte[] ciphertext = string;
+      String plaintext = new String(aead.decrypt(ciphertext, new byte[0]));
+      return plaintext;
+    } catch (GeneralSecurityException | IOException e) {
+      System.err.println("ERROR: decrypting in Encryption");
+      return null;
+    }
+
   }
 
 }

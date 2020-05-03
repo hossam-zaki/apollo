@@ -1,16 +1,18 @@
 package patient;
 
+import registrationandlogin.Encryption;
+
 public class VisitDatum implements Datum {
   private String id;
   private String Puuid;
   private String date;
-  private String transcript;
+  private byte[] transcript;
   private byte[] audioRecording;
   private String time;
-  private String visitType;
+  private byte[] visitType;
 
-  public VisitDatum(String id, String doctor, String patient, String date, String transcript,
-      byte[] audioRecording, String time, String visitype) {
+  public VisitDatum(String id, String doctor, String patient, String date, byte[] transcript,
+      byte[] audioRecording, String time, byte[] visitype) {
     this.id = id;
     this.Puuid = patient;
     this.date = date;
@@ -35,11 +37,21 @@ public class VisitDatum implements Datum {
   }
 
   public String getTranscript() {
-    return this.transcript;
+    try {
+      return Encryption.decrypt(this.transcript);
+    } catch (Exception e) {
+      System.err.println("ERROR: decryption of transcript in visitDatum");
+    }
+    return "";
   }
 
-  public byte[] getAudioRecording() {
-    return this.audioRecording;
+  public String getAudioRecording() {
+    try {
+      return Encryption.decrypt(this.audioRecording);
+    } catch (Exception e) {
+      System.err.println("ERROR: decryption of audio path in visitDatum");
+    }
+    return "";
   }
 
   public String getTime() {
@@ -47,7 +59,12 @@ public class VisitDatum implements Datum {
   }
 
   public String getVisitType() {
-    return this.visitType;
+    try {
+      return Encryption.decrypt(this.visitType);
+    } catch (Exception e) {
+      System.err.println("ERROR: decryption of visitype in visitDatum");
+    }
+    return "";
   }
 
   // ---------- Setters for VisitDatum ----------
@@ -60,7 +77,7 @@ public class VisitDatum implements Datum {
     this.date = date;
   }
 
-  public void setTranscript(String transcript) {
+  public void setTranscript(byte[] transcript) {
     this.transcript = transcript;
   }
 

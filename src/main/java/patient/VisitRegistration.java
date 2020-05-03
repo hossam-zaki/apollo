@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.util.UUID;
 
 import databases.Database;
+import registrationandlogin.Encryption;
 
 public class VisitRegistration {
   public void register(String docUsername, String patientID, String date, String time, String audio,
@@ -20,10 +21,10 @@ public class VisitRegistration {
       prep.setString(4, date); // date
       // String path = "data/hendrix.wav";
       prep.setString(5, time);
-      prep.setString(6, audio); // audio file
-      prep.setString(7, transcript); // transcript
-      prep.setString(8, summary); // summary
-      prep.setString(9, visitType); // visit Type.
+      prep.setBytes(6, Encryption.encrypt(audio)); // audio file
+      prep.setBytes(7, Encryption.encrypt(transcript)); // transcript
+      prep.setBytes(8, Encryption.encrypt(summary)); // summary
+      prep.setBytes(9, Encryption.encrypt(visitType)); // visit Type.
       prep.addBatch();
       prep.executeBatch();
     } catch (Exception e) { // ask about this
