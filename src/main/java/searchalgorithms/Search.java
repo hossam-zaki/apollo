@@ -9,10 +9,13 @@ import java.util.List;
  */
 public interface Search {
 
-  /*
+  /**
    * Returns a list of integers representing wanted indexes of a given text
    * transcript.
+   *
+   * @param v the pattern to search for
+   * @return indices where found
    */
-  List<Integer> search(char[] V);
+  List<Integer> search(char[] v);
 
 }

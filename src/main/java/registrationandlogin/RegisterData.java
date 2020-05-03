@@ -9,7 +9,7 @@ public interface RegisterData {
 
   /**
    * Register the information into the database.
-   * 
+   *
    * @param registrationDetails to register
    */
   void register(List<String> registrationDetails);

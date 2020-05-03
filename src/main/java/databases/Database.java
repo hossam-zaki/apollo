@@ -492,7 +492,7 @@ public final class Database {
   /**
    * Get patient last name by first name, used for testing.
    *
-   * @param id
+   * @param firstName of patient
    * @return last name
    */
   public static String getPatientByName(String firstName) {
@@ -511,8 +511,8 @@ public final class Database {
   /**
    * Get patient last name by first name, used for testing.
    *
-   * @param id
-   * @return last name
+   * @param docName for visit
+   * @return date
    */
   public static String getDateByDoctorName(String docName) {
     PreparedStatement prep;
