@@ -26,8 +26,7 @@ public class VisitRegistration {
       prep.addBatch();
       prep.executeBatch();
     } catch (Exception e) { // ask about this
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      System.err.println("ERROR: error connecting to database for registration");
     }
   }
 

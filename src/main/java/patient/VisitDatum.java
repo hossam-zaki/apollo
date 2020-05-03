@@ -8,8 +8,8 @@ public class VisitDatum implements Datum {
   private byte[] audioRecording;
   private String time;
 
-  public VisitDatum(String id, String doctor, String patient, String date,
-      String transcript, byte[] audioRecording, String time) {
+  public VisitDatum(String id, String doctor, String patient, String date, String transcript,
+      byte[] audioRecording, String time) {
     this.id = id;
     this.Puuid = patient;
     this.date = date;
@@ -47,7 +47,7 @@ public class VisitDatum implements Datum {
   // ---------- Setters for VisitDatum ----------
   @Override
   public void setID(String id) {
-    this.Puuid = id;
+    this.id = id;
   }
 
   public void setDate(String date) {

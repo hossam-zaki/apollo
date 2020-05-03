@@ -11,9 +11,9 @@ public class PatientDatum implements Datum {
   private String emergencyPhoneNumber;
   private String docUsername;
 
-  public PatientDatum(String uuid, String firstName, String middleName,
-      String lastName, String dateOfBirth, String phoneNumber, String email,
-      String emergencyPhoneNumber, String docUsername) {
+  public PatientDatum(String uuid, String firstName, String middleName, String lastName,
+      String dateOfBirth, String phoneNumber, String email, String emergencyPhoneNumber,
+      String docUsername) {
     this.uuid = uuid;
     this.firstName = firstName;
     this.middleName = middleName;
@@ -51,7 +51,7 @@ public class PatientDatum implements Datum {
     return this.phoneNumber;
   }
 
-  public String energencyPhoneNumber() {
+  public String getEmergencyPhoneNumber() {
     return this.emergencyPhoneNumber;
   }
 
