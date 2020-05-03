@@ -45,17 +45,19 @@ public class FillEHRSections {
         return null;
       }
       StringBuilder toReturn = new StringBuilder();
-      toReturn.append("<h5>Reasons for Visit: </h5><br>");
+      toReturn.append("<h5><b>Reasons for Visit: </b></h5>");
       if (!reasons.isBlank()) {
-        toReturn.append("<h5>" + reasons + "</h5><br>");
+        toReturn.append("<h5>\"" + reasons + "\"</h5><br>");
+      } else {
+        toReturn.append("<br>");
       }
-      toReturn.append("<h5>Symptoms Reported:</h5>");
+      toReturn.append("<h5><b>Symptoms Reported:</b></h5>");
       if (symptoms.containsKey("none")) {
         toReturn.append("<br>");
       } else {
         for (String key : symptoms.keySet()) {
           if (symptoms.get(key).size() != 0 && symptoms.get(key) != null) {
-            toReturn.append("<h5><b>" + key + ": </b>");
+            toReturn.append("<h5><i>" + key + ": </i>");
           }
           for (String s : symptoms.get(key)) {
             if (s.equals(symptoms.get(key).get(symptoms.get(key).size() - 1))) {

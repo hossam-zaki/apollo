@@ -18,8 +18,9 @@ import commands.ConnectToDatabase;
 import databases.Database;
 import patient.PatientRegistration;
 import patient.VisitRegistration;
+import registrationandlogin.DoctorRegistration;
 import registrationandlogin.Encryption;
-import registrationandlogin.Registration;
+import registrationandlogin.RegisterData;
 
 public class DisplayVisitTest {
   private String patient_id;
@@ -39,10 +40,10 @@ public class DisplayVisitTest {
       registeredUser.add("SafePassword");
       registeredUser.add("4018634000");
       registeredUser.add("Alpert Medical School");
-      Registration register = new Registration();
+      RegisterData register = new DoctorRegistration();
       register.register(registeredUser);
 
-      PatientRegistration pRegister = new PatientRegistration();
+      RegisterData pRegister = new PatientRegistration();
       List<String> registeredPatient = new ArrayList<String>();
       registeredPatient.add("Prithu");
       registeredPatient.add("Jeff");
@@ -57,17 +58,33 @@ public class DisplayVisitTest {
       PreparedStatement prep;
 
       prep = conn
-          .prepareStatement("SELECT id FROM 'patient' WHERE First_name= ? AND primary_doctor= ?");
+          .prepareStatement("SELECT id FROM 'patient' WHERE first_name= ? AND primary_doctor= ?");
       prep.setString(1, "Prithu");
       prep.setString(2, "nLols");
       ResultSet rs = prep.executeQuery();
       patient_id = rs.getString(1);
       rs.close();
-      VisitRegistration visit = new VisitRegistration();
-      visit.register("nLols", patient_id, "2015-01-20", "11:59", "audio/path", "hello world",
-          "world", "general");
-      visit.register("nLols", patient_id, "2019-01-20", "11:59", "audio/path", "hello world",
-          "world", "physical");
+      RegisterData visit = new VisitRegistration();
+      List<String> visitStrings = new ArrayList<String>();
+      visitStrings.add("nLols");
+      visitStrings.add(patient_id);
+      visitStrings.add("2015-01-20");
+      visitStrings.add("11:59");
+      visitStrings.add("audio/path");
+      visitStrings.add("hello world");
+      visitStrings.add("world");
+      visitStrings.add("general");
+      visit.register(visitStrings);
+      List<String> visitStrings2 = new ArrayList<String>();
+      visitStrings2.add("nLols");
+      visitStrings2.add(patient_id);
+      visitStrings2.add("2019-01-20");
+      visitStrings2.add("11:59");
+      visitStrings2.add("audio/path");
+      visitStrings2.add("hello world");
+      visitStrings2.add("world");
+      visitStrings2.add("physical");
+      visit.register(visitStrings2);
 
     } catch (Exception e) {
       System.out.println("ERROR: in DisplayVisitTest");

@@ -10,7 +10,7 @@ import org.junit.Test;
 import commands.ConnectToDatabase;
 import registrationandlogin.Encryption;
 import registrationandlogin.Login;
-import registrationandlogin.Registration;
+import registrationandlogin.DoctorRegistration;
 
 public class LoginTest {
 
@@ -28,7 +28,7 @@ public class LoginTest {
     registeredUser.add("SafePassword");
     registeredUser.add("4018634000");
     registeredUser.add("Alpert Medical School");
-    Registration register = new Registration();
+    DoctorRegistration register = new DoctorRegistration();
     register.register(registeredUser);
   }
 

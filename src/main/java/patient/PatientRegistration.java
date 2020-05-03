@@ -6,17 +6,19 @@ import java.util.List;
 import java.util.UUID;
 
 import databases.Database;
+import registrationandlogin.RegisterData;
 
 /**
  * Class to deal with registering a patient into the database.
  */
-public class PatientRegistration {
+public class PatientRegistration implements RegisterData {
 
   /**
    * Register a patient, inserting them as a row in the patient table.
    *
    * @param registrationDetails to set for patient
    */
+  @Override
   public void register(List<String> registrationDetails) {
     Connection conn = Database.getConn();
     PreparedStatement prep;

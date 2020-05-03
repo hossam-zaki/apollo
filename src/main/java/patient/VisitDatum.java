@@ -2,6 +2,9 @@ package patient;
 
 import registrationandlogin.Encryption;
 
+/**
+ * Creates an object for visit registered.
+ */
 public class VisitDatum implements Datum {
   private String id;
   private String pUuid;
@@ -66,6 +69,9 @@ public class VisitDatum implements Datum {
     return "";
   }
 
+  /**
+   * @return audio
+   */
   public String getAudioRecording() {
     try {
       return Encryption.decrypt(this.audioRecording);
@@ -82,6 +88,9 @@ public class VisitDatum implements Datum {
     return this.time;
   }
 
+  /**
+   * @return type of visit
+   */
   public String getVisitType() {
     try {
       return Encryption.decrypt(this.visitType);
@@ -104,6 +113,9 @@ public class VisitDatum implements Datum {
     this.date = date;
   }
 
+  /**
+   * @param transcript to set
+   */
   public void setTranscript(byte[] transcript) {
     this.transcript = transcript;
   }

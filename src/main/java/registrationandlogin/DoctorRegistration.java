@@ -11,7 +11,7 @@ import databases.Database;
  * This is our registration class that inserts into out doctor table in our
  * database, and 'registers' a new user (doctor).
  */
-public class Registration {
+public class DoctorRegistration implements RegisterData {
   /**
    * This is a method where we take in a list of values that are information about
    * the doctor ( email, phone, username), which will be used for registering the
@@ -19,6 +19,7 @@ public class Registration {
    *
    * @param registrationDetails , the list of information to insert into db.
    */
+  @Override
   public void register(List<String> registrationDetails) {
     // get db connection.
     Connection conn = Database.getConn();
