@@ -10,6 +10,7 @@ import patient.PatientDatum;
 import patient.PatientRegistration;
 import patient.VisitDatum;
 import patient.VisitRegistration;
+import registrationandlogin.Encryption;
 
 public class PatientTest {
 
@@ -39,15 +40,17 @@ public class PatientTest {
 
   @Test
   public void visitDatumTest() {
-    byte[] audioRecording = new byte[4];
-    VisitDatum visit = new VisitDatum("id", "doctor", "visit", "date", "transcript", null, "time");
+    String audioRecording = "audio";
+    Encryption.registerEncryption();
+    VisitDatum visit = new VisitDatum("id", "doctor", "visit", "date",
+        Encryption.encrypt("transcript"), null, "time", Encryption.encrypt("type"));
     visit.setID("2");
     assertTrue(visit.getID().equals("2"));
-    visit.setAudioRecording(audioRecording);
+    visit.setAudioRecording(Encryption.encrypt(audioRecording));
     assertTrue(visit.getAudioRecording().equals(audioRecording));
     visit.setDate("2/3/1994");
     assertTrue(visit.getDate().equals("2/3/1994"));
-    visit.setTranscript("newTranscript");
+    visit.setTranscript(Encryption.encrypt("newTranscript"));
     assertTrue(visit.getTranscript().equals("newTranscript"));
     visit.setTime("5:00");
     assertTrue(visit.getTime().equals("5:00"));
@@ -70,6 +73,6 @@ public class PatientTest {
     patientString.add("docMcgee");
     registerPatient.register(patientString);
     VisitRegistration registerVisit = new VisitRegistration();
-    registerVisit.register("doctor", "visit", "date", "transcript", "audio", "time", "1");
+    registerVisit.register("doctor", "visit", "date", "transcript", "audio", "time", "1", "type");
   }
 }

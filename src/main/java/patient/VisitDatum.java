@@ -10,6 +10,7 @@ public class VisitDatum implements Datum {
   private byte[] audioRecording;
   private String time;
   private byte[] visitType;
+
   /**
    * Constructor with information from database.
    *
@@ -20,6 +21,7 @@ public class VisitDatum implements Datum {
    * @param transcript     recorded text
    * @param audioRecording audio recorded
    * @param time           of appointment
+   * @param visitype       type of visit
    */
   public VisitDatum(String id, String doctor, String patient, String date, byte[] transcript,
       byte[] audioRecording, String time, byte[] visitype) {
