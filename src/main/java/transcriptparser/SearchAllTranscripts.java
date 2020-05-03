@@ -20,7 +20,6 @@ import searchalgorithms.Search;
 public class SearchAllTranscripts implements Executable {
   private Map<String, String> transcripts;
   private String pattern;
-  private String result;
 
   /**
    * Empty constructor.
@@ -33,8 +32,8 @@ public class SearchAllTranscripts implements Executable {
   /**
    * This is the constructor which uses transcripts and a pattern.
    *
-   * @param transcripts A Map from String to String, representing treanscripts
-   *                    for a corresponding visit.
+   * @param transcripts A Map from String to String, representing treanscripts for
+   *                    a corresponding visit.
    * @param pattern     A String, representing the pattern we are looking for.
    */
   public SearchAllTranscripts(Map<String, String> transcripts, String pattern) {
@@ -57,8 +56,7 @@ public class SearchAllTranscripts implements Executable {
    * This method finds the pattern in the transcript.
    *
    * @param transcript A String, representing the full visit transcript.
-   * @return A List of Integers, representing indexes where the pattern was
-   *         found.
+   * @return A List of Integers, representing indexes where the pattern was found.
    */
   public List<Integer> findPattern(String transcript) {
     List<Integer> found = new ArrayList<Integer>();
@@ -118,41 +116,6 @@ public class SearchAllTranscripts implements Executable {
   }
 
   /**
-   * This method builds the HTML string needed to print the results on the GUI.
-   *
-   * @param searchResults A Map from String to a List of Integers, representing
-   *                      the search results.
-   */
-  public void buildResults(Map<String, List<Integer>> searchResults) {
-    try {
-      StringBuilder toReturn = new StringBuilder();
-      toReturn.append("<h5>Search Results:</h5>");
-      toReturn.append("<br>");
-      if (!searchResults.isEmpty() && !(searchResults == null)) {
-        for (String date : searchResults.keySet()) {
-          toReturn.append("<h5>ID: " + date + "</h5>");
-          toReturn.append("<br>");
-          toReturn.append("<h5>Indices: ");
-          List<Integer> indices = searchResults.get(date);
-          for (Integer index : indices) {
-            if (index.equals(indices.get(indices.size() - 1))) {
-              toReturn.append(index + "</h5>");
-            } else {
-              toReturn.append(index + ", ");
-            }
-          }
-        }
-      } else {
-        toReturn.append("<h5>No results found</h5>");
-      }
-      result = toReturn.toString();
-    } catch (Exception e) {
-      result = "<h5>No results found</h5>";
-    }
-
-  }
-
-  /**
    * This isi the execute command method needed to run the command in the REPL,
    * used for testing.
    */
@@ -178,16 +141,7 @@ public class SearchAllTranscripts implements Executable {
     String patient = input.get(1);
     this.transcripts = Database.getAllTranscripts(patient);
     this.pattern = input.get(2);
-    this.buildResults(this.getAllResults());
-  }
-
-  /**
-   * Getter for the result String.
-   *
-   * @return A String, representing the found results.
-   */
-  public String getResult() {
-    return result;
+    this.getAllResults();
   }
 
   /**

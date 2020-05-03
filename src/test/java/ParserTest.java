@@ -27,7 +27,7 @@ public class ParserTest {
     test.append("<h5><b>Reasons for Visit: </b></h5>");
     test.append("<h5>\"I fell from my bike and hit my head on a rock\"</h5><br>");
     test.append("<h5><b>Symptoms Reported:</b></h5>");
-    test.append("<h5><i>Neurologic: </i>my head hurts</h5>");
+    test.append("<h5><i>General: </i>head hurts</h5>");
     assertEquals(res, test.toString());
   }
 
@@ -43,8 +43,8 @@ public class ParserTest {
     test.append("<h5><b>Reasons for Visit: </b></h5>");
     test.append("<h5>\"I ate some weird food and now I don't feel great\"</h5><br>");
     test.append("<h5><b>Symptoms Reported:</b></h5>");
-    test.append("<h5><i>General: </i>I have the chills</h5>");
-    test.append("<h5><i>Gastrointestinal: </i>I feel sick</h5>");
+    test.append("<h5><i>General: </i>chills</h5>");
+    test.append("<h5><i>Gastrointestinal: </i>feel sick</h5>");
     assertEquals(res, test.toString());
   }
 
