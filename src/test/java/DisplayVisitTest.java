@@ -16,7 +16,9 @@ import org.junit.Test;
 import apollo.displayVisits;
 import commands.ConnectToDatabase;
 import databases.Database;
+import patient.PatientDatum;
 import patient.PatientRegistration;
+import patient.VisitDatum;
 import patient.VisitRegistration;
 import registrationandlogin.DoctorRegistration;
 import registrationandlogin.Encryption;
@@ -135,5 +137,22 @@ public class DisplayVisitTest {
       System.err.println("ERROR: in DisplayVisitTest");
     }
 
+  }
+
+  @Test
+  public void getPatientTest() {
+    PatientDatum patient = Database.getPatient(patient_id);
+    assertTrue(patient.getFirstName().contains("Prithu"));
+    assertFalse(patient.getFirstName().contains("Nim"));
+  }
+
+  @Test
+  public void getVisitTest() {
+    List<VisitDatum> visits = Database.getVisits("nLols", patient_id);
+    for (VisitDatum visit : visits) {
+      if (!visit.getVisitType().contains("general")) {
+        assertTrue(visit.getVisitType().contains("physical"));
+      }
+    }
   }
 }

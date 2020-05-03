@@ -95,6 +95,7 @@ public final class Database {
       while (rs.next()) {
         toRet = rs.getString(1);
       }
+      rs.close();
       return toRet;
     } catch (Exception e) {
       System.err.println("ERROR: couldn't find doctor name");
@@ -108,9 +109,9 @@ public final class Database {
    * or not.
    *
    * @param username A potiential new doctor username.
-   * @return A boolean, true if the username is free, false otherwise.
+   * @return A boolean, false if the username is free, true otherwise.
    */
-  public static boolean checkValidUsername(String username) {
+  public static boolean ifUsernameExists(String username) {
     PreparedStatement prep;
     try {
       prep = conn.prepareStatement("SELECT username FROM doctor WHERE username = ?");
@@ -118,8 +119,10 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       while (rs.next()) {
         rs.getString(1);
+        rs.close();
         return true;
       }
+      rs.close();
       return false;
     } catch (Exception e) {
       System.err.println("ERROR: couldn't validate username");
@@ -148,6 +151,7 @@ public final class Database {
             rs.getString(9));
         toRet.add(curr);
       }
+      rs.close();
       return toRet;
     } catch (Exception e) {
       System.err.println("ERROR: no patients found");
@@ -175,10 +179,10 @@ public final class Database {
         toRet.put("last name:", rs.getString(4)); // last name
         toRet.put("email:", rs.getString(5)); // email
         toRet.put("username:", rs.getString(6)); // username
-        // toRet.put("password", rs.getString(7)); // password
         toRet.put("medical institution:", rs.getString(9)); // medical
                                                             // institution
       }
+      rs.close();
       return toRet;
     } catch (Exception e) {
       System.err.println("ERROR: doctor not found");
@@ -208,6 +212,7 @@ public final class Database {
           rs.getString(7), // email
           rs.getString(8), // emergency number
           rs.getString(9)); // docusername
+      rs.close();
       return patient;
     } catch (SQLException e) {
       System.err.println("ERROR: Patient not found");
@@ -238,6 +243,7 @@ public final class Database {
             rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
         toRet.add(curr);
       }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No visits found");
@@ -271,6 +277,7 @@ public final class Database {
               rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
           toRet.add(curr);
         }
+        rs.close();
       }
       return toRet;
     } catch (SQLException e) {
@@ -306,7 +313,7 @@ public final class Database {
             rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
         toRet.add(curr);
       }
-
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No visits found");
@@ -341,6 +348,7 @@ public final class Database {
               rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
           toRet.add(curr);
         }
+        rs.close();
       }
       return toRet;
     } catch (SQLException e) {
@@ -371,6 +379,7 @@ public final class Database {
       while (rs.next()) {
         toRet = Encryption.decrypt(rs.getBytes(1));
       }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No audio file found");
@@ -399,6 +408,7 @@ public final class Database {
       while (rs.next()) {
         toRet = Encryption.decrypt(rs.getBytes(1));
       }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No audio file found");
@@ -427,6 +437,7 @@ public final class Database {
       while (rs.next()) {
         toRet = Encryption.decrypt(rs.getBytes(1));
       }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No audio file found");
@@ -456,6 +467,7 @@ public final class Database {
       while (rs.next()) {
         toRet = Encryption.decrypt(rs.getBytes(1));
       }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No visit type found");
@@ -482,6 +494,7 @@ public final class Database {
       while (rs.next()) {
         transcripts.put(rs.getString(1), Encryption.decrypt(rs.getBytes(2)));
       }
+      rs.close();
       return transcripts;
     } catch (SQLException e) {
       System.err.println("ERROR: Patient not found");
@@ -501,7 +514,9 @@ public final class Database {
       prep = conn.prepareStatement("SELECT last_name FROM patient WHERE first_name = ?");
       prep.setString(1, firstName);
       ResultSet rs = prep.executeQuery();
-      return rs.getString(1);
+      String toRet = rs.getString(1);
+      rs.close();
+      return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: Patient not found");
       return null;
@@ -521,7 +536,9 @@ public final class Database {
           .prepareStatement("SELECT appointment_date FROM appointments WHERE doctor_username = ?");
       prep.setString(1, docName);
       ResultSet rs = prep.executeQuery();
-      return rs.getString(1);
+      String toRet = rs.getString(1);
+      rs.close();
+      return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: Patient not found");
       return null;

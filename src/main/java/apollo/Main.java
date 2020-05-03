@@ -220,7 +220,7 @@ public final class Main {
         res.redirect("/register");
         return null;
       }
-      if (Database.checkValidUsername(qm.value("username"))) {
+      if (Database.ifUsernameExists(qm.value("username"))) {
         error = "Username is unavailable";
         res.redirect("/register");
         return null;
