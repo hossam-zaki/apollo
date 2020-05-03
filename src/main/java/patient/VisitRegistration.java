@@ -8,11 +8,11 @@ import databases.Database;
 
 public class VisitRegistration {
   public void register(String docUsername, String patientID, String date, String time, String audio,
-      String transcript, String summary) {
+      String transcript, String summary, String visitType) {
     Connection conn = Database.getConn();
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement("INSERT INTO appointments VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+      prep = conn.prepareStatement("INSERT INTO appointments VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
       UUID uuid = UUID.randomUUID();
       prep.setString(1, uuid.toString());
       prep.setString(2, docUsername); // doctor username
@@ -23,6 +23,7 @@ public class VisitRegistration {
       prep.setString(6, audio); // audio file
       prep.setString(7, transcript); // transcript
       prep.setString(8, summary); // summary
+      prep.setString(9, visitType); // visit Type.
       prep.addBatch();
       prep.executeBatch();
     } catch (Exception e) { // ask about this

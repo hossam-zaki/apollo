@@ -169,7 +169,10 @@ function createDownloadLink(blob) {
 	upload.addEventListener("click", function(event){
 		  var xhr=new XMLHttpRequest();
 		  var fd=new FormData();
+		  var typeMeeting = document.getElementById("VisitType").value;
+		  console.log(typeMeeting);
 		  fd.append("audio_data",blob, filename);
+		  fd.append("typeMeeting",blob, typeMeeting);
 		  // var str=window.location.href;
 		  // var list=[];
 		  // var link="";

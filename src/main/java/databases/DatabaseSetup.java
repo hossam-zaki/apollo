@@ -48,7 +48,8 @@ public class DatabaseSetup {
         // Creates the table to store visit detials
         prep = conn.prepareStatement("CREATE TABLE IF NOT EXISTS appointments(visit_id UUID,"
             + "doctor_username TEXT," + "patient_id TEXT," + "appointment_date Text," + "time TEXT,"
-            + "audio_file NVARCHAR(320)," + "transcript TEXT," + "summary Text);");
+            + "audio_file NVARCHAR(320)," + "transcript TEXT," + "summary Text,"
+            + "visit_type TEXT);");
         prep.executeUpdate();
         System.out.println("A new database has been created.");
       }

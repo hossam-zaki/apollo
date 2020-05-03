@@ -7,15 +7,17 @@ public class VisitDatum implements Datum {
   private String transcript;
   private byte[] audioRecording;
   private String time;
+  private String visitType;
 
-  public VisitDatum(String id, String doctor, String patient, String date,
-      String transcript, byte[] audioRecording, String time) {
+  public VisitDatum(String id, String doctor, String patient, String date, String transcript,
+      byte[] audioRecording, String time, String visitype) {
     this.id = id;
     this.Puuid = patient;
     this.date = date;
     this.transcript = transcript;
     this.audioRecording = audioRecording;
     this.time = time;
+    this.visitType = visitype;
   }
 
   // ---------- Getters for VisitDatum ----------
@@ -42,6 +44,10 @@ public class VisitDatum implements Datum {
 
   public String getTime() {
     return this.time;
+  }
+
+  public String getVisitType() {
+    return this.visitType;
   }
 
   // ---------- Setters for VisitDatum ----------

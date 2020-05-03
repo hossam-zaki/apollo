@@ -54,10 +54,10 @@ public class displayVisits {
         html.append("<td>");
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
-        html.append("<td>" + "general" + "</td>");
+        html.append("<td>" + visit.getVisitType() + "</td>");
         html.append("<td>");
-        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
-            + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
+            + visit.getDate() + "/:" + visit.getID());
         html.append("\">Go to Visit");
         html.append("</a>");
         html.append("</td>");
@@ -74,10 +74,8 @@ public class displayVisits {
     return html.toString();
   }
 
-  public static String buildHTMLDates(String docUsername, String patientID,
-      Set<String> dates) {
-    List<VisitDatum> visits = Database.getVisitsFromDates(docUsername,
-        patientID, dates);
+  public static String buildHTMLDates(String docUsername, String patientID, Set<String> dates) {
+    List<VisitDatum> visits = Database.getVisitsFromDates(docUsername, patientID, dates);
     System.out.println(visits);
     if (visits == null) {
       return "";
@@ -106,10 +104,10 @@ public class displayVisits {
         html.append("<td>");
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
-        html.append("<td>" + "general" + "</td>");
+        html.append("<td>" + visit.getVisitType() + "</td>");
         html.append("<td>");
-        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
-            + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
+            + visit.getDate() + "/:" + visit.getID());
         html.append("\">Go to Visit");
         html.append("</a>");
         html.append("</td>");
@@ -137,10 +135,8 @@ public class displayVisits {
    *                    display.
    * @return A String, representing the HTML needed to display these visits.
    */
-  public static String buildHTMLid(String docUsername, String patientID,
-      Set<String> ids) {
-    List<VisitDatum> visits = Database.getVisitsFromIds(docUsername, patientID,
-        ids);
+  public static String buildHTMLid(String docUsername, String patientID, Set<String> ids) {
+    List<VisitDatum> visits = Database.getVisitsFromIds(docUsername, patientID, ids);
     System.out.println(visits);
     if (visits == null) {
       return "";
@@ -169,10 +165,10 @@ public class displayVisits {
         html.append("<td>");
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
-        html.append("<td>" + "general" + "</td>");
+        html.append("<td>" + visit.getVisitType() + "</td>");
         html.append("<td>");
-        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
-            + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
+            + visit.getDate() + "/:" + visit.getID());
         html.append("\">Go to Visit");
         html.append("</a>");
         html.append("</td>");
@@ -202,8 +198,7 @@ public class displayVisits {
    */
   public static String buildHTMLDateRanges(String docUsername, String patientID,
       List<String> dates) {
-    List<VisitDatum> visits = Database.getVisitsFromDateRanges(docUsername,
-        patientID, dates);
+    List<VisitDatum> visits = Database.getVisitsFromDateRanges(docUsername, patientID, dates);
     System.out.println(visits);
     if (visits == null) {
       return "";
@@ -232,10 +227,10 @@ public class displayVisits {
         html.append("<td>");
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
-        html.append("<td>" + "general" + "</td>");
+        html.append("<td>" + visit.getVisitType() + "</td>");
         html.append("<td>");
-        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID
-            + "/visit/:" + visit.getDate() + "/:" + visit.getID());
+        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
+            + visit.getDate() + "/:" + visit.getID());
         html.append("\">Go to Visit");
         html.append("</a>");
         html.append("</td>");
