@@ -7,7 +7,16 @@ import java.util.UUID;
 
 import databases.Database;
 
+/**
+ * Class to deal with registering a patient into the database.
+ */
 public class PatientRegistration {
+
+  /**
+   * Register a patient, inserting them as a row in the patient table.
+   *
+   * @param registrationDetails to set for patient
+   */
   public void register(List<String> registrationDetails) {
     Connection conn = Database.getConn();
     PreparedStatement prep;
@@ -26,8 +35,7 @@ public class PatientRegistration {
       prep.addBatch();
       prep.executeBatch();
     } catch (Exception e) { // ask about this
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      System.err.println("ERROR: error connecting to database for registration");
     }
   }
 }

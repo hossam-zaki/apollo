@@ -1,9 +1,18 @@
 package patient;
 
+/**
+ * Creates an object for a row in a database table.
+ */
 public interface Datum {
 
-  public String getID();
+  /**
+   * @return a unique id associated with the object
+   */
+  String getID();
 
-  public void setID(String id);
+  /**
+   * @param id to set
+   */
+  void setID(String id);
 
 }

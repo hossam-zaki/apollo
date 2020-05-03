@@ -30,7 +30,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/apollo/:${username}">home</a></li>
-        <li><a href=${route}>register patient</a></li>
+        <li><a href=${route}>back to patient</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">profile
           <span class="caret"></span></a>

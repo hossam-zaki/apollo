@@ -45,7 +45,22 @@
     </div>
   </div>
 </nav>
-<div class="jumbotron text-center">
+<div class="input-group mb-3" style="margin-left: auto; margin-right: auto; width: 28%; margin-top: 6%">
+    <div class="input-group-prepend">
+      <span class="input-group-text" style="color:black; margin-left: 37%;" id="inputGroup-sizing-default"><strong>Enter Type of Visit</strong></span>
+    </div>
+    <input id="VisitType" type="text" class="form-control" style="text-align:center; font-size: 115%;" placeholder="(i.e General Checkup)" aria-label="Enter Type of Visit (i.e Checkup)" aria-describedby="inputGroup-sizing-default">
+</div>
+<br>
+<br>
+<div>
+  <h5><strong>Ready to Record Reasons for Visits?</strong> Say "Start reasons"</h5>
+  <h5><strong>All done?</strong> Say "Stop reasons"</h5>
+  <br>
+  <h5><strong>Ready to Record Symptoms?</strong> Say "Start symptoms"</h5>
+  <h5><strong>All done?</strong> Say "Stop symptoms"</h5>
+</div>
+<div style="margin-top: -5%;" class="jumbotron text-center">
       <div id="controls">
   	 <button id="recordButton"> Record  &nbsp<i class="fas fa-microphone"></i></button>
   	 <button id="pauseButton" disabled> Pause &nbsp<i class="fas fa-pause"></i></button>
@@ -60,14 +75,14 @@
     <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </div>
-<h4>Key Phrases Manual</h4>
+<!-- <h4>Key Phrases Manual</h4>
 <br>
 
 <div class="container-fluid" style="text-align: center">
   <div class="row">
     <div class="row">
-  <div class="col-md-6"><h5>To Register Reasons for Visit:</h5>
-<br>
+  <div class="col-md-6"><h5>To Register Reasons for Visit:</h5> -->
+<!-- <br>
 <p style="font-size: 175%">To start, say <span><p1>one</p1></span> of the following:</p>
 <p style="text-indent: 1.5%;">"Start reasons"</p>
 <p style="text-indent: 1.5%;">"Begin reasons"</p>
@@ -103,7 +118,7 @@
 <p style="text-align: left">3. Click on the <span style="color: red">red</span> "Pause" button, while recording. Click on the "Resume" button to resume recording.</p>
 <h5 style="text-align: left">To End:</h5>
 <p style="text-align: left">3. Click on the <span style="color: red">red</span> "Stop" button, while recording. Wait to be redirected to patient homepage.</p>
-<br>
+<br> -->
 
 
 </body>

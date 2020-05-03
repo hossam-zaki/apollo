@@ -48,7 +48,7 @@
 </div>
 <p>
 <div class="form">
-<h3>Patient Registration</h3>
+<h3 style="margin-top: -3%">Patient Registration</h3>
 <form method="POST" action="/apollo/registerPatient/addPatient/:${username}">
 	<input type="text" placeholder="first name" name="first_name" id="first_name" pattern="[A-Za-z]+" title="Name can only contain letters" required></input><br>
 	<input type="text" placeholder="middle name" name="middle_name" id="middle_name"></input><br>

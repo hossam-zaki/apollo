@@ -56,9 +56,9 @@
     </div>
   </form>
 </div>
-    <div class="patientTable">
+<div style="margin-top: -3%" class="patientTable">
     ${patients}
-    </div>
+</div>
 
 <script>
 $(document).ready(function(){

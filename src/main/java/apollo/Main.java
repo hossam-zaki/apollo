@@ -268,7 +268,7 @@ public final class Main {
         request.raw().setAttribute("org.eclipse.jetty.multipartConfig",
             new MultipartConfigElement("/tmp", 100000000, 100000000, 1024));
         String filename = request.raw().getPart("audio_data").getSubmittedFileName();
-        System.out.println(filename);
+        String visitType = request.raw().getPart("typeMeeting").getSubmittedFileName();
         Part uploadedFile = request.raw().getPart("audio_data");
         final InputStream in = uploadedFile.getInputStream();
         Files.copy(in, Paths.get("src/main/resources/static/audio/" + filename + ".wav"));
@@ -295,7 +295,7 @@ public final class Main {
         String summary = parser.getResult();
         visitRegister.register(username, patient, filename.substring(0, 10),
             filename.substring(11, 19), "src/main/resources/static/audio/" + filename + ".wav",
-            content, summary);
+            content, summary, visitType);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
         error = "";
 
@@ -518,7 +518,7 @@ public final class Main {
       String date = req.params(":date").replaceAll(":", "");
       String id = req.params(":id").replaceAll(":", "");
       String audio = Database.getAudio(username, patient, id);
-      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+      String route = "/apollo/patientBase/:" + username + "/:" + patient;
       String transcript = Database.getTranscript(username, patient, id);
       String summary = Database.getSummary(username, patient, id);
       PatientDatum patientData = Database.getPatient(patient);
