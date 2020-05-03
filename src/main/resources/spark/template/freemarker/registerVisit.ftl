@@ -47,9 +47,9 @@
 </nav>
 <div class="input-group mb-3" style="margin-left: auto; margin-right: auto; width: 28%; margin-top: 6%">
     <div class="input-group-prepend">
-      <span class="input-group-text" style="color:black; margin-left: 20%;" id="inputGroup-sizing-default"><strong>Enter Type of Visit (i.e General Checkup)</strong></span>
+      <span class="input-group-text" style="color:black; margin-left: 37%;" id="inputGroup-sizing-default"><strong>Enter Type of Visit</strong></span>
     </div>
-    <input type="text" class="form-control" style="text-align:center; font-size: 115%;" aria-label="Enter Type of Visit (i.e Checkup)" aria-describedby="inputGroup-sizing-default">
+    <input type="text" class="form-control" style="text-align:center; font-size: 115%;" placeholder="(i.e General Checkup)" aria-label="Enter Type of Visit (i.e Checkup)" aria-describedby="inputGroup-sizing-default">
 </div>
 <br>
 <br>
