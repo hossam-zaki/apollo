@@ -4,17 +4,27 @@ import registrationandlogin.Encryption;
 
 public class VisitDatum implements Datum {
   private String id;
-  private String Puuid;
+  private String pUuid;
   private String date;
   private byte[] transcript;
   private byte[] audioRecording;
   private String time;
   private byte[] visitType;
-
+  /**
+   * Constructor with information from database.
+   *
+   * @param id             unique id for appointment
+   * @param doctor         holding appointment
+   * @param patient        whose appointment it is
+   * @param date           of appointment
+   * @param transcript     recorded text
+   * @param audioRecording audio recorded
+   * @param time           of appointment
+   */
   public VisitDatum(String id, String doctor, String patient, String date, byte[] transcript,
       byte[] audioRecording, String time, byte[] visitype) {
     this.id = id;
-    this.Puuid = patient;
+    this.pUuid = patient;
     this.date = date;
     this.transcript = transcript;
     this.audioRecording = audioRecording;
@@ -28,14 +38,23 @@ public class VisitDatum implements Datum {
     return this.id;
   }
 
+  /**
+   * @return patient's id
+   */
   public String getPID() {
-    return this.Puuid;
+    return this.pUuid;
   }
 
+  /**
+   * @return appointment date
+   */
   public String getDate() {
     return this.date;
   }
 
+  /**
+   * @return transcript
+   */
   public String getTranscript() {
     try {
       return Encryption.decrypt(this.transcript);
@@ -54,6 +73,9 @@ public class VisitDatum implements Datum {
     return "";
   }
 
+  /**
+   * @return appointment time
+   */
   public String getTime() {
     return this.time;
   }
@@ -69,10 +91,13 @@ public class VisitDatum implements Datum {
 
   // ---------- Setters for VisitDatum ----------
   @Override
-  public void setID(String id) {
-    this.Puuid = id;
+  public void setID(String newId) {
+    this.id = newId;
   }
 
+  /**
+   * @param date to set
+   */
   public void setDate(String date) {
     this.date = date;
   }
@@ -81,10 +106,16 @@ public class VisitDatum implements Datum {
     this.transcript = transcript;
   }
 
+  /**
+   * @param audio to assign
+   */
   public void setAudioRecording(byte[] audio) {
     this.audioRecording = audio;
   }
 
+  /**
+   * @param time to set
+   */
   public void setTime(String time) {
     this.time = time;
   }
