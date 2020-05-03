@@ -54,7 +54,11 @@ public class displayVisits {
         html.append("<td>");
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
-        html.append("<td>" + visit.getVisitType() + "</td>");
+        if (!visit.getVisitType().equals("")) {
+          html.append("<td>" + visit.getVisitType() + "</td>");
+        } else {
+          html.append("<td> N/A </td>");
+        }
         html.append("<td>");
         html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
             + visit.getDate() + "/:" + visit.getID());
@@ -104,7 +108,11 @@ public class displayVisits {
         html.append("<td>");
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
-        html.append("<td>" + visit.getVisitType() + "</td>");
+        if (!visit.getVisitType().equals("")) {
+          html.append("<td>" + visit.getVisitType() + "</td>");
+        } else {
+          html.append("<td> N/A </td>");
+        }
         html.append("<td>");
         html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
             + visit.getDate() + "/:" + visit.getID());
@@ -165,7 +173,11 @@ public class displayVisits {
         html.append("<td>");
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
-        html.append("<td>" + visit.getVisitType() + "</td>");
+        if (!visit.getVisitType().equals("")) {
+          html.append("<td>" + visit.getVisitType() + "</td>");
+        } else {
+          html.append("<td> N/A </td>");
+        }
         html.append("<td>");
         html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
             + visit.getDate() + "/:" + visit.getID());
@@ -227,7 +239,12 @@ public class displayVisits {
         html.append("<td>");
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
-        html.append("<td>" + visit.getVisitType() + "</td>");
+        if (!visit.getVisitType().equals("")) {
+          html.append("<td>" + visit.getVisitType() + "</td>");
+        } else {
+          html.append("<td> N/A </td>");
+        }
+
         html.append("<td>");
         html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
             + visit.getDate() + "/:" + visit.getID());
