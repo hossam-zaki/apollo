@@ -5,7 +5,7 @@ package patient;
  */
 public class VisitDatum implements Datum {
   private String id;
-  private String Puuid;
+  private String pUuid;
   private String date;
   private String transcript;
   private byte[] audioRecording;
@@ -25,7 +25,7 @@ public class VisitDatum implements Datum {
   public VisitDatum(String id, String doctor, String patient, String date, String transcript,
       byte[] audioRecording, String time) {
     this.id = id;
-    this.Puuid = patient;
+    this.pUuid = patient;
     this.date = date;
     this.transcript = transcript;
     this.audioRecording = audioRecording;
@@ -42,7 +42,7 @@ public class VisitDatum implements Datum {
    * @return patient's id
    */
   public String getPID() {
-    return this.Puuid;
+    return this.pUuid;
   }
 
   /**

@@ -8,11 +8,11 @@ public interface Datum {
   /**
    * @return a unique id associated with the object
    */
-  public String getID();
+  String getID();
 
   /**
    * @param id to set
    */
-  public void setID(String id);
+  void setID(String id);
 
 }

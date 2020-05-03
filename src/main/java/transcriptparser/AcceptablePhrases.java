@@ -11,6 +11,13 @@ import java.util.List;
 public final class AcceptablePhrases {
 
   /**
+   * Empty constructor.
+   */
+  private AcceptablePhrases() {
+    // not called
+  }
+
+  /**
    * This method outlines acceptables phrases to begin listening for symtpoms.
    *
    * @return A List of Strings, representing all acceptable phrases to begin
@@ -70,8 +77,8 @@ public final class AcceptablePhrases {
   }
 
   /**
-   * This method outlines all acceptable phrases to stop listening for reasons
-   * for a patient's visit.
+   * This method outlines all acceptable phrases to stop listening for reasons for
+   * a patient's visit.
    *
    * @return A List of Strings, representing all acceptable phrases to stop
    *         listening for reasons for a patient's visit.
