@@ -24,10 +24,10 @@ public class ParserTest {
     filler = new FillEHRSections(symptoms, transcriptString);
     String res = filler.buildResult();
     StringBuilder test = new StringBuilder();
-    test.append("<h5>Reasons for Visit: </h5><br>");
-    test.append("<h5>I fell from my bike and hit my head on a rock</h5><br>");
-    test.append("<h5>Symptoms Reported:</h5>");
-    test.append("<h5><b>Neurologic: </b>my head hurts</h5>");
+    test.append("<h5><b>Reasons for Visit: </b></h5>");
+    test.append("<h5>\"I fell from my bike and hit my head on a rock\"</h5><br>");
+    test.append("<h5><b>Symptoms Reported:</b></h5>");
+    test.append("<h5><i>Neurologic: </i>my head hurts</h5>");
     assertEquals(res, test.toString());
   }
 
@@ -40,11 +40,11 @@ public class ParserTest {
     filler = new FillEHRSections(symptoms, transcriptString);
     String res = filler.buildResult();
     StringBuilder test = new StringBuilder();
-    test.append("<h5>Reasons for Visit: </h5><br>");
-    test.append("<h5>I ate some weird food and now I don't feel great</h5><br>");
-    test.append("<h5>Symptoms Reported:</h5>");
-    test.append("<h5><b>General: </b>I have the chills</h5>");
-    test.append("<h5><b>Gastrointestinal: </b>I feel sick</h5>");
+    test.append("<h5><b>Reasons for Visit: </b></h5>");
+    test.append("<h5>\"I ate some weird food and now I don't feel great\"</h5><br>");
+    test.append("<h5><b>Symptoms Reported:</b></h5>");
+    test.append("<h5><i>General: </i>I have the chills</h5>");
+    test.append("<h5><i>Gastrointestinal: </i>I feel sick</h5>");
     assertEquals(res, test.toString());
   }
 
@@ -56,8 +56,8 @@ public class ParserTest {
     filler = new FillEHRSections(symptoms, transcriptString);
     String res = filler.buildResult();
     StringBuilder test = new StringBuilder();
-    test.append("<h5>Reasons for Visit: </h5><br>");
-    test.append("<h5>Symptoms Reported:</h5>");
+    test.append("<h5><b>Reasons for Visit: </b></h5><br>");
+    test.append("<h5><b>Symptoms Reported:</b></h5>");
     assertEquals(res, test.toString());
   }
 

@@ -53,20 +53,20 @@
 </div>
 <h4>Patient Details</h4>
 <div style="color:black; margin-left: 8%;" class="details">
-  <b>Name:</b> ${name} <br>
-  Date of Birth: ${dob} <br>
-  Email: ${number} <br>
-  Phone Number: ${email}
+  <i>Name:</i> ${name} <br>
+  <i>Date of Birth</i>: ${dob} <br>
+  <i>Email</i>: ${number} <br>
+  <i>Phone Number</i>: ${email}
 </div>
 <br>
 <div class="row">
-  <div class="column left">
+  <div class="column left" style="padding-left: 25px;">
   <h4 style="margin-left: 22%;">Visit Summary</h4>
-  <div class="summary">${summary}</div>  
+  <div class="summary" style="margin-top: 3%; width: 40%">${summary}</div>  
   </div>
 <div class="column right">
-  <button class="collapsible"><h4>View Visit Transcript:</h4></button>
-  <div class="content">
+  <button type="button" class="btn" data-toggle="collapse" data-target="#demo"><h4 style = "text-decoration: none;">View Visit Transcript</h4></button>
+  <div id="demo" class="collapse">
   <div class="transcript">${transcript}</div>
 </div>
 </div>
