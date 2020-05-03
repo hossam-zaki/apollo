@@ -30,7 +30,8 @@ import patient.PatientRegistration;
 import patient.VisitRegistration;
 import registrationandlogin.Encryption;
 import registrationandlogin.Login;
-import registrationandlogin.Registration;
+import registrationandlogin.RegisterData;
+import registrationandlogin.DoctorRegistration;
 import repl.Repl;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
@@ -232,7 +233,7 @@ public final class Main {
       forRegister.add(qm.value("password"));
       forRegister.add(qm.value("phone"));
       forRegister.add(qm.value("institution"));
-      Registration register = new Registration();
+      DoctorRegistration register = new DoctorRegistration();
       register.register(forRegister);
       error = "";
       res.redirect("/apollo");
@@ -284,7 +285,7 @@ public final class Main {
         String content = Files.readString(Paths.get("data/transcripts/test.txt"),
             StandardCharsets.US_ASCII);
 
-        VisitRegistration visitRegister = new VisitRegistration();
+        RegisterData visitRegister = new VisitRegistration();
         System.out.println(in.readAllBytes().toString());
         ToParse parser = new ToParse();
         ArrayList<String> input = new ArrayList<String>();
@@ -293,9 +294,16 @@ public final class Main {
         input.add("data/categorized_symptoms.csv");
         parser.executeCommand(input);
         String summary = parser.getResult();
-        visitRegister.register(username, patient, filename.substring(0, 10),
-            filename.substring(11, 19), "src/main/resources/static/audio/" + filename + ".wav",
-            content, summary, visitType);
+        List<String> visitStrings = new ArrayList<String>();
+        visitStrings.add(username);
+        visitStrings.add(patient);
+        visitStrings.add(filename.substring(0, 10));
+        visitStrings.add(filename.substring(11, 19));
+        visitStrings.add("src/main/resources/static/audio/" + filename + ".wav");
+        visitStrings.add(content);
+        visitStrings.add(summary);
+        visitStrings.add(visitType);
+        visitRegister.register(visitStrings);
         Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
         error = "";
 
@@ -355,7 +363,7 @@ public final class Main {
       forRegister.add(qm.value("phone"));
       forRegister.add(qm.value("emergency contact phone"));
       forRegister.add(req.params(":username").replaceAll(":", ""));
-      PatientRegistration register = new PatientRegistration();
+      RegisterData register = new PatientRegistration();
       register.register(forRegister);
       error = "";
       res.redirect("/apollo/:" + req.params(":username").replaceAll(":", ""));

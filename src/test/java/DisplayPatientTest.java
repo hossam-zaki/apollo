@@ -10,8 +10,9 @@ import org.junit.Test;
 import apollo.displayPatients;
 import commands.ConnectToDatabase;
 import patient.PatientRegistration;
+import registrationandlogin.DoctorRegistration;
 import registrationandlogin.Encryption;
-import registrationandlogin.Registration;
+import registrationandlogin.RegisterData;
 
 public class DisplayPatientTest {
   @Before
@@ -29,10 +30,10 @@ public class DisplayPatientTest {
       registeredUser.add("SafePassword");
       registeredUser.add("4018634000");
       registeredUser.add("Alpert Medical School");
-      Registration register = new Registration();
+      RegisterData register = new DoctorRegistration();
       register.register(registeredUser);
 
-      PatientRegistration pRegister = new PatientRegistration();
+      RegisterData pRegister = new PatientRegistration();
       List<String> registeredPatient = new ArrayList<String>();
       registeredPatient.add("Prithu");
       registeredPatient.add("Jeff");

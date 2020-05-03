@@ -489,4 +489,42 @@ public final class Database {
     }
   }
 
+  /**
+   * Get patient last name by first name, used for testing.
+   *
+   * @param id
+   * @return last name
+   */
+  public static String getPatientByName(String firstName) {
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement("SELECT last_name FROM patient WHERE first_name = ?");
+      prep.setString(1, firstName);
+      ResultSet rs = prep.executeQuery();
+      return rs.getString(1);
+    } catch (SQLException e) {
+      System.err.println("ERROR: Patient not found");
+      return null;
+    }
+  }
+
+  /**
+   * Get patient last name by first name, used for testing.
+   *
+   * @param id
+   * @return last name
+   */
+  public static String getDateByDoctorName(String docName) {
+    PreparedStatement prep;
+    try {
+      prep = conn
+          .prepareStatement("SELECT appointment_date FROM appointments WHERE doctor_username = ?");
+      prep.setString(1, docName);
+      ResultSet rs = prep.executeQuery();
+      return rs.getString(1);
+    } catch (SQLException e) {
+      System.err.println("ERROR: Patient not found");
+      return null;
+    }
+  }
 }

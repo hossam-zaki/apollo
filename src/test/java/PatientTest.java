@@ -6,11 +6,13 @@ import java.util.List;
 import org.junit.Test;
 
 import commands.ConnectToDatabase;
+import databases.Database;
 import patient.PatientDatum;
 import patient.PatientRegistration;
 import patient.VisitDatum;
 import patient.VisitRegistration;
 import registrationandlogin.Encryption;
+import registrationandlogin.RegisterData;
 
 public class PatientTest {
 
@@ -61,7 +63,7 @@ public class PatientTest {
   public void registerTest() {
     ConnectToDatabase connect = new ConnectToDatabase();
     connect.executeCommand(new ArrayList<String>());
-    PatientRegistration registerPatient = new PatientRegistration();
+    RegisterData registerPatient = new PatientRegistration();
     List<String> patientString = new ArrayList<String>();
     patientString.add("first");
     patientString.add("middle");
@@ -72,7 +74,18 @@ public class PatientTest {
     patientString.add("1");
     patientString.add("docMcgee");
     registerPatient.register(patientString);
-    VisitRegistration registerVisit = new VisitRegistration();
-    registerVisit.register("doctor", "visit", "date", "transcript", "audio", "time", "1", "type");
+    assertTrue(Database.getPatientByName("first").equals("last"));
+    RegisterData registerVisit = new VisitRegistration();
+    List<String> visitString = new ArrayList<String>();
+    visitString.add("doctor");
+    visitString.add("visit");
+    visitString.add("date");
+    visitString.add("transcript");
+    visitString.add("audio");
+    visitString.add("time");
+    visitString.add("1");
+    visitString.add("type");
+    registerVisit.register(visitString);
+    assertTrue(Database.getDateByDoctorName("doctor").equals("date"));
   }
 }
