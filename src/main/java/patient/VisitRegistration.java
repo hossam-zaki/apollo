@@ -6,7 +6,22 @@ import java.util.UUID;
 
 import databases.Database;
 
+/**
+ * Class to deal with registering a visit into the database.
+ */
 public class VisitRegistration {
+
+  /**
+   * Register a visit, inserting them as a row in the patient table.
+   *
+   * @param docUsername who held the visit
+   * @param patientID   whose visit it is
+   * @param date        of visit
+   * @param time        of visit
+   * @param audio       name of audio file
+   * @param transcript  text from visit
+   * @param summary     of visit transcript
+   */
   public void register(String docUsername, String patientID, String date, String time, String audio,
       String transcript, String summary) {
     Connection conn = Database.getConn();

@@ -7,7 +7,16 @@ import java.util.UUID;
 
 import databases.Database;
 
+/**
+ * Class to deal with registering a patient into the database.
+ */
 public class PatientRegistration {
+
+  /**
+   * Register a patient, inserting them as a row in the patient table.
+   *
+   * @param registrationDetails to set for patient
+   */
   public void register(List<String> registrationDetails) {
     Connection conn = Database.getConn();
     PreparedStatement prep;
