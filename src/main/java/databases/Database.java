@@ -252,41 +252,6 @@ public final class Database {
   }
 
   /**
-   * This method gets all visits between a given date range.
-   *
-   * @param docUsername A String, representing a doctor's username.
-   * @param patientID   A String, representing a patient's ID.
-   * @param dates       A List of Strings, representing dates.
-   * @return A List of VisitDatums, representing all visits between a patient and
-   *         a doctor in specific dates.
-   */
-  public static List<VisitDatum> getVisitsFromDates(String docUsername, String patientID,
-      Set<String> dates) {
-    PreparedStatement prep;
-    try {
-      List<VisitDatum> toRet = new ArrayList<VisitDatum>();
-      for (String date : dates) {
-        prep = conn.prepareStatement(
-            "SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
-        prep.setString(1, docUsername);
-        prep.setString(2, patientID);
-        prep.setString(3, date);
-        ResultSet rs = prep.executeQuery();
-        while (rs.next()) {
-          VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-              rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
-          toRet.add(curr);
-        }
-        rs.close();
-      }
-      return toRet;
-    } catch (SQLException e) {
-      System.err.println("ERROR: No visits found");
-      return null;
-    }
-  }
-
-  /**
    * This method executes the query that finds all visits between a doctor and a
    * patient given a date range.
    *

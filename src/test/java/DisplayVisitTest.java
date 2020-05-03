@@ -155,4 +155,15 @@ public class DisplayVisitTest {
       }
     }
   }
+
+  @Test
+  public void getVisitsfromDateRangesTest() {
+    List<String> dates = new ArrayList<String>();
+    dates.add("2015-01-19");
+    dates.add("2015-01-21");
+    List<VisitDatum> visitList = Database.getVisitsFromDateRanges("nLols", patient_id, dates);
+    assertTrue(visitList.size() == 1);
+    assertTrue(visitList.get(0).getVisitType().contains("general"));
+    assertFalse(visitList.get(0).getVisitType().contains("physical"));
+  }
 }
