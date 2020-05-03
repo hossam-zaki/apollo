@@ -61,7 +61,6 @@ public final class Encryption {
    * string.
    *
    * @param string , the string to be encrypted.
-   * @throws Exception , when encrypting.
    * @return byte[] , the encrypted string.
    */
   public static byte[] encrypt(String string) {
@@ -87,7 +86,6 @@ public final class Encryption {
    * This method decrypts the byte list taken it and returns the decyphered text.
    *
    * @param string , the encrypted word/s.
-   * @throws Exception , when decrypting.
    * @return String , the decrypted string.
    */
   public static String decrypt(byte[] string) {
