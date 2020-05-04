@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import commands.ConnectToDatabase;
-import commands.StartSpeechToText;
 import transcriptparser.SearchAllTranscripts;
 import transcriptparser.ToParse;
 
@@ -24,7 +23,6 @@ public class ReplHandler {
     commandHashMap = new HashMap<String, Executable>();
     commandHashMap.put("build", new ConnectToDatabase());
     commandHashMap.put("parseTranscript", new ToParse());
-    commandHashMap.put("record", new StartSpeechToText());
     commandHashMap.put("searchAll", new SearchAllTranscripts());
   }
 
