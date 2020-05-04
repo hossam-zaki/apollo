@@ -25,8 +25,7 @@ public class FillSymptoms {
    *                       labeling.
    * @param fullTranscript A String, representing the full visit transcript.
    */
-  public FillSymptoms(Map<String, List<String>> patterns,
-      String fullTranscript) {
+  public FillSymptoms(Map<String, List<String>> patterns, String fullTranscript) {
     symptomPatterns = patterns;
     transcript = fullTranscript;
     kmp = this.getPortion();
@@ -49,8 +48,6 @@ public class FillSymptoms {
         List<Integer> indices = full.search(phrase.toCharArray());
         if (indices != null && !indices.isEmpty()) {
           startIndex = indices.get(0);
-          System.out.println(phrase);
-          System.out.println(startIndex);
           break;
         }
       }
@@ -59,8 +56,6 @@ public class FillSymptoms {
         List<Integer> indices = full.search(phrase.toCharArray());
         if (indices != null && !indices.isEmpty()) {
           endIndex = indices.get(0);
-          System.out.println(phrase);
-          System.out.println(endIndex);
           break;
         }
       }
@@ -69,16 +64,15 @@ public class FillSymptoms {
                                              // symptoms portion of
                                              // transcript
     } catch (Exception e) {
-      System.out.println(
-          "ERROR: nothing found in transcript. Please use the given manual sentences");
+      System.out
+          .println("ERROR: nothing found in transcript. Please use the given manual sentences");
       return new KMP("".toCharArray());
     }
 
   }
 
   /**
-   * This method gets all the symptoms from the correct portion of the
-   * transcript.
+   * This method gets all the symptoms from the correct portion of the transcript.
    *
    * @return A Map from String to a List of Strings, that represents the found
    *         symspomts and their categorical labelings.

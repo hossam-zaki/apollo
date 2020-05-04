@@ -1,0 +1,5 @@
+INPUT
+parseTranscript data/parserTests/basicTest.txt data/invalidSymptoms.csv
+OUTPUT
+ERROR: Invalid symptoms file
+END

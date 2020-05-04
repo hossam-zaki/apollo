@@ -3,12 +3,15 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import apollo.displayPatients;
+import apollo.DisplayPatients;
 import commands.ConnectToDatabase;
+import databases.Database;
+import patient.PatientDatum;
 import patient.PatientRegistration;
 import registrationandlogin.DoctorRegistration;
 import registrationandlogin.Encryption;
@@ -53,9 +56,40 @@ public class DisplayPatientTest {
 
   @Test
   public void displayPatientTest() {
-    String html = displayPatients.buildHTML("nTelson");
+    String html = DisplayPatients.buildHTML("nTelson");
     System.out.println(html);
     assertTrue(html.contains("Prithu"));
     assertFalse(html.contains("Lena"));
   }
+
+  @Test
+  public void getDocNameTest() {
+    String html = Database.getDocName("nTelson");
+    assertTrue(html.contains("Telson"));
+  }
+
+  @Test
+  public void testValidUsername() {
+    boolean bool = Database.ifUsernameExists("nTelson");
+    assertTrue(bool);
+    boolean bool1 = Database.ifUsernameExists("cTrotz");
+    assertFalse(bool1);
+  }
+
+  @Test
+  public void testgetDoctorPatients() {
+    List<PatientDatum> list = Database.getDoctorPatients("nTelson");
+    assertTrue(list.get(0).getFirstName().contains("Prithu"));
+    assertTrue(list.get(0).getMiddleName().contains("Jeff"));
+    assertFalse(list.get(0).getLastName().contains("Jeff"));
+  }
+
+  @Test
+  public void testgetDocInfo() {
+    Map<String, String> list = Database.getDoctorInfo("nTelson");
+    assertTrue(list.get("first name:").equals("Nim"));
+    assertTrue(list.get("username:").equals("nTelson"));
+    assertFalse(list.get("first name:").contains("Prithu"));
+  }
+
 }

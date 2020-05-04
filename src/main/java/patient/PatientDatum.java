@@ -1,5 +1,7 @@
 package patient;
 
+import java.util.List;
+
 /**
  * Creates an object for patient registered.
  */
@@ -14,31 +16,25 @@ public class PatientDatum implements Datum {
   private String emergencyPhoneNumber;
   private String docUsername;
 
+  static final int COL7 = 7;
+  static final int COL8 = 8;
+
   /**
    * Constructor for information from database.
    *
-   * @param uuid                 patient's unique id
-   * @param firstName            of patient
-   * @param middleName           of patient
-   * @param lastName             of patient
-   * @param dateOfBirth          of patient
-   * @param phoneNumber          of patient
-   * @param email                of patient
-   * @param emergencyPhoneNumber of patient
-   * @param docUsername          of patient
+   * @param dataDetails Strings to fill in
    */
-  public PatientDatum(String uuid, String firstName, String middleName, String lastName,
-      String dateOfBirth, String phoneNumber, String email, String emergencyPhoneNumber,
-      String docUsername) {
-    this.uuid = uuid;
-    this.firstName = firstName;
-    this.middleName = middleName;
-    this.lastName = lastName;
-    this.dateOfBirth = dateOfBirth;
-    this.phoneNumber = phoneNumber;
-    this.email = email;
-    this.emergencyPhoneNumber = emergencyPhoneNumber;
-    this.docUsername = docUsername;
+
+  public PatientDatum(List<String> dataDetails) {
+    this.uuid = dataDetails.get(0);
+    this.firstName = dataDetails.get(1);
+    this.middleName = dataDetails.get(2);
+    this.lastName = dataDetails.get(3);
+    this.dateOfBirth = dataDetails.get(4);
+    this.phoneNumber = dataDetails.get(5);
+    this.email = dataDetails.get(6);
+    this.emergencyPhoneNumber = dataDetails.get(COL7);
+    this.docUsername = dataDetails.get(COL8);
   }
 
   // --------- Getters for PatientDatum Class ---------

@@ -27,6 +27,9 @@ import registrationandlogin.Encryption;
 public final class Database {
 
   private static Connection conn;
+  static final int COL7 = 7;
+  static final int COL8 = 8;
+  static final int COL9 = 9;
 
   /**
    * Empty necessary constructor for private initialization.
@@ -85,6 +88,12 @@ public final class Database {
     return conn;
   }
 
+  /**
+   * Get doctor's last name.
+   *
+   * @param username of doctor
+   * @return last name corresponding to username
+   */
   public static String getDocName(String username) {
     PreparedStatement prep;
     try {
@@ -95,6 +104,7 @@ public final class Database {
       while (rs.next()) {
         toRet = rs.getString(1);
       }
+      rs.close();
       return toRet;
     } catch (Exception e) {
       System.err.println("ERROR: couldn't find doctor name");
@@ -108,9 +118,9 @@ public final class Database {
    * or not.
    *
    * @param username A potiential new doctor username.
-   * @return A boolean, true if the username is free, false otherwise.
+   * @return A boolean, false if the username is free, true otherwise.
    */
-  public static boolean checkValidUsername(String username) {
+  public static boolean ifUsernameExists(String username) {
     PreparedStatement prep;
     try {
       prep = conn.prepareStatement("SELECT username FROM doctor WHERE username = ?");
@@ -118,8 +128,10 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       while (rs.next()) {
         rs.getString(1);
+        rs.close();
         return true;
       }
+      rs.close();
       return false;
     } catch (Exception e) {
       System.err.println("ERROR: couldn't validate username");
@@ -142,12 +154,21 @@ public final class Database {
       prep = conn.prepareStatement("SELECT * FROM patient WHERE primary_doctor = ?");
       prep.setString(1, username);
       ResultSet rs = prep.executeQuery();
+      List<String> patientInfo = new ArrayList<String>();
+      patientInfo.add(rs.getString("id")); // id
+      patientInfo.add(rs.getString(2)); // firstname
+      patientInfo.add(rs.getString(3)); // midname
+      patientInfo.add(rs.getString(4)); // lastname
+      patientInfo.add(rs.getString(5)); // dob
+      patientInfo.add(rs.getString(6)); // phone
+      patientInfo.add(rs.getString(COL7)); // email
+      patientInfo.add(rs.getString(COL8)); // emergency number
+      patientInfo.add(rs.getString(COL9)); // docusername
       while (rs.next()) {
-        PatientDatum curr = new PatientDatum(rs.getString("id"), rs.getString(2), rs.getString(3),
-            rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),
-            rs.getString(9));
+        PatientDatum curr = new PatientDatum(patientInfo);
         toRet.add(curr);
       }
+      rs.close();
       return toRet;
     } catch (Exception e) {
       System.err.println("ERROR: no patients found");
@@ -175,10 +196,10 @@ public final class Database {
         toRet.put("last name:", rs.getString(4)); // last name
         toRet.put("email:", rs.getString(5)); // email
         toRet.put("username:", rs.getString(6)); // username
-        // toRet.put("password", rs.getString(7)); // password
-        toRet.put("medical institution:", rs.getString(9)); // medical
-                                                            // institution
+        toRet.put("medical institution:", rs.getString(COL9)); // medical
+        // institution
       }
+      rs.close();
       return toRet;
     } catch (Exception e) {
       System.err.println("ERROR: doctor not found");
@@ -199,15 +220,18 @@ public final class Database {
       prep = conn.prepareStatement("SELECT * FROM patient WHERE id = ?");
       prep.setString(1, id);
       ResultSet rs = prep.executeQuery();
-      PatientDatum patient = new PatientDatum(rs.getString(1), // id
-          rs.getString(2), // firstname
-          rs.getString(3), // midname
-          rs.getString(4), // lastname
-          rs.getString(5), // dob
-          rs.getString(6), // phone
-          rs.getString(7), // email
-          rs.getString(8), // emergency number
-          rs.getString(9)); // docusername
+      List<String> patientInfo = new ArrayList<String>();
+      patientInfo.add(rs.getString(1)); // id
+      patientInfo.add(rs.getString(2)); // firstname
+      patientInfo.add(rs.getString(3)); // midname
+      patientInfo.add(rs.getString(4)); // lastname
+      patientInfo.add(rs.getString(5)); // dob
+      patientInfo.add(rs.getString(6)); // phone
+      patientInfo.add(rs.getString(COL7)); // email
+      patientInfo.add(rs.getString(COL8)); // emergency number
+      patientInfo.add(rs.getString(COL9)); // docusername
+      PatientDatum patient = new PatientDatum(patientInfo);
+      rs.close();
       return patient;
     } catch (SQLException e) {
       System.err.println("ERROR: Patient not found");
@@ -234,44 +258,16 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
       while (rs.next()) {
-        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-            rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
+        List<String> details = new ArrayList<String>();
+        details.add(rs.getString(1));
+        details.add(rs.getString(2));
+        details.add(rs.getString(3));
+        details.add(rs.getString(4));
+        VisitDatum curr = new VisitDatum(details, rs.getBytes(COL7), rs.getBytes(6),
+            rs.getString(5), rs.getBytes(COL9));
         toRet.add(curr);
       }
-      return toRet;
-    } catch (SQLException e) {
-      System.err.println("ERROR: No visits found");
-      return null;
-    }
-  }
-
-  /**
-   * This method gets all visits between a given date range.
-   *
-   * @param docUsername A String, representing a doctor's username.
-   * @param patientID   A String, representing a patient's ID.
-   * @param dates       A List of Strings, representing dates.
-   * @return A List of VisitDatums, representing all visits between a patient and
-   *         a doctor in specific dates.
-   */
-  public static List<VisitDatum> getVisitsFromDates(String docUsername, String patientID,
-      Set<String> dates) {
-    PreparedStatement prep;
-    try {
-      List<VisitDatum> toRet = new ArrayList<VisitDatum>();
-      for (String date : dates) {
-        prep = conn.prepareStatement(
-            "SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date = ?");
-        prep.setString(1, docUsername);
-        prep.setString(2, patientID);
-        prep.setString(3, date);
-        ResultSet rs = prep.executeQuery();
-        while (rs.next()) {
-          VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-              rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
-          toRet.add(curr);
-        }
-      }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No visits found");
@@ -295,18 +291,24 @@ public final class Database {
     try {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
       prep = conn.prepareStatement(
-          "SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date BETWEEN ? AND ?");
+          "SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? "
+              + "AND appointment_date BETWEEN ? AND ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, dates.get(0));
       prep.setString(4, dates.get(1));
       ResultSet rs = prep.executeQuery();
       while (rs.next()) {
-        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-            rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
+        List<String> details = new ArrayList<String>();
+        details.add(rs.getString(1));
+        details.add(rs.getString(2));
+        details.add(rs.getString(3));
+        details.add(rs.getString(4));
+        VisitDatum curr = new VisitDatum(details, rs.getBytes(COL7), rs.getBytes(6),
+            rs.getString(5), rs.getBytes(COL9));
         toRet.add(curr);
       }
-
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No visits found");
@@ -320,27 +322,33 @@ public final class Database {
    *
    * @param docUsername A String, representing a doctor's username.
    * @param patientID   A String, representing a patient's ID.
-   * @param Ids         A Set of Strings, representing visits IDs.
+   * @param ids         A Set of Strings, representing visits IDs.
    * @return A List of VisitDatums, representing a list of visits corresponding to
    *         the doctor's ID, patient ID, and visit IDs.
    */
   public static List<VisitDatum> getVisitsFromIds(String docUsername, String patientID,
-      Set<String> Ids) {
+      Set<String> ids) {
     PreparedStatement prep;
     try {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
-      for (String id : Ids) {
-        prep = conn.prepareStatement(
-            "SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      for (String id : ids) {
+        prep = conn.prepareStatement("SELECT * FROM appointments WHERE "
+            + "doctor_username = ? AND patient_id = ? AND visit_id = ?");
         prep.setString(1, docUsername);
         prep.setString(2, patientID);
         prep.setString(3, id);
         ResultSet rs = prep.executeQuery();
         while (rs.next()) {
-          VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-              rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
+          List<String> details = new ArrayList<String>();
+          details.add(rs.getString(1));
+          details.add(rs.getString(2));
+          details.add(rs.getString(3));
+          details.add(rs.getString(4));
+          VisitDatum curr = new VisitDatum(details, rs.getBytes(COL7), rs.getBytes(6),
+              rs.getString(5), rs.getBytes(COL9));
           toRet.add(curr);
         }
+        rs.close();
       }
       return toRet;
     } catch (SQLException e) {
@@ -361,8 +369,8 @@ public final class Database {
   public static String getAudio(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement(
-          "SELECT audio_file FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      prep = conn.prepareStatement("SELECT audio_file FROM appointments "
+          + "WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, id);
@@ -371,6 +379,7 @@ public final class Database {
       while (rs.next()) {
         toRet = Encryption.decrypt(rs.getBytes(1));
       }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No audio file found");
@@ -389,8 +398,8 @@ public final class Database {
   public static String getTranscript(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement(
-          "SELECT transcript FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      prep = conn.prepareStatement("SELECT transcript FROM appointments "
+          + "WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, id);
@@ -399,6 +408,7 @@ public final class Database {
       while (rs.next()) {
         toRet = Encryption.decrypt(rs.getBytes(1));
       }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No audio file found");
@@ -417,8 +427,8 @@ public final class Database {
   public static String getSummary(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement(
-          "SELECT summary FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      prep = conn.prepareStatement("SELECT summary FROM appointments "
+          + "WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, id);
@@ -427,6 +437,7 @@ public final class Database {
       while (rs.next()) {
         toRet = Encryption.decrypt(rs.getBytes(1));
       }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No audio file found");
@@ -446,8 +457,8 @@ public final class Database {
   public static String getVisitType(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement(
-          "SELECT visit_type FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      prep = conn.prepareStatement("SELECT visit_type FROM appointments "
+          + "WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, id);
@@ -456,6 +467,7 @@ public final class Database {
       while (rs.next()) {
         toRet = Encryption.decrypt(rs.getBytes(1));
       }
+      rs.close();
       return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: No visit type found");
@@ -482,6 +494,7 @@ public final class Database {
       while (rs.next()) {
         transcripts.put(rs.getString(1), Encryption.decrypt(rs.getBytes(2)));
       }
+      rs.close();
       return transcripts;
     } catch (SQLException e) {
       System.err.println("ERROR: Patient not found");
@@ -490,7 +503,7 @@ public final class Database {
   }
 
   /**
-   * Get patient last name by first name, used for testing.
+   * Get patient last name by last name, used for testing.
    *
    * @param firstName of patient
    * @return last name
@@ -501,7 +514,9 @@ public final class Database {
       prep = conn.prepareStatement("SELECT last_name FROM patient WHERE first_name = ?");
       prep.setString(1, firstName);
       ResultSet rs = prep.executeQuery();
-      return rs.getString(1);
+      String toRet = rs.getString(1);
+      rs.close();
+      return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: Patient not found");
       return null;
@@ -509,7 +524,7 @@ public final class Database {
   }
 
   /**
-   * Get patient last name by first name, used for testing.
+   * Get date by doctor username.
    *
    * @param docName for visit
    * @return date
@@ -521,7 +536,9 @@ public final class Database {
           .prepareStatement("SELECT appointment_date FROM appointments WHERE doctor_username = ?");
       prep.setString(1, docName);
       ResultSet rs = prep.executeQuery();
-      return rs.getString(1);
+      String toRet = rs.getString(1);
+      rs.close();
+      return toRet;
     } catch (SQLException e) {
       System.err.println("ERROR: Patient not found");
       return null;

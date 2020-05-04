@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import commands.ConnectToDatabase;
+import registrationandlogin.DoctorRegistration;
 import registrationandlogin.Encryption;
 import registrationandlogin.Login;
-import registrationandlogin.DoctorRegistration;
 
 public class LoginTest {
 
@@ -19,7 +19,7 @@ public class LoginTest {
     Encryption.registerEncryption();
     ConnectToDatabase connect = new ConnectToDatabase();
     connect.executeCommand(null);
-    List<String> registeredUser = new ArrayList();
+    List<String> registeredUser = new ArrayList<String>();
     registeredUser.add("Nim");
     registeredUser.add("");
     registeredUser.add("Telson");

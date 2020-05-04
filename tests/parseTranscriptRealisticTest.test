@@ -1,0 +1,5 @@
+INPUT
+parseTranscript data/parserTests/realisticTest.txt data/categorized_symptoms.csv
+OUTPUT
+<h5><b>Reasons for Visit: </b></h5><h5>"for todays visit I ate some weird food and now I don't feel great"</h5><br><h5><b>Symptoms Reported:</b></h5><h5><i>General: </i>chills</h5><h5><i>Gastrointestinal: </i>feel sick</h5>
+END

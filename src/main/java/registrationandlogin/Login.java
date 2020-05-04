@@ -32,7 +32,9 @@ public class Login {
       rs = prep.executeQuery();
       if (password.equals(Encryption.decrypt(rs.getBytes("password")))) {
         System.out.println("login suceeded");
-        return rs.getString("id");
+        String id = rs.getString("id");
+        rs.close();
+        return id;
       }
       return null;
     } catch (Exception e) {
@@ -43,6 +45,7 @@ public class Login {
         rs.close();
       } catch (SQLException e) {
         System.err.println("ERROR: retrieving from Db and decrypting password");
+        return null;
       }
     }
   }

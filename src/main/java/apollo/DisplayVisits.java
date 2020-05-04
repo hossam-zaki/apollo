@@ -9,12 +9,12 @@ import patient.VisitDatum;
 /**
  * This class is used to display visits into the GUI.
  */
-public class displayVisits {
+public final class DisplayVisits {
 
   /**
    * Empty constructor for the displayVisits class.
    */
-  public displayVisits() {
+  private DisplayVisits() {
   }
 
   /**
@@ -35,8 +35,8 @@ public class displayVisits {
     html.append("<br>");
 
     if (visits.size() != 0) {
-      html.append(
-          "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+      html.append("<table class=\"table table-striped\" style=\"width: 80%; "
+          + "color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
       html.append("<thead>");
       html.append("<tr>");
       html.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
@@ -99,8 +99,8 @@ public class displayVisits {
     html.append("<br>");
 
     if (visits.size() != 0) {
-      html.append(
-          "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+      html.append("<table class=\"table table-striped\" style=\"width: 80%; "
+          + "color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
       html.append("<thead>");
       html.append("<tr>");
       html.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
@@ -165,8 +165,8 @@ public class displayVisits {
     html.append("<br>");
 
     if (visits.size() != 0) {
-      html.append(
-          "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+      html.append("<table class=\"table table-striped\" style=\"width: 80%; color: black; "
+          + "margin-left:auto; margin-right:auto; border-collapse:separate;\">");
       html.append("<thead>");
       html.append("<tr>");
       html.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");

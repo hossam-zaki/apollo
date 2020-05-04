@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
@@ -86,5 +87,18 @@ public class ParserTest {
     filler = new FillEHRSections(symptoms, transcriptString);
     String res = filler.buildResult();
     assertEquals(res, null);
+  }
+
+  @Test
+  public void stringFromFileTest() {
+    File symptomsFile = new File("data/parserTests/realisticTest.txt");
+    String result = parser.getTranscriptString(symptomsFile);
+    String transcriptString = "hello, thanks for coming in what are your reasons"
+        + " for todays visit I ate some weird food and now I don't feel great stop reasons for visit what "
+        + "are your symptoms I have the chills and I feel sick stop symptoms okay have a good day\n";
+    assertTrue(result.equals(transcriptString));
+    File badFile = new File("badFile.txt");
+    String badResult = parser.getTranscriptString(badFile);
+    assertEquals(badResult, null);
   }
 }

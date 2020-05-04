@@ -20,6 +20,9 @@ import repl.Executable;
 public class ToParse implements Executable {
   private String result;
 
+  static final int COL7 = 7;
+  static final int COL8 = 8;
+
   /**
    * This method gets the transcript string from a transcript file. Used for
    * testing.
@@ -57,8 +60,8 @@ public class ToParse implements Executable {
    * This method reads the symtpoms from a CSV file of symptoms.
    *
    * @param symptomsFile A File of symptoms.
-   * @return A Ma from String to a List of Strings, where each category is
-   *         mapped to a list of symptoms belonging to the category.
+   * @return A Ma from String to a List of Strings, where each category is mapped
+   *         to a list of symptoms belonging to the category.
    */
   public Map<String, List<String>> readSymptoms(File symptomsFile) {
     Map<String, List<String>> symptoms = new HashMap<String, List<String>>();
@@ -103,8 +106,8 @@ public class ToParse implements Executable {
         if (!split[6].equals(" ")) {
           rheumatologic.add(split[6]);
         }
-        if (!split[7].equals(" ")) {
-          urologic.add(split[7]);
+        if (!split[COL7].equals(" ")) {
+          urologic.add(split[COL7]);
         }
       }
       symptoms.put("General", general);
@@ -121,11 +124,11 @@ public class ToParse implements Executable {
           numEmpty++;
         }
       }
-      if (numEmpty == 8) {
+      if (numEmpty == COL8) {
         System.err.println("ERROR: Invalid symptoms file");
         return null;
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
       System.err.println("ERROR: Symptoms Read error");
       return symptoms;
     } finally {
@@ -144,12 +147,16 @@ public class ToParse implements Executable {
    */
   @Override
   public void executeCommand(List<String> input) {
-    File transcript = new File(input.get(1));
-    String transcriptString = this.getTranscriptString(transcript);
-    File symptomsFile = new File(input.get(2));
-    Map<String, List<String>> symptoms = this.readSymptoms(symptomsFile);
-    FillEHRSections fill = new FillEHRSections(symptoms, transcriptString);
-    this.result = fill.buildResult();
+    if (input.size() != 3) {
+      System.out.println("ERROR: invalid command");
+    } else {
+      File transcript = new File(input.get(1));
+      String transcriptString = this.getTranscriptString(transcript);
+      File symptomsFile = new File(input.get(2));
+      Map<String, List<String>> symptoms = this.readSymptoms(symptomsFile);
+      FillEHRSections fill = new FillEHRSections(symptoms, transcriptString);
+      this.result = fill.buildResult();
+    }
   }
 
   /**

@@ -1,5 +1,7 @@
 package patient;
 
+import java.util.List;
+
 import registrationandlogin.Encryption;
 
 /**
@@ -17,20 +19,17 @@ public class VisitDatum implements Datum {
   /**
    * Constructor with information from database.
    *
-   * @param id             unique id for appointment
-   * @param doctor         holding appointment
-   * @param patient        whose appointment it is
-   * @param date           of appointment
+   * @param details        list of id, doctor, patient, date
    * @param transcript     recorded text
    * @param audioRecording audio recorded
    * @param time           of appointment
    * @param visitype       type of visit
    */
-  public VisitDatum(String id, String doctor, String patient, String date, byte[] transcript,
-      byte[] audioRecording, String time, byte[] visitype) {
-    this.id = id;
-    this.pUuid = patient;
-    this.date = date;
+  public VisitDatum(List<String> details, byte[] transcript, byte[] audioRecording, String time,
+      byte[] visitype) {
+    this.id = details.get(0);
+    this.pUuid = details.get(2);
+    this.date = details.get(3);
     this.transcript = transcript;
     this.audioRecording = audioRecording;
     this.time = time;

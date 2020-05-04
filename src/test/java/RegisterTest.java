@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import commands.ConnectToDatabase;
 import databases.Database;
-import registrationandlogin.Encryption;
 import registrationandlogin.DoctorRegistration;
+import registrationandlogin.Encryption;
 
 public class RegisterTest {
 
@@ -28,7 +28,7 @@ public class RegisterTest {
   public void registerTest() {
     try {
       setUp();
-      List<String> registeredUser = new ArrayList();
+      List<String> registeredUser = new ArrayList<String>();
       registeredUser.add("Nim");
       registeredUser.add("");
       registeredUser.add("Telson");

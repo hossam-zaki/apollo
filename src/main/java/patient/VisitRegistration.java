@@ -14,6 +14,9 @@ import registrationandlogin.RegisterData;
  */
 public class VisitRegistration implements RegisterData {
 
+  static final int COL7 = 7;
+  static final int COL8 = 8;
+  static final int COL9 = 9;
 
   @Override
   public void register(List<String> registrationDetails) {
@@ -29,9 +32,9 @@ public class VisitRegistration implements RegisterData {
       // String path = "data/hendrix.wav";
       prep.setString(5, registrationDetails.get(3));
       prep.setBytes(6, Encryption.encrypt(registrationDetails.get(4))); // audio file
-      prep.setBytes(7, Encryption.encrypt(registrationDetails.get(5))); // transcript
-      prep.setBytes(8, Encryption.encrypt(registrationDetails.get(6))); // summary
-      prep.setBytes(9, Encryption.encrypt(registrationDetails.get(7))); // visit Type.
+      prep.setBytes(COL7, Encryption.encrypt(registrationDetails.get(5))); // transcript
+      prep.setBytes(COL8, Encryption.encrypt(registrationDetails.get(6))); // summary
+      prep.setBytes(COL9, Encryption.encrypt(registrationDetails.get(COL7))); // visit Type.
       prep.addBatch();
       prep.executeBatch();
     } catch (Exception e) { // ask about this
