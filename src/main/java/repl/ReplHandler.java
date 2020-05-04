@@ -39,7 +39,7 @@ public class ReplHandler {
       inputSplit.add(regexMatcher.group());
     }
     if (inputSplit.size() == 0 || !commandHashMap.containsKey(inputSplit.get(0))) {
-      System.out.println("ERROR: Input Valid Command");
+      System.err.println("ERROR: Input Valid Command");
     } else {
       commandHashMap.get(inputSplit.get(0)).executeCommand(inputSplit);
 

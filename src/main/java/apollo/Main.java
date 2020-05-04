@@ -28,10 +28,10 @@ import joptsimple.OptionSet;
 import patient.PatientDatum;
 import patient.PatientRegistration;
 import patient.VisitRegistration;
+import registrationandlogin.DoctorRegistration;
 import registrationandlogin.Encryption;
 import registrationandlogin.Login;
 import registrationandlogin.RegisterData;
-import registrationandlogin.DoctorRegistration;
 import repl.Repl;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
@@ -126,10 +126,10 @@ public final class Main {
 
     // Setup Spark Routes
     Spark.get("/apollo", new FrontHandler(), freeMarker);
+    Spark.get("/error", new errorHandler(), freeMarker);
     Spark.get("/register", new RegisterHandler(), freeMarker);
     Spark.post("/registerDoctor", new RegisterDoctorHandler(), freeMarker);
     Spark.post("/loginDoctor", new LoginDoctorHandler(), freeMarker);
-    Spark.get("/record", new RecordHandler(), freeMarker);
     Spark.post("/send/:username/:patient", new SendHandler(), freeMarker);
     Spark.get("/apollo/:username", new baseHandler(), freeMarker);
     Spark.get("/apollo/registerPatient/:username", new registerPatientHandler(), freeMarker);
@@ -241,21 +241,6 @@ public final class Main {
     }
   }
 
-  /**
-   * Handles requests to record the audio of a given visit.
-   *
-   */
-  private static class RecordHandler implements TemplateViewRoute {
-
-    @Override
-    public ModelAndView handle(Request request, Response response) throws Exception {
-      Map<String, Object> map = ImmutableMap.of("title", "Apollo", "status", error);
-      error = "";
-      return new ModelAndView(map, "recording.ftl");
-    }
-
-  }
-
   /*
    * Handles requests to actually create a visit entry into our database using a
    * certain recording. This is also where a text transcript is created and where
@@ -327,11 +312,28 @@ public final class Main {
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
       String docName = Database.getDocName(username);
+      if (docName.equals("")) {
+        res.redirect("/error");
+        return null;
+      }
       String route = "/apollo/registerPatient/:" + username;
       new displayPatients();
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "docName", docName, "username",
           username, "route", route, "patients", displayPatients.buildHTML(username));
       return new ModelAndView(map, "base2.ftl");
+    }
+  }
+
+  /**
+   * Handle requests to the base page of our platform, where a doctor can see al
+   * infromation about patients and register new patients.
+   *
+   */
+  private static class errorHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      Map<String, String> map = ImmutableMap.of("title", "Apollo");
+      return new ModelAndView(map, "error.ftl");
     }
   }
 
