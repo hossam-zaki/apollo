@@ -18,8 +18,17 @@ public class PatientTest {
 
   @Test
   public void patientDatumTest() {
-    PatientDatum patient = new PatientDatum("1", "first", "middle", "last", "4/5/2003",
-        "7814245312", "me@apple.com", "7814231234", "docMcgee");
+    List<String> patientInfo = new ArrayList<String>();
+    patientInfo.add("1"); // id
+    patientInfo.add("first"); // firstname
+    patientInfo.add("middle"); // midname
+    patientInfo.add("last"); // lastname
+    patientInfo.add("4/5/2003"); // dob
+    patientInfo.add("7814245312"); // phone
+    patientInfo.add("me@apple.com"); // email
+    patientInfo.add("7814231234"); // emergency number
+    patientInfo.add("docMcgee"); // docusername
+    PatientDatum patient = new PatientDatum(patientInfo);
     patient.setID("2");
     assertTrue(patient.getID().equals("2"));
     patient.setFirstName("bill");
@@ -44,8 +53,13 @@ public class PatientTest {
   public void visitDatumTest() {
     String audioRecording = "audio";
     Encryption.registerEncryption();
-    VisitDatum visit = new VisitDatum("id", "doctor", "visit", "date",
-        Encryption.encrypt("transcript"), null, "time", Encryption.encrypt("type"));
+    List<String> details = new ArrayList<String>();
+    details.add("id");
+    details.add("doctor");
+    details.add("visit");
+    details.add("date");
+    VisitDatum visit = new VisitDatum(details, Encryption.encrypt("transcript"), null, "time",
+        Encryption.encrypt("type"));
     visit.setID("2");
     assertTrue(visit.getID().equals("2"));
     visit.setAudioRecording(Encryption.encrypt(audioRecording));

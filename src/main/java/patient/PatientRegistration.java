@@ -13,6 +13,10 @@ import registrationandlogin.RegisterData;
  */
 public class PatientRegistration implements RegisterData {
 
+  static final int COL7 = 7;
+  static final int COL8 = 8;
+  static final int COL9 = 9;
+
   /**
    * Register a patient, inserting them as a row in the patient table.
    *
@@ -31,9 +35,9 @@ public class PatientRegistration implements RegisterData {
       prep.setString(4, registrationDetails.get(2)); // last name
       prep.setString(5, registrationDetails.get(3)); // DOB
       prep.setString(6, registrationDetails.get(4)); // phone
-      prep.setString(7, registrationDetails.get(5)); // email
-      prep.setString(8, registrationDetails.get(6)); // emergency phone
-      prep.setString(9, registrationDetails.get(7).toString()); // doctor's id
+      prep.setString(COL7, registrationDetails.get(5)); // email
+      prep.setString(COL8, registrationDetails.get(6)); // emergency phone
+      prep.setString(COL9, registrationDetails.get(COL7).toString()); // doctor's id
       prep.addBatch();
       prep.executeBatch();
     } catch (Exception e) { // ask about this

@@ -20,6 +20,9 @@ import repl.Executable;
 public class ToParse implements Executable {
   private String result;
 
+  static final int COL7 = 7;
+  static final int COL8 = 8;
+
   /**
    * This method gets the transcript string from a transcript file. Used for
    * testing.
@@ -103,8 +106,8 @@ public class ToParse implements Executable {
         if (!split[6].equals(" ")) {
           rheumatologic.add(split[6]);
         }
-        if (!split[7].equals(" ")) {
-          urologic.add(split[7]);
+        if (!split[COL7].equals(" ")) {
+          urologic.add(split[COL7]);
         }
       }
       symptoms.put("General", general);
@@ -121,7 +124,7 @@ public class ToParse implements Executable {
           numEmpty++;
         }
       }
-      if (numEmpty == 8) {
+      if (numEmpty == COL8) {
         System.err.println("ERROR: Invalid symptoms file");
         return null;
       }

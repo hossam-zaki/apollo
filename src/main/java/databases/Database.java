@@ -27,6 +27,9 @@ import registrationandlogin.Encryption;
 public final class Database {
 
   private static Connection conn;
+  static final int COL7 = 7;
+  static final int COL8 = 8;
+  static final int COL9 = 9;
 
   /**
    * Empty necessary constructor for private initialization.
@@ -151,10 +154,18 @@ public final class Database {
       prep = conn.prepareStatement("SELECT * FROM patient WHERE primary_doctor = ?");
       prep.setString(1, username);
       ResultSet rs = prep.executeQuery();
+      List<String> patientInfo = new ArrayList<String>();
+      patientInfo.add(rs.getString("id")); // id
+      patientInfo.add(rs.getString(2)); // firstname
+      patientInfo.add(rs.getString(3)); // midname
+      patientInfo.add(rs.getString(4)); // lastname
+      patientInfo.add(rs.getString(5)); // dob
+      patientInfo.add(rs.getString(6)); // phone
+      patientInfo.add(rs.getString(COL7)); // email
+      patientInfo.add(rs.getString(COL8)); // emergency number
+      patientInfo.add(rs.getString(COL9)); // docusername
       while (rs.next()) {
-        PatientDatum curr = new PatientDatum(rs.getString("id"), rs.getString(2), rs.getString(3),
-            rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),
-            rs.getString(9));
+        PatientDatum curr = new PatientDatum(patientInfo);
         toRet.add(curr);
       }
       rs.close();
@@ -185,8 +196,8 @@ public final class Database {
         toRet.put("last name:", rs.getString(4)); // last name
         toRet.put("email:", rs.getString(5)); // email
         toRet.put("username:", rs.getString(6)); // username
-        toRet.put("medical institution:", rs.getString(9)); // medical
-                                                            // institution
+        toRet.put("medical institution:", rs.getString(COL9)); // medical
+        // institution
       }
       rs.close();
       return toRet;
@@ -209,15 +220,17 @@ public final class Database {
       prep = conn.prepareStatement("SELECT * FROM patient WHERE id = ?");
       prep.setString(1, id);
       ResultSet rs = prep.executeQuery();
-      PatientDatum patient = new PatientDatum(rs.getString(1), // id
-          rs.getString(2), // firstname
-          rs.getString(3), // midname
-          rs.getString(4), // lastname
-          rs.getString(5), // dob
-          rs.getString(6), // phone
-          rs.getString(7), // email
-          rs.getString(8), // emergency number
-          rs.getString(9)); // docusername
+      List<String> patientInfo = new ArrayList<String>();
+      patientInfo.add(rs.getString(1)); // id
+      patientInfo.add(rs.getString(2)); // firstname
+      patientInfo.add(rs.getString(3)); // midname
+      patientInfo.add(rs.getString(4)); // lastname
+      patientInfo.add(rs.getString(5)); // dob
+      patientInfo.add(rs.getString(6)); // phone
+      patientInfo.add(rs.getString(COL7)); // email
+      patientInfo.add(rs.getString(COL8)); // emergency number
+      patientInfo.add(rs.getString(COL9)); // docusername
+      PatientDatum patient = new PatientDatum(patientInfo);
       rs.close();
       return patient;
     } catch (SQLException e) {
@@ -245,8 +258,13 @@ public final class Database {
       ResultSet rs = prep.executeQuery();
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
       while (rs.next()) {
-        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-            rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
+        List<String> details = new ArrayList<String>();
+        details.add(rs.getString(1));
+        details.add(rs.getString(2));
+        details.add(rs.getString(3));
+        details.add(rs.getString(4));
+        VisitDatum curr = new VisitDatum(details, rs.getBytes(COL7), rs.getBytes(6),
+            rs.getString(5), rs.getBytes(COL9));
         toRet.add(curr);
       }
       rs.close();
@@ -281,8 +299,13 @@ public final class Database {
       prep.setString(4, dates.get(1));
       ResultSet rs = prep.executeQuery();
       while (rs.next()) {
-        VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-            rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
+        List<String> details = new ArrayList<String>();
+        details.add(rs.getString(1));
+        details.add(rs.getString(2));
+        details.add(rs.getString(3));
+        details.add(rs.getString(4));
+        VisitDatum curr = new VisitDatum(details, rs.getBytes(COL7), rs.getBytes(6),
+            rs.getString(5), rs.getBytes(COL9));
         toRet.add(curr);
       }
       rs.close();
@@ -316,8 +339,13 @@ public final class Database {
         prep.setString(3, id);
         ResultSet rs = prep.executeQuery();
         while (rs.next()) {
-          VisitDatum curr = new VisitDatum(rs.getString(1), rs.getString(2), rs.getString(3),
-              rs.getString(4), rs.getBytes(7), rs.getBytes(6), rs.getString(5), rs.getBytes(9));
+          List<String> details = new ArrayList<String>();
+          details.add(rs.getString(1));
+          details.add(rs.getString(2));
+          details.add(rs.getString(3));
+          details.add(rs.getString(4));
+          VisitDatum curr = new VisitDatum(details, rs.getBytes(COL7), rs.getBytes(6),
+              rs.getString(5), rs.getBytes(COL9));
           toRet.add(curr);
         }
         rs.close();
