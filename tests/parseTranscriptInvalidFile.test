@@ -1,0 +1,7 @@
+INPUT
+parseTranscript fake.txt fake.csv
+OUTPUT
+ERROR: initializing reader
+ERROR: Symptoms File not found
+ERROR: File not found
+END
