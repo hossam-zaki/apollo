@@ -14,7 +14,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import apollo.displayVisits;
+import apollo.DisplayVisits;
 import commands.ConnectToDatabase;
 import databases.Database;
 import patient.PatientDatum;
@@ -97,14 +97,14 @@ public class DisplayVisitTest {
 
   @Test
   public void displayPatientTest() {
-    String html = displayVisits.buildHTML("nLols", patient_id);
+    String html = DisplayVisits.buildHTML("nLols", patient_id);
     System.out.println(html);
     assertTrue(html.contains("physical"));
     assertTrue(html.contains("general"));
     List<String> dates = new ArrayList<String>();
     dates.add("2015-01-19");
     dates.add("2015-01-21");
-    html = displayVisits.buildHTMLDateRanges("nLols", patient_id, dates);
+    html = DisplayVisits.buildHTMLDateRanges("nLols", patient_id, dates);
     assertTrue(html.contains("general"));
     assertFalse(html.contains("physical"));
     Connection conn = Database.getConn();
@@ -126,7 +126,7 @@ public class DisplayVisitTest {
       rs.close();
       Set<String> ids = new HashSet<String>();
       ids.add(id);
-      html = displayVisits.buildHTMLid("nLols", patient_id, ids);
+      html = DisplayVisits.buildHTMLid("nLols", patient_id, ids);
       if (type.equals("general")) {
         assertTrue(html.contains("general"));
         assertFalse(html.contains("physical"));

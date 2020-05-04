@@ -8,7 +8,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import apollo.displayPatients;
+import apollo.DisplayPatients;
 import commands.ConnectToDatabase;
 import databases.Database;
 import patient.PatientDatum;
@@ -56,7 +56,7 @@ public class DisplayPatientTest {
 
   @Test
   public void displayPatientTest() {
-    String html = displayPatients.buildHTML("nTelson");
+    String html = DisplayPatients.buildHTML("nTelson");
     System.out.println(html);
     assertTrue(html.contains("Prithu"));
     assertFalse(html.contains("Lena"));

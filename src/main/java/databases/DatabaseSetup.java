@@ -9,14 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * This class sets up the databases needed for the Apollo platoform.
+ * This class sets up the databases needed for the Apollo platform.
  */
 public final class DatabaseSetup {
 
   /**
-   * constructor to prevent this class from being instantiated
+   * constructor to prevent this class from being instantiated.
    */
   private DatabaseSetup() {
+    // not called
   }
 
   /**

@@ -5,15 +5,15 @@ import java.util.List;
 import databases.Database;
 import patient.PatientDatum;
 
-/*
+/**
  * This class is used to display patient information onto the GUI.
  */
-public class displayPatients {
+public final class DisplayPatients {
 
   /**
    * Empty constructor for displayPatients class.
    */
-  public displayPatients() {
+  private DisplayPatients() {
   }
 
   /**
@@ -31,8 +31,8 @@ public class displayPatients {
 
     StringBuilder html = new StringBuilder();
     // 4 folders per row
-    html.append(
-        "<table class=\"table table-striped\" style=\"width: 80%; color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+    html.append("<table class=\"table table-striped\" style=\"width: 80%; "
+        + "color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
     html.append("<thead>");
     html.append("<tr>");
     html.append("<th scope=\"col\"><h5><b>Name</b></h5></th>");

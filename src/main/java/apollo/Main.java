@@ -126,18 +126,18 @@ public final class Main {
 
     // Setup Spark Routes
     Spark.get("/apollo", new FrontHandler(), freeMarker);
-    Spark.get("/error", new errorHandler(), freeMarker);
+    Spark.get("/error", new ErrorHandler(), freeMarker);
     Spark.get("/register", new RegisterHandler(), freeMarker);
     Spark.post("/registerDoctor", new RegisterDoctorHandler(), freeMarker);
     Spark.post("/loginDoctor", new LoginDoctorHandler(), freeMarker);
     Spark.post("/send/:username/:patient", new SendHandler(), freeMarker);
-    Spark.get("/apollo/:username", new baseHandler(), freeMarker);
-    Spark.get("/apollo/registerPatient/:username", new registerPatientHandler(), freeMarker);
-    Spark.post("/apollo/registerPatient/addPatient/:username", new addPatientHandler(), freeMarker);
-    Spark.get("/apollo/patientBase/:username/:patient", new visitHandler(), freeMarker);
-    Spark.get("/apollo/account-details/:username", new accountDetailsHandler(), freeMarker);
-    Spark.get("/apollo/:username/:patient/registerVisit", new newVisitHandler(), freeMarker);
-    Spark.get("/apollo/:username/:patient/visit/:date/:id", new singleVisitHandler(), freeMarker);
+    Spark.get("/apollo/:username", new BaseHandler(), freeMarker);
+    Spark.get("/apollo/registerPatient/:username", new RegisterPatientHandler(), freeMarker);
+    Spark.post("/apollo/registerPatient/addPatient/:username", new AddPatientHandler(), freeMarker);
+    Spark.get("/apollo/patientBase/:username/:patient", new VisitHandler(), freeMarker);
+    Spark.get("/apollo/account-details/:username", new AccountDetailsHandler(), freeMarker);
+    Spark.get("/apollo/:username/:patient/registerVisit", new NewVisitHandler(), freeMarker);
+    Spark.get("/apollo/:username/:patient/visit/:date/:id", new SingleVisitHandler(), freeMarker);
   }
 
   /**
@@ -241,18 +241,25 @@ public final class Main {
     }
   }
 
-  /*
+  /**
    * Handles requests to actually create a visit entry into our database using a
    * certain recording. This is also where a text transcript is created and where
    * a visit summary is added to the database.
    */
   private static class SendHandler implements TemplateViewRoute {
 
+    static final int CONFIG = 100000000;
+    static final int BYTES = 1024;
+    static final int START = 0; // indices for file name
+    static final int MID = 10;
+    static final int MID2 = 11;
+    static final int END = 19;
+
     @Override
     public ModelAndView handle(Request request, Response response) throws Exception {
       try {
         request.raw().setAttribute("org.eclipse.jetty.multipartConfig",
-            new MultipartConfigElement("/tmp", 100000000, 100000000, 1024));
+            new MultipartConfigElement("/tmp", CONFIG, CONFIG, BYTES));
         String filename = request.raw().getPart("audio_data").getSubmittedFileName();
         String visitType = request.raw().getPart("typeMeeting").getSubmittedFileName();
         Part uploadedFile = request.raw().getPart("audio_data");
@@ -265,7 +272,7 @@ public final class Main {
         File myObj = new File(filename + ".txt");
         myObj.createNewFile();
         while (Paths.get(filename + ".txt").toFile().exists()) {
-          ;
+          System.out.println("Waiting on speech-to-text...");
         }
         String content = Files.readString(Paths.get("data/transcripts/test.txt"),
             StandardCharsets.US_ASCII);
@@ -282,8 +289,8 @@ public final class Main {
         List<String> visitStrings = new ArrayList<String>();
         visitStrings.add(username);
         visitStrings.add(patient);
-        visitStrings.add(filename.substring(0, 10));
-        visitStrings.add(filename.substring(11, 19));
+        visitStrings.add(filename.substring(START, MID));
+        visitStrings.add(filename.substring(MID2, END));
         visitStrings.add("src/main/resources/static/audio/" + filename + ".wav");
         visitStrings.add(content);
         visitStrings.add(summary);
@@ -307,7 +314,7 @@ public final class Main {
    * infromation about patients and register new patients.
    *
    */
-  private static class baseHandler implements TemplateViewRoute {
+  private static class BaseHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
@@ -317,9 +324,8 @@ public final class Main {
         return null;
       }
       String route = "/apollo/registerPatient/:" + username;
-      new displayPatients();
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "docName", docName, "username",
-          username, "route", route, "patients", displayPatients.buildHTML(username));
+          username, "route", route, "patients", DisplayPatients.buildHTML(username));
       return new ModelAndView(map, "base2.ftl");
     }
   }
@@ -329,7 +335,7 @@ public final class Main {
    * infromation about patients and register new patients.
    *
    */
-  private static class errorHandler implements TemplateViewRoute {
+  private static class ErrorHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
       Map<String, String> map = ImmutableMap.of("title", "Apollo");
@@ -337,10 +343,10 @@ public final class Main {
     }
   }
 
-  /*
+  /**
    * Handles requests to the register patient page.
    */
-  private static class registerPatientHandler implements TemplateViewRoute {
+  private static class RegisterPatientHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
@@ -349,10 +355,10 @@ public final class Main {
     }
   }
 
-  /*
+  /**
    * Handles requests to actually register a patient into our database.
    */
-  private static class addPatientHandler implements TemplateViewRoute {
+  private static class AddPatientHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
@@ -373,11 +379,11 @@ public final class Main {
     }
   }
 
-  /*
+  /**
    * Handles requests to the visiits page for an individual patient, where all
    * patient visits are displayed.
    */
-  private static class visitHandler implements TemplateViewRoute {
+  private static class VisitHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
       QueryParamsMap qmap = req.queryMap();
@@ -386,7 +392,7 @@ public final class Main {
       String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       String route2 = "/apollo/patientBase/:" + username + "/:" + patient;
       PatientDatum patientData = Database.getPatient(patient);
-      String visits = displayVisits.buildHTML(username, patient);
+      String visits = DisplayVisits.buildHTML(username, patient);
       Map<String, String> map = new HashMap<String, String>();
       map.put("title", "Apollo");
       map.put("username", username);
@@ -422,7 +428,7 @@ public final class Main {
           if (searcher.getAllResults() != null && !searcher.getAllResults().isEmpty()) {
             ids = searcher.getDates(searcher.getAllResults());
           }
-          String visitsSearched = displayVisits.buildHTMLid(username, patient, ids);
+          String visitsSearched = DisplayVisits.buildHTMLid(username, patient, ids);
           map.put("visits", visitsSearched);
         } else if (startDate != null && endDate != null) {
           startDate = dateProcessor(startDate);
@@ -431,7 +437,7 @@ public final class Main {
           List<String> dateRanges = new ArrayList<String>();
           dateRanges.add(startDate);
           dateRanges.add(endDate);
-          String visitsDate = displayVisits.buildHTMLDateRanges(username, patient, dateRanges);
+          String visitsDate = DisplayVisits.buildHTMLDateRanges(username, patient, dateRanges);
           System.out.println(visitsDate);
           map.put("visits", visitsDate);
         }
@@ -484,7 +490,7 @@ public final class Main {
   /**
    * Handles requests to view a doctor's account details page.
    */
-  private static class accountDetailsHandler implements TemplateViewRoute {
+  private static class AccountDetailsHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
@@ -501,7 +507,7 @@ public final class Main {
    * Handles requests to register a new visit.
    *
    */
-  private static class newVisitHandler implements TemplateViewRoute {
+  private static class NewVisitHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
@@ -520,7 +526,10 @@ public final class Main {
    * recording, and patient details.
    *
    */
-  private static class singleVisitHandler implements TemplateViewRoute {
+  private static class SingleVisitHandler implements TemplateViewRoute {
+
+    static final int BYTES = 32; // for audio
+
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
@@ -545,7 +554,8 @@ public final class Main {
       name.append(" ");
       name.append(lastName);
       if (summary == null) {
-        summary = "We could not find any symptoms or reasons for visit in the transcript. Please use the manual commands.";
+        summary = "We could not find any symptoms or reasons for visit in the transcript. "
+            + "Please use the manual commands.";
       }
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("title", "Apollo");
@@ -555,7 +565,7 @@ public final class Main {
       map.put("route", route);
       map.put("transcript", transcript);
       map.put("summary", summary);
-      map.put("audio", audio.substring(32));
+      map.put("audio", audio.substring(BYTES));
       map.put("name", name);
       map.put("dob", dob);
       map.put("number", number);

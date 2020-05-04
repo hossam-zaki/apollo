@@ -85,6 +85,12 @@ public final class Database {
     return conn;
   }
 
+  /**
+   * Get doctor's last name.
+   *
+   * @param username of doctor
+   * @return last name corresponding to username
+   */
   public static String getDocName(String username) {
     PreparedStatement prep;
     try {
@@ -267,7 +273,8 @@ public final class Database {
     try {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
       prep = conn.prepareStatement(
-          "SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND appointment_date BETWEEN ? AND ?");
+          "SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? "
+              + "AND appointment_date BETWEEN ? AND ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, dates.get(0));
@@ -292,18 +299,18 @@ public final class Database {
    *
    * @param docUsername A String, representing a doctor's username.
    * @param patientID   A String, representing a patient's ID.
-   * @param Ids         A Set of Strings, representing visits IDs.
+   * @param ids         A Set of Strings, representing visits IDs.
    * @return A List of VisitDatums, representing a list of visits corresponding to
    *         the doctor's ID, patient ID, and visit IDs.
    */
   public static List<VisitDatum> getVisitsFromIds(String docUsername, String patientID,
-      Set<String> Ids) {
+      Set<String> ids) {
     PreparedStatement prep;
     try {
       List<VisitDatum> toRet = new ArrayList<VisitDatum>();
-      for (String id : Ids) {
-        prep = conn.prepareStatement(
-            "SELECT * FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      for (String id : ids) {
+        prep = conn.prepareStatement("SELECT * FROM appointments WHERE "
+            + "doctor_username = ? AND patient_id = ? AND visit_id = ?");
         prep.setString(1, docUsername);
         prep.setString(2, patientID);
         prep.setString(3, id);
@@ -334,8 +341,8 @@ public final class Database {
   public static String getAudio(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement(
-          "SELECT audio_file FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      prep = conn.prepareStatement("SELECT audio_file FROM appointments "
+          + "WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, id);
@@ -363,8 +370,8 @@ public final class Database {
   public static String getTranscript(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement(
-          "SELECT transcript FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      prep = conn.prepareStatement("SELECT transcript FROM appointments "
+          + "WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, id);
@@ -392,8 +399,8 @@ public final class Database {
   public static String getSummary(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement(
-          "SELECT summary FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      prep = conn.prepareStatement("SELECT summary FROM appointments "
+          + "WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, id);
@@ -422,8 +429,8 @@ public final class Database {
   public static String getVisitType(String docUsername, String patientID, String id) {
     PreparedStatement prep;
     try {
-      prep = conn.prepareStatement(
-          "SELECT visit_type FROM appointments WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
+      prep = conn.prepareStatement("SELECT visit_type FROM appointments "
+          + "WHERE doctor_username = ? AND patient_id = ? AND visit_id = ?");
       prep.setString(1, docUsername);
       prep.setString(2, patientID);
       prep.setString(3, id);
