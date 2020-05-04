@@ -468,7 +468,7 @@ public final class Database {
   }
 
   /**
-   * Get patient last name by first name, used for testing.
+   * Get patient last name by last name, used for testing.
    *
    * @param firstName of patient
    * @return last name
@@ -489,7 +489,7 @@ public final class Database {
   }
 
   /**
-   * Get patient last name by first name, used for testing.
+   * Get date by doctor username.
    *
    * @param docName for visit
    * @return date

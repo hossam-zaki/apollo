@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
@@ -165,5 +166,123 @@ public class DisplayVisitTest {
     assertTrue(visitList.size() == 1);
     assertTrue(visitList.get(0).getVisitType().contains("general"));
     assertFalse(visitList.get(0).getVisitType().contains("physical"));
+  }
+
+  @Test
+  public void getVisitsFromIds() {
+    List<String> dates = new ArrayList<String>();
+    dates.add("2015-01-19");
+    dates.add("2015-01-21");
+    List<VisitDatum> visitList = Database.getVisitsFromDateRanges("nLols", patient_id, dates);
+    VisitDatum visit = visitList.get(0);
+    String id = visit.getID();
+    Set<String> ids = new HashSet<String>();
+    List<VisitDatum> res = Database.getVisitsFromIds("nLols", patient_id, ids);
+    assertTrue(res.size() == 0);
+    ids.add(id);
+    res = Database.getVisitsFromIds("nLols", patient_id, ids);
+    assertTrue(res.size() == 1);
+    assertTrue(visitList.get(0).getVisitType().contains("general"));
+    assertFalse(visitList.get(0).getVisitType().contains("physical"));
+  }
+
+  @Test
+  public void getAudioTest() {
+    List<String> dates = new ArrayList<String>();
+    dates.add("2015-01-19");
+    dates.add("2015-01-21");
+    List<VisitDatum> visitList = Database.getVisitsFromDateRanges("nLols", patient_id, dates);
+    VisitDatum visit = visitList.get(0);
+    String id = visit.getID();
+    String path1 = Database.getAudio("nLols", patient_id, id);
+    String path2 = Database.getAudio("nLols", patient_id, "rr");
+    String path3 = Database.getAudio("nLols", "dee", id);
+    assertTrue(path1.contains("audio/path"));
+    assertFalse(path1.contains("path/audio"));
+    assertTrue(path2 == null);
+    assertTrue(path3 == null);
+  }
+
+  @Test
+  public void getTranscriptTest() {
+    List<String> dates = new ArrayList<String>();
+    dates.add("2015-01-19");
+    dates.add("2015-01-21");
+    List<VisitDatum> visitList = Database.getVisitsFromDateRanges("nLols", patient_id, dates);
+    VisitDatum visit = visitList.get(0);
+    String id = visit.getID();
+    String transcript = Database.getTranscript("nLols", patient_id, id);
+    String transcript2 = Database.getTranscript("nLols", patient_id, "aba");
+    String transcript3 = Database.getTranscript("nLols", "l", id);
+    String transcript4 = Database.getTranscript("n", patient_id, id);
+    assertFalse(transcript == null);
+    assertTrue(transcript2 == null);
+    assertTrue(transcript3 == null);
+    assertTrue(transcript4 == null);
+    assertTrue(transcript.contains("hello world"));
+  }
+
+  @Test
+  public void getSummary() {
+    List<String> dates = new ArrayList<String>();
+    dates.add("2015-01-19");
+    dates.add("2015-01-21");
+    List<VisitDatum> visitList = Database.getVisitsFromDateRanges("nLols", patient_id, dates);
+    VisitDatum visit = visitList.get(0);
+    String id = visit.getID();
+    String s = Database.getSummary("nLols", patient_id, id);
+    String s1 = Database.getSummary("nLols", "", id);
+    String s2 = Database.getSummary("nLols", patient_id, "");
+    String s3 = Database.getSummary("n", patient_id, id);
+    assertTrue(s.equals("world"));
+    assertTrue(s1 == null);
+    assertTrue(s2 == null);
+    assertTrue(s3 == null);
+  }
+
+  @Test
+  public void getVisitType() {
+    List<String> dates = new ArrayList<String>();
+    dates.add("2015-01-19");
+    dates.add("2015-01-21");
+    List<VisitDatum> visitList = Database.getVisitsFromDateRanges("nLols", patient_id, dates);
+    VisitDatum visit = visitList.get(0);
+    String id = visit.getID();
+    String r = Database.getVisitType("nLols", patient_id, id);
+    assertTrue(r.equals("general"));
+    assertFalse(r.equals(""));
+    String r2 = Database.getVisitType("nLols", patient_id, "");
+    assertTrue(r2 == null);
+    String r3 = Database.getVisitType("nLols", "", id);
+    assertTrue(r3 == null);
+  }
+
+  @Test
+  public void getAllTranscripts() {
+    List<String> dates = new ArrayList<String>();
+    dates.add("2015-01-19");
+    dates.add("2015-01-21");
+    List<VisitDatum> visitList = Database.getVisitsFromDateRanges("nLols", patient_id, dates);
+    VisitDatum visit = visitList.get(0);
+    String id = visit.getID();
+    Map<String, String> res = Database.getAllTranscripts(patient_id);
+    assertTrue(res.get(id).equals("hello world"));
+  }
+
+  @Test
+  public void getPatientByNameTest() {
+    String p = Database.getPatientByName("Nim");
+    assertTrue(p == null);
+    String p2 = Database.getPatientByName("Prithu");
+    assertTrue(p2.equals("Dasgupta"));
+  }
+
+  @Test
+  public void getDateByDoctorNameTest() {
+    String res = Database.getDateByDoctorName("nLols");
+    assertTrue(res.equals("2015-01-20"));
+    assertFalse(res.equals("2019-01-20"));
+    res = Database.getDateByDoctorName("n");
+    assertTrue(res == null);
   }
 }
