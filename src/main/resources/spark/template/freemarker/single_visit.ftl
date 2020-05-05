@@ -45,7 +45,7 @@
 </nav>
 
 <div class="jumbotron text-center">
-  <h3>Records for the visit on ${date}.</h3>
+  <h3 style="font-weight: 300">Records for the visit on ${date}.</h3>
 </div>
 <div class="row" style="margin-left:10%;">
   <div class="col-xs-6" >
@@ -58,8 +58,8 @@
     </p></div>
   <div class="col-xs-6"> <div style="text-align:center; margin-left: -35%;"> <audio controls><source src="../../../../../audio/${audio}" type="audio/wav"></audio></div> </div>
 </div>
-<div class="row" style="margin-left:10%;">
-  <div class="col-xs-6 col-sm-4"> <div style="margin-left: 55%;"><h4>Visit Summary</h4></div>
+<div class="row" style="margin-top: 1.5%; margin-left:10%;">
+  <div class="col-xs-6 col-sm-4"> <div style="margin-left: 5%;"><h4>Visit Summary</h4></div>
   <div class="summary" style="margin-left: 15%;">${summary}</div>  </div>
   <div class="col-xs-6 col-sm-8">
    <button class="btn btn-primary" id="drop" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="min-width: 150px">View Transcript</button>
@@ -94,7 +94,7 @@ for (i = 0; i < coll.length; i++) {
       content.style.maxHeight = null;
     } else {
       content.style.maxHeight = content.scrollHeight + "px";
-    } 
+    }
   });
 }
 </script>
