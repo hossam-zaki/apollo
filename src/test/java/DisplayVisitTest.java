@@ -290,15 +290,14 @@ public class DisplayVisitTest {
     Connection conn = Database.getConn();
     PreparedStatement prep;
     try {
-      prep = conn
-          .prepareStatement("SELECT appointment_date FROM 'appointments' WHERE patient_id = ?");
+      prep = conn.prepareStatement("SELECT visit_id FROM 'appointments' WHERE patient_id = ?");
       prep.setString(1, patient_id);
 
       ResultSet rs = prep.executeQuery();
-      String date = "";
       while (rs.next()) {
-        date = rs.getString(1);
-        assertTrue(date.contains("2015-01-20"));
+        String id = rs.getString(1);
+        assertTrue(Database.isValidDate(id, "2015-01-20"));
+        assertFalse(Database.isValidDate(id, "2000-05-23"));
         break;
       }
       rs.close();
