@@ -253,7 +253,7 @@ public final class Main {
     static final int MID = 10;
     static final int MID2 = 11;
     static final int END = 19;
-    static final int COUNTER = 100;
+    static final int COUNTER = 100000000;
 
     @Override
     public ModelAndView handle(Request request, Response response) throws Exception {

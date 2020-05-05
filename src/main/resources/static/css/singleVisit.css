@@ -13,226 +13,229 @@ h1 {
 }
 
 h3 {
-  color: black;
-  font-family: Roboto;
-  font-size: 350%;
-  text-align: center;
-  margin-left: 48px;
+    color: black;
+    font-family: Roboto;
+    font-size: 350%;
+    text-align: center;
+    margin-left: 48px;
 }
+
 h2 {
-  color: black;
-  font-family: Roboto;
-  font-size: 100%;
-  text-align: center;
-  font-weight: bold;
+    color: black;
+    font-family: Roboto;
+    font-size: 100%;
+    text-align: center;
+    font-weight: bold;
 }
+
 h4 {
     color: black;
     font-family: Roboto;
-  font-size: 150%;
-  text-align: left;
-  margin-left: 8%;
-  text-decoration: underline;
+    font-size: 150%;
+    text-align: center;
+    text-decoration: underline;
 }
 
 h5 {
-  font-size: 105%;
-  font-family: 'Roboto', sans-serif;
+    font-size: 105%;
+    font-family: 'Roboto', sans-serif;
 }
-.button {
-  background-color: white;
-  border: none;
-  color: black;
-  padding: 15px 32px;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  width: 13%;
-  cursor: pointer;
-  margin-top: -8%;
-  margin-left: 61%;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  border-radius: 75px;
-}
-.form {
-  text-align: center;
-  align-items: center;
-  padding: 15px 32px;
-}
-input[type=text] {
-  width: 20%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  color: black;
-  font-size: 10px;
-}
-input[type=password] {
-  width: 20%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  color: black;
 
+.button {
+    background-color: white;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    width: 13%;
+    cursor: pointer;
+    margin-top: -8%;
+    margin-left: 61%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    border-radius: 75px;
+    text-align: center;
 }
+
+.form {
+    text-align: center;
+    align-items: center;
+    padding: 15px 32px;
+}
+
+input[type=text] {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    color: black;
+    font-size: 10px;
+}
+
+input[type=password] {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    color: black;
+}
+
 hr {
-  display: block;
-  height: 1.5px;
-  border: 0;
-  border-top: 1px solid #000000;
+    display: block;
+    height: 1.5px;
+    border: 0;
+    border-top: 1px solid #000000;
 }
+
 .search {
-  width: 100%;
-  display: flex;
-  margin-left: 1450px;
+    width: 100%;
+    display: flex;
+    margin-left: 1450px;
 }
 
 .searchTerm {
-  width: 100%;
-  border: 3px solid #B0E0E6;
-  border-right: none;
-  height: 45px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9DBFAF;
+    width: 100%;
+    border: 3px solid #B0E0E6;
+    border-right: none;
+    height: 45px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
 }
 
-.searchTerm:focus{
-  color: #000000;
+.searchTerm:focus {
+    color: #000000;
 }
 
 .searchButton {
-  margin-top: 8px;
-  width: 40px;
-  height: 45px;
-  border: 1px solid #B0E0E6;
-  background: #B0E0E6;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
+    margin-top: 8px;
+    width: 40px;
+    height: 45px;
+    border: 1px solid #B0E0E6;
+    background: #B0E0E6;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
 }
 
+
 /*Resize the wrap to see the search bar change!*/
-.wrap{
-  width: 10%;
-  position: absolute;
-  top: 200px;
-  left: 545px;
-  transform: translate(-50%, -50%);
-  margin-left: 60%;
+
+.wrap {
+    width: 10%;
+    position: absolute;
+    top: 200px;
+    left: 545px;
+    transform: translate(-50%, -50%);
+    margin-left: 60%;
 }
 
 .patientTable {
-  font-size: 40px;
-  color:black;
-  padding: 50px;
-  vertical-align: 50%;
+    font-size: 40px;
+    color: black;
+    padding: 50px;
+    vertical-align: 50%;
 }
-th,td,tr {
-text-align: center;
-padding: 20px;
-padding-left: 20px;
-padding-right: 20px;
-width: 5%;
+
+th,
+td,
+tr {
+    text-align: center;
+    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 5%;
 }
+
 .jumbotron {
-  background-color: #E0EAFC;
-  color: black;
-  padding-top: 100px;
+    background-color: #E0EAFC;
+    color: black;
+    padding-top: 100px;
 }
+
 .navbar {
-  min-height: 80px;
-  color:black;
+    min-height: 80px;
+    color: black;
 }
 
 .navbar-brand {
-  padding: 0 15px;
-  height: 80px;
-  line-height: 80px;
-  color:black;
+    padding: 0 15px;
+    height: 80px;
+    line-height: 80px;
+    color: black;
 }
 
-
 .navbar-toggle {
-  /* (80px - button height 34px) / 2 = 23px */
-  margin-top: 23px;
-  padding: 9px 10px !important;
+    /* (80px - button height 34px) / 2 = 23px */
+    margin-top: 23px;
+    padding: 9px 10px !important;
 }
 
 @media (min-width: 768px) {
-  .navbar-nav > li > a {
-    /* (80px - line-height of 27px) / 2 = 26.5px */
-    padding-top: 26.5px;
-    padding-bottom: 26.5px;
-    line-height: 27px;
-    color: black;
-  }
+    .navbar-nav>li>a {
+        /* (80px - line-height of 27px) / 2 = 26.5px */
+        padding-top: 26.5px;
+        padding-bottom: 26.5px;
+        line-height: 27px;
+        color: black;
+    }
 }
-.navbar a{
-  color: black;
-  font-family: 'Roboto', sans-serif;
-  font-size: 3.8em !important;
-  }
-  .nav a {
+
+.navbar a {
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.8em !important;
+}
+
+.nav a {
     color: black;
     font-family: 'Roboto', sans-serif;
     font-size: 1.8em !important;
-  }
- .btn{
-   background-color: rgb(248, 248, 248);
-   margin-left: 30%;
-   color: black;
-   border: solid;
-   width: 26%;
- }
-
- .transcript {
-  margin-top: 1%;
-   color:black;
-   padding: 10px;
-   width: 90%;
-   text-align: center;
-   background-color: #fff5eb;
-   border-radius: 10px;
- }
-
- .summary {
-   color:black;
-   margin-left: 22%;
-   width: 70%;
- }
- .audioStuff{
-   text-align: center;
- }
-
- .details {
-   margin-left: 50%;
- }
-
- .column {
-  float: left;
-  padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
 }
 
-.left {
-  width: 35%;
+.btn {
+    background-color: rgb(248, 248, 248);
+    text-align: center;
+    color: black;
+    border: solid;
+    width: 24%;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 
-.right {
-  width: 65%;
+.transcript {
+    margin-top: 5%;
+    color: black;
+    padding: 10px;
+    width: 50%;
+    text-align: center;
+    background-color: #fff5eb;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-  margin-left: 20%;
+.summary {
+    color: black;
+    width: 100%;
+    margin-top: 2%;
+    text-align: center;
 }
 
+.audioStuff {
+    text-align: center;
+}
 
-
+.details {
+    color: black;
+    text-align: center;
+    font-size: 150%;
+}

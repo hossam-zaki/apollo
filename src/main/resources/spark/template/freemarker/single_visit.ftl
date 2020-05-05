@@ -46,36 +46,39 @@
 <div class="jumbotron text-center">
   <h3>Records for the visit on ${date}.</h3>
 </div>
+
+<h4>Patient Details</h4>
+<div class="details">
+  Name:${name} <br>
+  Date of Birth: ${dob} <br>
+  Email: ${number} <br>
+  Phone Number: ${email}
+</div>
+<br>
+<br>
 <div class="audioStuff">
 <audio controls>
   <source src="../../../../../audio/${audio}" type="audio/wav">
 </audio>
 </div>
-<h4>Patient Details</h4>
-<div style="color:black; margin-left: 8%;" class="details">
-  <i>Name:</i> ${name} <br>
-  <i>Date of Birth</i>: ${dob} <br>
-  <i>Email</i>: ${number} <br>
-  <i>Phone Number</i>: ${email}
+<br>
+<br>
+<div>
+  <h4>Visit Summary</h4>
+  <div class="summary">${summary}</div>  
 </div>
 <br>
-<div class="row">
-  <div class="column left" style="padding-left: 25px;">
-  <h4 style="margin-left: 22%;">Visit Summary</h4>
-  <div class="summary" style="margin-top: 3%; width: 40%">${summary}</div>  
-  </div>
-<div class="column right">
+<br>
+<div>
   <button type="button" class="btn" data-toggle="collapse" data-target="#demo"><h4 style = "text-decoration: none;">View Visit Transcript</h4></button>
   <div id="demo" class="collapse">
-  <div class="transcript">${transcript}</div>
-</div>
-</div>
+    <div class="transcript">${transcript}</div>
+  </div>
 </div>
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
-
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
     this.classList.toggle("active");
