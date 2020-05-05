@@ -253,6 +253,7 @@ public final class Main {
     static final int MID = 10;
     static final int MID2 = 11;
     static final int END = 19;
+    static final int COUNTER = 100;
 
     @Override
     public ModelAndView handle(Request request, Response response) throws Exception {
@@ -285,7 +286,7 @@ public final class Main {
         myObj.createNewFile();
         int counter = 0;
         while (Paths.get(filename + ".txt").toFile().exists()) {
-          if (counter == 100) {
+          if (counter == COUNTER) {
             System.out.println("Waiting on speech-to-text...");
             counter = 0;
           }
