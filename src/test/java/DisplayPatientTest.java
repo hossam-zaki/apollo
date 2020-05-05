@@ -57,7 +57,6 @@ public class DisplayPatientTest {
   @Test
   public void displayPatientTest() {
     String html = DisplayPatients.buildHTML("nTelson");
-    System.out.println(html);
     assertTrue(html.contains("Prithu"));
     assertFalse(html.contains("Lena"));
   }

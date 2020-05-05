@@ -38,7 +38,7 @@ public class FillSymptoms {
    */
   public Search getPortion() {
     if (transcript == null) {
-      System.out.println("ERROR: File not found");
+      System.err.println("ERROR: File not found");
       return null;
     }
     KMP full = new KMP(transcript.toCharArray());

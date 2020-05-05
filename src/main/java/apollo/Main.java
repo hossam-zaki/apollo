@@ -199,7 +199,6 @@ public final class Main {
         return null;
       }
       error = "";
-      System.out.println(req.session());
       res.redirect("/apollo/:" + qm.value("username"));
       return null;
     }
@@ -258,27 +257,44 @@ public final class Main {
     @Override
     public ModelAndView handle(Request request, Response response) throws Exception {
       try {
+        String username = request.params(":username").replaceAll(":", "");
+        String patient = request.params(":patient").replaceAll(":", "");
+        if (!Database.ifUsernameExists(username)) {
+          response.redirect("/error");
+          return null;
+        }
+        if (Database.getPatient(patient) == null) {
+          response.redirect("/error");
+          return null;
+        }
         request.raw().setAttribute("org.eclipse.jetty.multipartConfig",
             new MultipartConfigElement("/tmp", CONFIG, CONFIG, BYTES));
         String filename = request.raw().getPart("audio_data").getSubmittedFileName();
         String visitType = request.raw().getPart("typeMeeting").getSubmittedFileName();
         Part uploadedFile = request.raw().getPart("audio_data");
         final InputStream in = uploadedFile.getInputStream();
-        Files.copy(in, Paths.get("src/main/resources/static/audio/" + filename + ".wav"));
-        RunDeepSpeech.transcribe("src/main/resources/static/audio/" + filename + ".wav");
+        StringBuilder file = new StringBuilder();
+        file.append("src/main/resources/static/audio/");
+        file.append(filename);
+        file.append(".wav");
+        Files.copy(in, Paths.get(file.toString()));
+        RunDeepSpeech.transcribe(file.toString());
         System.out.println("Transcribing...");
-        String username = request.params(":username").replaceAll(":", "");
-        String patient = request.params(":patient").replaceAll(":", "");
+
         File myObj = new File(filename + ".txt");
         myObj.createNewFile();
+        int counter = 0;
         while (Paths.get(filename + ".txt").toFile().exists()) {
-          System.out.println("Waiting on speech-to-text...");
+          if (counter == 100) {
+            System.out.println("Waiting on speech-to-text...");
+            counter = 0;
+          }
+          counter++;
         }
         String content = Files.readString(Paths.get("data/transcripts/test.txt"),
             StandardCharsets.US_ASCII);
 
         RegisterData visitRegister = new VisitRegistration();
-        System.out.println(in.readAllBytes().toString());
         ToParse parser = new ToParse();
         ArrayList<String> input = new ArrayList<String>();
         input.add("parseTranscript");
@@ -302,7 +318,7 @@ public final class Main {
         Paths.get("data/transcripts/test.txt").toFile().delete();
         return new ModelAndView(map, "recording.ftl");
       } catch (Exception e) {
-        e.printStackTrace();
+        response.redirect("/error");
         return null;
       }
     }
@@ -318,11 +334,11 @@ public final class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
-      String docName = Database.getDocName(username);
-      if (docName.equals("")) {
+      if (!Database.ifUsernameExists(username)) {
         res.redirect("/error");
         return null;
       }
+      String docName = Database.getDocName(username);
       String route = "/apollo/registerPatient/:" + username;
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "docName", docName, "username",
           username, "route", route, "patients", DisplayPatients.buildHTML(username));
@@ -350,6 +366,10 @@ public final class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
+      if (!Database.ifUsernameExists(username)) {
+        res.redirect("/error");
+        return null;
+      }
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "username", username);
       return new ModelAndView(map, "registerPatient.ftl");
     }
@@ -362,6 +382,11 @@ public final class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
+      String username = req.params(":username").replaceAll(":", "");
+      if (!Database.ifUsernameExists(username)) {
+        res.redirect("/error");
+        return null;
+      }
       List<String> forRegister = new ArrayList<String>();
       forRegister.add(qm.value("first_name"));
       forRegister.add(qm.value("middle_name"));
@@ -374,7 +399,7 @@ public final class Main {
       RegisterData register = new PatientRegistration();
       register.register(forRegister);
       error = "";
-      res.redirect("/apollo/:" + req.params(":username").replaceAll(":", ""));
+      res.redirect("/apollo/:" + username);
       return null;
     }
   }
@@ -386,37 +411,53 @@ public final class Main {
   private static class VisitHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
-      QueryParamsMap qmap = req.queryMap();
-      String username = req.params(":username").replaceAll(":", "");
-      String patient = req.params(":patient").replaceAll(":", "");
-      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
-      String route2 = "/apollo/patientBase/:" + username + "/:" + patient;
-      PatientDatum patientData = Database.getPatient(patient);
-      String visits = DisplayVisits.buildHTML(username, patient);
       Map<String, String> map = new HashMap<String, String>();
-      map.put("title", "Apollo");
-      map.put("username", username);
-      String firstName = patientData.getFirstName();
-      String middleName = patientData.getMiddleName();
-      String lastName = patientData.getLastName();
-      StringBuilder name = new StringBuilder();
-      name.append(firstName);
-      name.append(" ");
-      name.append(middleName);
-      name.append(" ");
-      name.append(lastName);
-      map.put("name", name.toString());
-      map.put("route", route);
-      map.put("visits", visits);
-      map.put("route2", route2);
-      map.put("patient", patient);
       try {
+        String username = req.params(":username").replaceAll(":", "");
+        if (!Database.ifUsernameExists(username)) {
+          res.redirect("/error");
+          return null;
+        }
+        String patient = req.params(":patient").replaceAll(":", "");
+        PatientDatum patientData = Database.getPatient(patient);
+        if (patientData == null) {
+          res.redirect("/error");
+          return null;
+        }
+        StringBuilder routeSB = new StringBuilder();
+        routeSB.append("/apollo/:");
+        routeSB.append(username);
+        routeSB.append("/:");
+        routeSB.append(patient);
+        routeSB.append("/registerVisit");
+        String route = routeSB.toString();
+        StringBuilder routeSB2 = new StringBuilder();
+        routeSB2.append("/apollo/patientBase:");
+        routeSB2.append(username);
+        routeSB2.append("/:");
+        routeSB2.append(patient);
+        routeSB2.append("/registerVisit");
+        String route2 = routeSB2.toString();
+        String visits = DisplayVisits.buildHTML(username, patient);
+        map.put("title", "Apollo");
+        map.put("username", username);
+        String firstName = patientData.getFirstName();
+        String middleName = patientData.getMiddleName();
+        String lastName = patientData.getLastName();
+        StringBuilder name = new StringBuilder();
+        name.append(firstName);
+        name.append(" ");
+        name.append(middleName);
+        name.append(" ");
+        name.append(lastName);
+        map.put("name", name.toString());
+        map.put("route", route);
+        map.put("visits", visits);
+        map.put("route2", route2);
+        map.put("patient", patient);
         String searched = req.queryParams("searched");
         String startDate = req.queryParams("startDate");
         String endDate = req.queryParams("endDate");
-        System.out.println("Searched: " + searched);
-        System.out.println("Start: " + startDate);
-        System.out.println("End: " + endDate);
         if (searched != null && searched != "") {
           SearchAllTranscripts searcher = new SearchAllTranscripts();
           ArrayList<String> input = new ArrayList<String>();
@@ -432,17 +473,16 @@ public final class Main {
           map.put("visits", visitsSearched);
         } else if (startDate != null && endDate != null) {
           startDate = dateProcessor(startDate);
-          System.out.println("START" + startDate);
           endDate = dateProcessor(endDate);
           List<String> dateRanges = new ArrayList<String>();
           dateRanges.add(startDate);
           dateRanges.add(endDate);
           String visitsDate = DisplayVisits.buildHTMLDateRanges(username, patient, dateRanges);
-          System.out.println(visitsDate);
           map.put("visits", visitsDate);
         }
       } catch (Exception e) {
-        System.out.println("Nothing in search bar or no date range given");
+        res.redirect("/error");
+        return null;
       }
       return new ModelAndView(map, "visits.ftl");
     }
@@ -494,6 +534,10 @@ public final class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
+      if (!Database.ifUsernameExists(username)) {
+        res.redirect("/error");
+        return null;
+      }
       String route = "/apollo/registerPatient/:" + username;
       String docName = Database.getDocName(username);
       Map<String, String> details = Database.getDoctorInfo(username);
@@ -511,9 +555,17 @@ public final class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
+      if (!Database.ifUsernameExists(username)) {
+        res.redirect("/error");
+        return null;
+      }
       String patient = req.params(":patient").replaceAll(":", "");
-      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       PatientDatum patientData = Database.getPatient(patient);
+      if (patientData == null) {
+        res.redirect("/error");
+        return null;
+      }
+      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
       Map<String, String> map = ImmutableMap.of("title", "Apollo", "username", username, "name",
           patientData.getFirstName(), "route", route);
       return new ModelAndView(map, "registerVisit.ftl");
@@ -533,14 +585,30 @@ public final class Main {
     @Override
     public ModelAndView handle(Request req, Response res) {
       String username = req.params(":username").replaceAll(":", "");
+      if (!Database.ifUsernameExists(username)) {
+        res.redirect("/error");
+        return null;
+      }
       String patient = req.params(":patient").replaceAll(":", "");
+      PatientDatum patientData = Database.getPatient(patient);
+      if (patientData == null) {
+        res.redirect("/error");
+        return null;
+      }
       String date = req.params(":date").replaceAll(":", "");
       String id = req.params(":id").replaceAll(":", "");
+      if (!Database.isValidDate(id, date)) {
+        res.redirect("/error");
+        return null;
+      }
       String audio = Database.getAudio(username, patient, id);
+      if (audio == null) {
+        res.redirect("/error");
+        return null;
+      }
       String route = "/apollo/patientBase/:" + username + "/:" + patient;
       String transcript = Database.getTranscript(username, patient, id);
       String summary = Database.getSummary(username, patient, id);
-      PatientDatum patientData = Database.getPatient(patient);
       String firstName = patientData.getFirstName();
       String middleName = patientData.getMiddleName();
       String lastName = patientData.getLastName();

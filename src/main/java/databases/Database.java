@@ -544,4 +544,28 @@ public final class Database {
       return null;
     }
   }
+
+  /**
+   * This method checks if a visit date is valid given a UUID and a date.
+   *
+   * @param id   A String, representing a visit UUID.
+   * @param date A String, representing a date.
+   * @return A Boolean, true if the date is valid, false otherwise.
+   */
+  public static Boolean isValidDate(String id, String date) {
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement(
+          "SELECT * FROM appointments WHERE visit_id = ? AND appointment_date = ?");
+      prep.setString(1, id);
+      prep.setString(2, date);
+      ResultSet rs = prep.executeQuery();
+      rs.getString(1);
+      rs.close();
+      return true;
+    } catch (SQLException e) {
+      System.err.println("ERROR: Patient not found");
+      return false;
+    }
+  }
 }

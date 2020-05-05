@@ -66,7 +66,6 @@ public class ParserTest {
   public void noSuchFileTest() {
     File symptomsFile = new File("doesn't exist");
     Map<String, List<String>> symptoms = parser.readSymptoms(symptomsFile);
-    System.out.println("SYMPTOMS IN TEST" + symptoms.toString());
     String transcriptString = "Jcnrjncr\n" + "\n" + "what are your reasons\n" + "\n"
         + "I fell from my bike and hit my head on a rock\n" + "\n" + "stop reasons for visit\n"
         + "\n" + "what are your symptoms\n" + "\n" + "my head hurts and my stomach hurts\n" + "\n"

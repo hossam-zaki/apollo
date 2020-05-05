@@ -98,7 +98,6 @@ public class DisplayVisitTest {
   @Test
   public void displayPatientTest() {
     String html = DisplayVisits.buildHTML("nLols", patient_id);
-    System.out.println(html);
     assertTrue(html.contains("physical"));
     assertTrue(html.contains("general"));
     List<String> dates = new ArrayList<String>();
@@ -285,4 +284,27 @@ public class DisplayVisitTest {
     res = Database.getDateByDoctorName("n");
     assertTrue(res == null);
   }
+
+  @Test
+  public void getDateofAppointmentTest() {
+    Connection conn = Database.getConn();
+    PreparedStatement prep;
+    try {
+      prep = conn
+          .prepareStatement("SELECT appointment_date FROM 'appointments' WHERE patient_id = ?");
+      prep.setString(1, patient_id);
+
+      ResultSet rs = prep.executeQuery();
+      String date = "";
+      while (rs.next()) {
+        date = rs.getString(1);
+        assertTrue(date.contains("2015-01-20"));
+        break;
+      }
+      rs.close();
+    } catch (SQLException e) {
+      System.err.println("ERROR: in getDateofAppointmentTest");
+    }
+  }
+
 }

@@ -35,8 +35,9 @@ public final class DisplayVisits {
     html.append("<br>");
 
     if (visits.size() != 0) {
-      html.append("<table class=\"table table-striped\" style=\"width: 80%; "
-          + "color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+      html.append("<table class=\"table table-striped\" style=\"width: 80%; ");
+      html.append(
+          "color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
       html.append("<thead>");
       html.append("<tr>");
       html.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
@@ -46,7 +47,7 @@ public final class DisplayVisits {
       html.append("</tr>");
       html.append("</thead>");
       html.append("<tbody");
-      for (VisitDatum visit : visits) {
+      for (VisitDatum visit : visits) { // building a table of visits
         html.append("<tr>");
         html.append("<td>");
         html.append(visit.getDate());
@@ -54,14 +55,22 @@ public final class DisplayVisits {
         html.append("<td>");
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
-        if (!visit.getVisitType().equals("")) {
-          html.append("<td>" + visit.getVisitType() + "</td>");
+        if (!visit.getVisitType().equals("")) { // if the doctor doesn't specify a visit type
+          html.append("<td>");
+          html.append(visit.getVisitType());
+          html.append("</td>");
         } else {
           html.append("<td> N/A </td>");
         }
         html.append("<td>");
-        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
-            + visit.getDate() + "/:" + visit.getID());
+        html.append("<a href=\"/apollo/:");
+        html.append(docUsername);
+        html.append("/:");
+        html.append(patientID);
+        html.append("/visit/:");
+        html.append(visit.getDate());
+        html.append("/:");
+        html.append(visit.getID());
         html.append("\">Go to Visit");
         html.append("</a>");
         html.append("</td>");
@@ -90,7 +99,6 @@ public final class DisplayVisits {
    */
   public static String buildHTMLid(String docUsername, String patientID, Set<String> ids) {
     List<VisitDatum> visits = Database.getVisitsFromIds(docUsername, patientID, ids);
-    System.out.println(visits);
     if (visits == null) {
       return "";
     }
@@ -99,8 +107,9 @@ public final class DisplayVisits {
     html.append("<br>");
 
     if (visits.size() != 0) {
-      html.append("<table class=\"table table-striped\" style=\"width: 80%; "
-          + "color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
+      html.append("<table class=\"table table-striped\" style=\"width: 80%; ");
+      html.append(
+          "color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
       html.append("<thead>");
       html.append("<tr>");
       html.append("<th scope=\"col\"><h4><b>Date</b></h4></th>");
@@ -119,13 +128,21 @@ public final class DisplayVisits {
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
         if (!visit.getVisitType().equals("")) {
-          html.append("<td>" + visit.getVisitType() + "</td>");
+          html.append("<td>");
+          html.append(visit.getVisitType());
+          html.append("</td>");
         } else {
           html.append("<td> N/A </td>");
         }
         html.append("<td>");
-        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
-            + visit.getDate() + "/:" + visit.getID());
+        html.append("<a href=\"/apollo/:");
+        html.append(docUsername);
+        html.append("/:");
+        html.append(patientID);
+        html.append("/visit/:");
+        html.append(visit.getDate());
+        html.append("/:");
+        html.append(visit.getID());
         html.append("\">Go to Visit");
         html.append("</a>");
         html.append("</td>");
@@ -156,7 +173,6 @@ public final class DisplayVisits {
   public static String buildHTMLDateRanges(String docUsername, String patientID,
       List<String> dates) {
     List<VisitDatum> visits = Database.getVisitsFromDateRanges(docUsername, patientID, dates);
-    System.out.println(visits);
     if (visits == null) {
       return "";
     }
@@ -185,14 +201,22 @@ public final class DisplayVisits {
         html.append(visit.getTime().substring(0, 5));
         html.append("</td>");
         if (!visit.getVisitType().equals("")) {
-          html.append("<td>" + visit.getVisitType() + "</td>");
+          html.append("<td>");
+          html.append(visit.getVisitType());
+          html.append("</td>");
         } else {
           html.append("<td> N/A </td>");
         }
 
         html.append("<td>");
-        html.append("<a href=\"/apollo/:" + docUsername + "/:" + patientID + "/visit/:"
-            + visit.getDate() + "/:" + visit.getID());
+        html.append("<a href=\"/apollo/:");
+        html.append(docUsername);
+        html.append("/:");
+        html.append(patientID);
+        html.append("/visit/:");
+        html.append(visit.getDate());
+        html.append("/:");
+        html.append(visit.getID());
         html.append("\">Go to Visit");
         html.append("</a>");
         html.append("</td>");

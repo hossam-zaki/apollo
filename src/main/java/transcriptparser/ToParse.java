@@ -148,7 +148,7 @@ public class ToParse implements Executable {
   @Override
   public void executeCommand(List<String> input) {
     if (input.size() != 3) {
-      System.out.println("ERROR: invalid command");
+      System.err.println("ERROR: invalid command");
     } else {
       File transcript = new File(input.get(1));
       String transcriptString = this.getTranscriptString(transcript);

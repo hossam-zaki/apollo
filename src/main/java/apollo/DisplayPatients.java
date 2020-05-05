@@ -30,12 +30,11 @@ public final class DisplayPatients {
     }
 
     StringBuilder html = new StringBuilder();
-    // 4 folders per row
     html.append("<table class=\"table table-striped\" style=\"width: 80%; "
         + "color: black; margin-left:auto; margin-right:auto; border-collapse:separate;\">");
     html.append("<thead>");
     html.append("<tr>");
-    html.append("<th scope=\"col\"><h5><b>Name</b></h5></th>");
+    html.append("<th scope=\"col\"><h5><b>Name</b></h5></th>"); // building table headers
     html.append("<th scope=\"col\"><h5>Date of Birth</h5></th>");
     html.append("<th scope=\"col\"><h5>Phone number</h5></th>");
     html.append("<th scope=\"col\"><h5>Email</h5></th>");
@@ -43,12 +42,12 @@ public final class DisplayPatients {
     html.append("</tr>");
     html.append("</thead>");
     html.append("<tbody id=\"patientTable\">");
-    for (PatientDatum patient : patients) {
+    for (PatientDatum patient : patients) { // building each row in a loop
       html.append("<tr>");
       html.append("<td>");
       html.append(patient.getFirstName());
       html.append(" ");
-      if (!patient.getMiddleName().equals("")) {
+      if (!patient.getMiddleName().equals("")) { // if the patient has no middle name
         html.append(patient.getMiddleName());
         html.append(" ");
       }

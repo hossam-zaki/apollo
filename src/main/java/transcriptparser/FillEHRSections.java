@@ -68,7 +68,6 @@ public class FillEHRSections {
           }
         }
       }
-      System.out.println(toReturn.toString());
       return toReturn.toString();
     } catch (Exception e) {
       return null;
