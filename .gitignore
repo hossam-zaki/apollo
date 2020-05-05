@@ -7,3 +7,4 @@ bin/*
 *.wav
 *.sqlite3
 .project
+data/db/.DS_Store
