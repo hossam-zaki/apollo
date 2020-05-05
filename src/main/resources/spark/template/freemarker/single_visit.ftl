@@ -60,6 +60,7 @@
 </div>
 <div class="row" style="margin-top: 1.5%; margin-left:10%;">
   <div class="col-xs-6 col-sm-4"> <div style="margin-left: 5%;"><h4>Visit Summary</h4></div>
+  <br>
   <div class="summary" style="margin-left: 15%;">${summary}</div>  </div>
   <div class="col-xs-6 col-sm-8">
    <button class="btn btn-primary" id="drop" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="min-width: 150px">View Transcript</button>

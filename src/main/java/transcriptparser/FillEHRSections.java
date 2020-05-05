@@ -57,7 +57,7 @@ public class FillEHRSections {
       } else {
         for (String key : symptoms.keySet()) {
           if (symptoms.get(key).size() != 0 && symptoms.get(key) != null) {
-            toReturn.append("<h5><i>" + key + ": </i>");
+            toReturn.append("<h5>" + key + ": ");
           }
           for (String s : symptoms.get(key)) {
             if (s.equals(symptoms.get(key).get(symptoms.get(key).size() - 1))) {

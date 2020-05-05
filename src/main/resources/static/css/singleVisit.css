@@ -39,6 +39,7 @@ h4 {
 h5 {
     font-size: 150%;
     font-family: 'Roboto', sans-serif;
+    font-weight: 300;
 }
 
 .button {
@@ -227,7 +228,7 @@ tr {
     color: black;
     width: 100%;
     margin-top: 2%;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 .details {
