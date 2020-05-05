@@ -1,4 +1,4 @@
-#!/Users/hossamzaki/anaconda3/bin/python3
+#!/Library/Frameworks/Python.framework/Versions/3.7/bin/python3
 
 import speech_recognition as sr
 

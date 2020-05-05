@@ -30,14 +30,14 @@ h2 {
 
 h4 {
     color: black;
-    font-family: Roboto;
-    font-size: 150%;
-    text-align: center;
-    text-decoration: underline;
+    font-size: 170%;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 10%;
 }
 
 h5 {
-    font-size: 105%;
+    font-size: 150%;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -227,15 +227,12 @@ tr {
     color: black;
     width: 100%;
     margin-top: 2%;
-    text-align: center;
-}
-
-.audioStuff {
-    text-align: center;
+    font-weight: 500;
 }
 
 .details {
     color: black;
-    text-align: center;
     font-size: 150%;
+    font-weight: 300;
+    margin-left: 10%;
 }
