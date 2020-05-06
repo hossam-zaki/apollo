@@ -54,11 +54,11 @@
 <br>
 <br>
 <div>
-  <h5><strong>Ready to Record Reasons for Visits?</strong> Say "Start reasons"</h5>
-  <h5><strong>All done?</strong> Say "Stop reasons"</h5>
+  <h5><strong>Ready to Record Reasons for Visits?</strong> Say "What are your reasons?" OR "Start reasons"</h5>
+  <h5><strong>All done?</strong> Say "End reasons" OR "Stop reasons"</h5>
   <br>
-  <h5><strong>Ready to Record Symptoms?</strong> Say "Start symptoms"</h5>
-  <h5><strong>All done?</strong> Say "Stop symptoms"</h5>
+  <h5><strong>Ready to Record Symptoms?</strong> Say "What are your symptoms?" OR "Start symptoms"</h5>
+  <h5><strong>All done?</strong> Say "End symptoms" OR "Stop symptoms"</h5>
 </div>
 <br>
 <div style="margin-top: -5%;" class="jumbotron text-center">

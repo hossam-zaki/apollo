@@ -45,6 +45,8 @@ public final class AcceptablePhrases {
   public static List<String> getSymptomsEndPhrases() {
     List<String> end = new ArrayList<String>();
     end.add("end symptoms");
+    end.add("and symptoms");
+    end.add("and the symptoms");
     end.add("End symptoms");
     end.add("stop symptoms");
     end.add("Stop symptoms");
@@ -86,6 +88,8 @@ public final class AcceptablePhrases {
   public static List<String> getVisitEndPhrases() {
     List<String> end = new ArrayList<String>();
     end.add("end reasons");
+    end.add("and reasons");
+    end.add("and the reasons");
     end.add("End reasons");
     end.add("stop reasons");
     end.add("Stop reasons");
