@@ -6,7 +6,7 @@ body {
 
 h1 {
     color: black;
-    font-family: Roboto; 
+    font-family: Roboto;
     font-size: 250%;
     text-align: left;
     padding-left: 50px;
@@ -14,7 +14,7 @@ h1 {
 
 h3 {
   color:rgb(119, 119, 119);
-  font-family: Roboto; 
+  font-family: Roboto;
   font-size: 500%;
   text-align: center;
   padding-top: 100px;
@@ -22,14 +22,14 @@ h3 {
 }
 h2 {
   color: black;
-  font-family: Roboto; 
+  font-family: Roboto;
   font-size: 100%;
   text-align: center;
   font-weight: bold;
 }
 h4 {
     color: red;
-    font-family: Roboto; 
+    font-family: Roboto;
   font-size: 100%;
   text-align: center;
   margin-top: -5%;
@@ -46,7 +46,7 @@ h4 {
   width: 10%;
   cursor: pointer;
   margin: auto;
-  display: flex;   
+  display: flex;
   flex-flow: column;
   align-items: center;
   border-radius: 75px;
@@ -69,7 +69,7 @@ input[type=password] {
   margin: 8px 0;
   box-sizing: border-box;
   color: black;
-
+  font-size: 10px;
 }
 hr {
   display: block;

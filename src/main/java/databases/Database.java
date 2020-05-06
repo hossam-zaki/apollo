@@ -154,17 +154,17 @@ public final class Database {
       prep = conn.prepareStatement("SELECT * FROM patient WHERE primary_doctor = ?");
       prep.setString(1, username);
       ResultSet rs = prep.executeQuery();
-      List<String> patientInfo = new ArrayList<String>();
-      patientInfo.add(rs.getString("id")); // id
-      patientInfo.add(rs.getString(2)); // firstname
-      patientInfo.add(rs.getString(3)); // midname
-      patientInfo.add(rs.getString(4)); // lastname
-      patientInfo.add(rs.getString(5)); // dob
-      patientInfo.add(rs.getString(6)); // phone
-      patientInfo.add(rs.getString(COL7)); // email
-      patientInfo.add(rs.getString(COL8)); // emergency number
-      patientInfo.add(rs.getString(COL9)); // docusername
       while (rs.next()) {
+        List<String> patientInfo = new ArrayList<String>();
+        patientInfo.add(rs.getString("id")); // id
+        patientInfo.add(rs.getString(2)); // firstname
+        patientInfo.add(rs.getString(3)); // midname
+        patientInfo.add(rs.getString(4)); // lastname
+        patientInfo.add(rs.getString(5)); // dob
+        patientInfo.add(rs.getString(6)); // phone
+        patientInfo.add(rs.getString(COL7)); // email
+        patientInfo.add(rs.getString(COL8)); // emergency number
+        patientInfo.add(rs.getString(COL9)); // docusername
         PatientDatum curr = new PatientDatum(patientInfo);
         toRet.add(curr);
       }

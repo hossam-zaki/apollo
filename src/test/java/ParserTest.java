@@ -28,7 +28,7 @@ public class ParserTest {
     test.append("<h5><b>Reasons for Visit: </b></h5>");
     test.append("<h5>\"I fell from my bike and hit my head on a rock\"</h5><br>");
     test.append("<h5><b>Symptoms Reported:</b></h5>");
-    test.append("<h5>General: head hurts</h5>");
+    test.append("<h5>General: head hurts, stomach hurts</h5>");
     assertEquals(res, test.toString());
   }
 

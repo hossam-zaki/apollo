@@ -405,57 +405,46 @@ public final class Main {
     }
   }
 
-  /**
+  /*
    * Handles requests to the visiits page for an individual patient, where all
    * patient visits are displayed.
    */
   private static class VisitHandler implements TemplateViewRoute {
     @Override
     public ModelAndView handle(Request req, Response res) {
+      QueryParamsMap qmap = req.queryMap();
+      String username = req.params(":username").replaceAll(":", "");
+      String patient = req.params(":patient").replaceAll(":", "");
+      if (!Database.ifUsernameExists(username)) {
+        res.redirect("/error");
+        return null;
+      }
+      if (Database.getPatient(patient) == null) {
+        res.redirect("/error");
+        return null;
+      }
+      String route = "/apollo/:" + username + "/:" + patient + "/registerVisit";
+      String route2 = "/apollo/patientBase/:" + username + "/:" + patient;
+      PatientDatum patientData = Database.getPatient(patient);
+      String visits = DisplayVisits.buildHTML(username, patient);
       Map<String, String> map = new HashMap<String, String>();
+      map.put("title", "Apollo");
+      map.put("username", username);
+      String firstName = patientData.getFirstName();
+      String middleName = patientData.getMiddleName();
+      String lastName = patientData.getLastName();
+      StringBuilder name = new StringBuilder();
+      name.append(firstName);
+      name.append(" ");
+      name.append(middleName);
+      name.append(" ");
+      name.append(lastName);
+      map.put("name", name.toString());
+      map.put("route", route);
+      map.put("visits", visits);
+      map.put("route2", route2);
+      map.put("patient", patient);
       try {
-        String username = req.params(":username").replaceAll(":", "");
-        if (!Database.ifUsernameExists(username)) {
-          res.redirect("/error");
-          return null;
-        }
-        String patient = req.params(":patient").replaceAll(":", "");
-        PatientDatum patientData = Database.getPatient(patient);
-        if (patientData == null) {
-          res.redirect("/error");
-          return null;
-        }
-        StringBuilder routeSB = new StringBuilder();
-        routeSB.append("/apollo/:");
-        routeSB.append(username);
-        routeSB.append("/:");
-        routeSB.append(patient);
-        routeSB.append("/registerVisit");
-        String route = routeSB.toString();
-        StringBuilder routeSB2 = new StringBuilder();
-        routeSB2.append("/apollo/patientBase:");
-        routeSB2.append(username);
-        routeSB2.append("/:");
-        routeSB2.append(patient);
-        routeSB2.append("/registerVisit");
-        String route2 = routeSB2.toString();
-        String visits = DisplayVisits.buildHTML(username, patient);
-        map.put("title", "Apollo");
-        map.put("username", username);
-        String firstName = patientData.getFirstName();
-        String middleName = patientData.getMiddleName();
-        String lastName = patientData.getLastName();
-        StringBuilder name = new StringBuilder();
-        name.append(firstName);
-        name.append(" ");
-        name.append(middleName);
-        name.append(" ");
-        name.append(lastName);
-        map.put("name", name.toString());
-        map.put("route", route);
-        map.put("visits", visits);
-        map.put("route2", route2);
-        map.put("patient", patient);
         String searched = req.queryParams("searched");
         String startDate = req.queryParams("startDate");
         String endDate = req.queryParams("endDate");
@@ -483,7 +472,7 @@ public final class Main {
         }
       } catch (Exception e) {
         res.redirect("/error");
-        return null;
+        System.err.println("Nothing in search bar or no date range given");
       }
       return new ModelAndView(map, "visits.ftl");
     }

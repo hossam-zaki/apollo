@@ -56,9 +56,6 @@
   <h5>Search visits using keywords or dates!</h5>
 </div>
 <br>
-<!-- <div class="folder" style="color: black; margin-left: 50%; ">
-  <i class="far fa-folder"></i>
-</div> -->
 
 <div id="reportrange" style="color:black; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 15%; margin-left: 10%; margin-top: -4%">
     <i style="color:black" class="fa fa-calendar"></i>&nbsp;
@@ -73,22 +70,10 @@ $(function() {
     });
     $('#reportrange').on('apply.daterangepicker', function(ev, res) {
       var xhttp = new XMLHttpRequest();
-      //do something, like clearing an input
       var url = "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d;
       window.location = url;
-      // var req = $.ajax({
-      //   url: "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d,
-      //   type: "GET"
-      // })
-      // xhttp.open("GET", "${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d, true);
-      // xhttp.send();
       console.log(res.startDate._d, res.endDate._d);
       console.log("${route2}?startDate=" + res.startDate._d + "&endDate=" + res.endDate._d);
-     //  req.then(function(response) {
-     //
-     // }, function(xhr) {
-     // console.error('failed to fetch xhr', xhr)
-     // })
   });
 });
 </script>

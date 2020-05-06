@@ -60,6 +60,7 @@
   <h5><strong>Ready to Record Symptoms?</strong> Say "Start symptoms"</h5>
   <h5><strong>All done?</strong> Say "Stop symptoms"</h5>
 </div>
+<br>
 <div style="margin-top: -5%;" class="jumbotron text-center">
       <div id="controls">
   	 <button id="recordButton"> Record  &nbsp<i class="fas fa-microphone"></i></button>
@@ -67,6 +68,7 @@
   	 <button id="stopButton" disabled>Stop &nbsp<i class="fas fa-stop"></i></button>
     </div>
     <div id="formats"></div>
+    <br>
   	<p2><strong>Recordings:</strong></p2>
   	<ol id="recordingsList"></ol>
     <!-inserting these scripts at the end to be able to use all the elements in the DOM -->
@@ -75,51 +77,5 @@
     <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </div>
-<!-- <h4>Key Phrases Manual</h4>
-<br>
-
-<div class="container-fluid" style="text-align: center">
-  <div class="row">
-    <div class="row">
-  <div class="col-md-6"><h5>To Register Reasons for Visit:</h5> -->
-<!-- <br>
-<p style="font-size: 175%">To start, say <span><p1>one</p1></span> of the following:</p>
-<p style="text-indent: 1.5%;">"Start reasons"</p>
-<p style="text-indent: 1.5%;">"Begin reasons"</p>
-<p style="text-indent: 1.5%;">"What are your reasons"</p>
-<p style="text-indent: 1.5%;">"What brings you here today"</p>
-<p style="font-size: 175%">To end, say <span><p1>one</p1></span> of the following:</p>
-<p style="text-indent: 1.5%;">"Stop reasons"</p>
-<p style="text-indent: 1.5%;">"End reasons"</p>
-<p style="text-indent: 1.5%;">"No more reasons"</p></div>
-  <div class="col-md-6"><h5>To Register Symptoms:</h5>
-<br>
-<p style="font-size: 175%">To start, say <span><p1>one</p1></span> of the following:</p>
-<p style="text-indent: 2.5%;">"Start symptoms"</p>
-<p style="text-indent: 2.5%;">"Begin symptoms"</p>
-<p style="text-indent: 2.5%;">"What are your symptoms"</p>
-<p style="text-indent: 2.5%;">"What symptoms do you have"</p>
-<p style="text-indent: 1.5%; font-size: 175%;">To end, say <span><p1>one</p1></span> of the following:</p>
-<p style="text-indent: 2.5%;">"Stop symptoms"</p>
-<p style="text-indent: 2.5%;">"End symptoms"</p>
-<p style="text-indent: 2.5%;">"No more symptoms"</p>  </div>
-</div>
-  </div>
-</div>
-
-<br>
-<h4>How to Use</h4>
-<br>
-<h5 style="text-align: left">To Start:</h5>
-<p style="text-align: left">1. Click on the <span style="color: red">red</span> "Record" button.</p>
-<p style="text-align: left">2. Start recording and use the Key phrases manual.</p>
-
-<h5 style="text-align: left">To Pause:</h5>
-<p style="text-align: left">3. Click on the <span style="color: red">red</span> "Pause" button, while recording. Click on the "Resume" button to resume recording.</p>
-<h5 style="text-align: left">To End:</h5>
-<p style="text-align: left">3. Click on the <span style="color: red">red</span> "Stop" button, while recording. Wait to be redirected to patient homepage.</p>
-<br> -->
-
-
 </body>
 </html>

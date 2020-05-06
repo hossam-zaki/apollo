@@ -28,7 +28,7 @@
   </div>
 </nav>
 <div class="form">
-<h3>404: a Ha Ha</h3>
+<h3>404: Great, you broke it :(</h3>
 </div>
 </p>
 </body>
