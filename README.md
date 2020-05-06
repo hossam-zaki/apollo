@@ -41,7 +41,9 @@ where you can type in built-in commands and see program output to the terminal. 
 To run the entire web interface in your browser, run with the `--gui` tag.
 
 To install the necessary packages necessary for speech-to-text to work locally, run `pip install -r requirements.txt` in the terminal. Also, make sure the shebang at the top of the speechtotext.py to fit your local Python version. 
-  
+
+Deloyed on Heroku via deploy branch:
+Link: https://apollohealth.herokuapp.com/
 
 #### Running Tests
 
