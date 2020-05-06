@@ -405,9 +405,10 @@ public final class Main {
     }
   }
 
-  /*
+  /**
    * Handles requests to the visiits page for an individual patient, where all
    * patient visits are displayed.
+   *
    */
   private static class VisitHandler implements TemplateViewRoute {
     @Override
